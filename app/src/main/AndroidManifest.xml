@@ -43,7 +43,7 @@
         <activity
             android:name=".MatchDetailsActivity"
             android:label="@string/title_activity_match_details" />
-        <activity android:name=".MonitoredMatchesActivity"></activity>
+        <activity android:name=".MonitoredMatchesActivity" />
     </application>
 
 </manifest>
