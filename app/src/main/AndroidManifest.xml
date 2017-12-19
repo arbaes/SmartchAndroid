@@ -24,8 +24,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-       
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PlayerStatsActivity"
+            android:label="@string/title_activity_player_stats"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BrowseTournamentsActivity"
+            android:label="@string/title_activity_browse_tournaments"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PointCountActivity" />
+        <activity
+            android:name=".MatchDetailsActivity"
+            android:label="@string/title_activity_match_details" />
+        <activity android:name=".MonitoredMatchesActivity"></activity>
     </application>
 
 </manifest>
