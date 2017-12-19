@@ -25,10 +25,7 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".Dao.ApiService"
-            android:enabled="true"
-            android:exported="true"></service>
+       
     </application>
 
 </manifest>
