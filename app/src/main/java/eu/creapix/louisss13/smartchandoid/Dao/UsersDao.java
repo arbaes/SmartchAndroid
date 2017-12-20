@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
-import eu.creapix.louisss13.smartchandoid.Dao.Model.ConnexionDaoModel;
+import eu.creapix.louisss13.smartchandoid.Dao.Model.*;
 import eu.creapix.louisss13.smartchandoid.Dao.enums.RequestMethods;
 import eu.creapix.louisss13.smartchandoid.Dao.enums.Urls;
 import eu.creapix.louisss13.smartchandoid.Model.UserAccount;
@@ -49,17 +49,18 @@ public class UsersDao {
         }
 
     }
-    public boolean register(UserAccount user) throws IOException {
+    public boolean register(String mEmail, String mPassword) throws IOException {
 
+        RegisterDaoModel registerDaoModel = new RegisterDaoModel(mEmail, mPassword);
         HttpURLConnection connection = apiService.getUrlConnection(Urls.Account, RequestMethods.POST);
         OutputStream outputStream = connection.getOutputStream();
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-        String stringObject = gson.toJson(user);
+        String stringObject = gson.toJson(registerDaoModel);
         connection.connect();
         outputStreamWriter.write(stringObject);
         outputStreamWriter.flush();
         outputStreamWriter.close();
-        if(connection.getResponseCode()== 200){
+        if((connection.getResponseCode() < 300) && (connection.getResponseCode() >= 200)){
             Log.e(TAG,"Inscription OK");
             return true;
         }
