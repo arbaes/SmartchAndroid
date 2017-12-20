@@ -20,6 +20,7 @@ public class ApiService  {
     private String Token = null;
     private URL loginUrl;
     private URL usersUrl;
+    private URL accountUrl;
     private HashMap<RequestMethods, String> methods;
     private HashMap<Urls, URL> urls;
     public ApiService() {
@@ -34,6 +35,7 @@ public class ApiService  {
         try {
             usersUrl = new URL("https://smartch.azurewebsites.net/api/users");
             loginUrl = new URL("https://smartch.azurewebsites.net/api/jwt");
+            accountUrl = new URL("https://smartch.azurewebsites.net/api/account");
 
         }
         catch (MalformedURLException e) {
@@ -41,6 +43,7 @@ public class ApiService  {
         }
         urls.put(Urls.Login, loginUrl );
         urls.put(Urls.Users, usersUrl );
+        urls.put(Urls.Account, accountUrl );
     }
 
     public HttpURLConnection getUrlConnection(Urls urlE, RequestMethods method){

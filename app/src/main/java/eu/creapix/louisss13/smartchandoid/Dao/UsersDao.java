@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import eu.creapix.louisss13.smartchandoid.Dao.Model.ConnexionDaoModel;
 import eu.creapix.louisss13.smartchandoid.Dao.enums.RequestMethods;
 import eu.creapix.louisss13.smartchandoid.Dao.enums.Urls;
+import eu.creapix.louisss13.smartchandoid.Model.UserAccount;
+
 import com.google.gson.*;
 
 /**
@@ -46,5 +48,24 @@ public class UsersDao {
             return false;
         }
 
+    }
+    public boolean register(UserAccount user) throws IOException {
+
+        HttpURLConnection connection = apiService.getUrlConnection(Urls.Account, RequestMethods.POST);
+        OutputStream outputStream = connection.getOutputStream();
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+        String stringObject = gson.toJson(user);
+        connection.connect();
+        outputStreamWriter.write(stringObject);
+        outputStreamWriter.flush();
+        outputStreamWriter.close();
+        if(connection.getResponseCode()== 200){
+            Log.e(TAG,"Inscription OK");
+            return true;
+        }
+        else{
+            Log.e(TAG,"Inscription NOT OK : "+connection.getResponseCode());
+            return false;
+        }
     }
 }

@@ -6,5 +6,6 @@ package eu.creapix.louisss13.smartchandoid.Dao.enums;
 
 public enum Urls {
     Users,
+    Account,
     Login
 }
