@@ -22,7 +22,7 @@ public class ListviewExampleActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listviewexample);
+        setContentView(R.layout.activity_monitored_matches);
 
         final ListView listview = (ListView) findViewById(R.id.listview);
 

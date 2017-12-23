@@ -45,7 +45,7 @@
         <activity
             android:name=".MatchDetailsActivity"
             android:label="@string/title_activity_match_details" />
-        <activity android:name=".ListviewExampleActivity" />
+        <activity android:name=".MonitoredMatchesActivity" />
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"

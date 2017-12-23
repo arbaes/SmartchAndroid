@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void goToMonitoredMatches() {
-        Intent intent = new Intent(this, ListviewExampleActivity.class);
+        Intent intent = new Intent(this, MonitoredMatchesActivity.class);
         startActivity(intent);
     }
 
