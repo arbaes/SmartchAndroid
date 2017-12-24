@@ -80,6 +80,7 @@
                 android:text="Register"
                 android:textAppearance="@android:style/TextAppearance.Material.Button" />
 
+
         </LinearLayout>
 
     </ScrollView>

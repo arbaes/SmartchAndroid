@@ -103,6 +103,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onClick(View view) {
                 goToRegistration();
             }
+
+
         });
 
         mLoginFormView = findViewById(R.id.login_form);

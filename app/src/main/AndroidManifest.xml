@@ -24,11 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
@@ -37,19 +35,14 @@
             android:name=".PlayerStatsActivity"
             android:label="@string/title_activity_player_stats"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BrowseTournamentsActivity"
-            android:label="@string/title_activity_browse_tournaments"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PointCountActivity" />
         <activity
             android:name=".MatchDetailsActivity"
             android:label="@string/title_activity_match_details" />
-        <activity android:name=".MonitoredMatchesActivity" />
         <activity
-            android:name=".MenuActivity"
-            android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".MonitoredMatchesActivity"
+            android:label="Matchs Arbitrés"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
