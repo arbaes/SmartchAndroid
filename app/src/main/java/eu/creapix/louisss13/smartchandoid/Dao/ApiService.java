@@ -21,6 +21,7 @@ public class ApiService  {
     private URL loginUrl;
     private URL usersUrl;
     private URL accountUrl;
+    private URL monitorUrl;
     private HashMap<RequestMethods, String> methods;
     private HashMap<Urls, URL> urls;
     public ApiService() {
@@ -36,6 +37,7 @@ public class ApiService  {
             usersUrl = new URL("https://smartch.azurewebsites.net/api/users");
             loginUrl = new URL("https://smartch.azurewebsites.net/api/jwt");
             accountUrl = new URL("https://smartch.azurewebsites.net/api/account");
+            monitorUrl = new URL("https://smartch.azurewebsites.net/api/matchs/arbitrage");
 
         }
         catch (MalformedURLException e) {
