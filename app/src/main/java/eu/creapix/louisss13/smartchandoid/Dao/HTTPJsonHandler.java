@@ -28,7 +28,7 @@ import eu.creapix.louisss13.smartchandoid.Model.Token;
  * Created by arnau on 23-12-17.
  */
 
-public class HTTPDataHandler {
+public class HTTPJsonHandler {
 
 
     static String stream = null;
@@ -36,7 +36,7 @@ public class HTTPDataHandler {
     private Gson gson ;
 
 
-    public HTTPDataHandler(){
+    public HTTPJsonHandler(){
         apiService = new ApiService();
         gson = new Gson();
     }

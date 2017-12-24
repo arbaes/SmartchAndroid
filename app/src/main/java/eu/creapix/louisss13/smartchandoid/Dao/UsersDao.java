@@ -2,24 +2,19 @@ package eu.creapix.louisss13.smartchandoid.Dao;
 
 import android.util.Log;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 import eu.creapix.louisss13.smartchandoid.Dao.Model.*;
-import eu.creapix.louisss13.smartchandoid.*;
 import eu.creapix.louisss13.smartchandoid.Dao.enums.RequestMethods;
 import eu.creapix.louisss13.smartchandoid.Dao.enums.Urls;
 import eu.creapix.louisss13.smartchandoid.Model.Token;
-import eu.creapix.louisss13.smartchandoid.Model.UserAccount;
 
 import com.google.gson.*;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by Louisss13 on 18-12-17.
@@ -30,7 +25,7 @@ public class UsersDao {
 
     private ApiService apiService;
     private Gson gson ;
-    private HTTPDataHandler datahandler = new HTTPDataHandler();
+    private HTTPJsonHandler datahandler = new HTTPJsonHandler();
 
     public UsersDao(){
         apiService = new ApiService();
@@ -58,14 +53,8 @@ public class UsersDao {
     public boolean register(String mEmail, String mPassword) throws IOException {
 
         RegisterDaoModel registerDaoModel = new RegisterDaoModel(mEmail, mPassword);
-        HttpURLConnection connection = apiService.getUrlConnection(Urls.Account, RequestMethods.POST);
-        OutputStream outputStream = connection.getOutputStream();
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-        String stringObject = gson.toJson(registerDaoModel);
-        connection.connect();
-        outputStreamWriter.write(stringObject);
-        outputStreamWriter.flush();
-        outputStreamWriter.close();
+        HttpURLConnection connection = datahandler.PostHTTPData(Urls.Account, registerDaoModel);
+
         if((connection.getResponseCode() < 300) && (connection.getResponseCode() >= 200)){
             Log.e(TAG,"Inscription OK");
             return true;
