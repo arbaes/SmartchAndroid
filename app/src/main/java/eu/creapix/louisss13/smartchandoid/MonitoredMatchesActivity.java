@@ -1,6 +1,5 @@
 package eu.creapix.louisss13.smartchandoid;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -110,13 +109,13 @@ public class MonitoredMatchesActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_profile) {
+
+            goToProfile();
+
+        } else if (id == R.id.nav_monitor) {
 
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
@@ -129,8 +128,14 @@ public class MonitoredMatchesActivity extends AppCompatActivity
         return true;
     }
 
+    public void goToProfile(){
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
     public void MonitorMatch() {
         Intent intent = new Intent(this, PointCountActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
