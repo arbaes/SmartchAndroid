@@ -3,6 +3,7 @@ package eu.creapix.louisss13.smartchandoid;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.creapix.louisss13.smartchandoid.Dao.UsersDao;
+import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -171,8 +173,13 @@ public class RegisterActivity extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-
                 Toast.makeText(RegisterActivity.this, "Inscription", Toast.LENGTH_SHORT).show();
+                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                loginIntent.putExtra(Constants.LOGIN, mEmailView.getText().toString());
+                loginIntent.putExtra(Constants.PWD, mPasswordView.getText().toString());
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(loginIntent);
+                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

@@ -41,7 +41,7 @@ public class HTTPJsonHandler {
         gson = new Gson();
     }
 
-    public JSONObject ExtractHTTPData(InputStream connectionInputStream, Class c){
+    public JSONObject extractHTTPData(InputStream connectionInputStream, Class c){
 
         try {
 

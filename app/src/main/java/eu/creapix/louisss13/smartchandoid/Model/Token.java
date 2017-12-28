@@ -13,11 +13,11 @@ public class Token extends JSONObject {
     public Token(){
     }
 
-    public String getAccess_token() {
+    public String getAccessToken() {
         return access_token;
     }
 
-    public int getExpires_in() {
+    public int getExpiresIn() {
         return expires_in;
     }
 

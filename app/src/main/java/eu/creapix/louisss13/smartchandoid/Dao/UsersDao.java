@@ -3,12 +3,9 @@ package eu.creapix.louisss13.smartchandoid.Dao;
 import android.util.Log;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 import eu.creapix.louisss13.smartchandoid.Dao.Model.*;
-import eu.creapix.louisss13.smartchandoid.Dao.enums.RequestMethods;
 import eu.creapix.louisss13.smartchandoid.Dao.enums.Urls;
 import eu.creapix.louisss13.smartchandoid.Model.Token;
 
@@ -38,10 +35,10 @@ public class UsersDao {
 
         if(connection.getResponseCode()== 200){
             Log.e(TAG,"Connexion OK");
-            Token tokenData = (Token) datahandler.ExtractHTTPData(connection.getInputStream(), Token.class);
+            Token tokenData = (Token) datahandler.extractHTTPData(connection.getInputStream(), Token.class);
 
-            Log.i("TOKEN", tokenData.getAccess_token());
-            Log.i("TOKEN", "Expires in : " + tokenData.getExpires_in() + "s");
+            Log.i("TOKEN", "access token: " + tokenData.getAccessToken());
+            Log.i("TOKEN", "Expires in : " + tokenData.getExpiresIn() + "s");
             return true;
         }
         else{

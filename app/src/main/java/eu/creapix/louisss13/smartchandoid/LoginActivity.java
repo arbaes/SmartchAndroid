@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.creapix.louisss13.smartchandoid.Dao.UsersDao;
+import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -109,6 +110,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        checkIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        checkIntent(intent);
+    }
+
+    private void checkIntent(Intent intent) {
+        if (intent.hasExtra(Constants.LOGIN))
+            mEmailView.setText(intent.getStringExtra(Constants.LOGIN));
+
+        if (intent.hasExtra(Constants.PWD))
+            mPasswordView.setText(intent.getStringExtra(Constants.PWD));
     }
 
     public void goToRegistration() {
@@ -119,6 +136,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void goToMonitoredMatches() {
         Intent intent = new Intent(this, MonitoredMatchesActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void populateAutoComplete() {
@@ -337,15 +355,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
 
             try {
-              return userDao.login(mEmail,mPassword);
-            }
-            catch (IOException e) {
+                return userDao.login(mEmail, mPassword);
+            } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
+            
             return false;
         }
 
