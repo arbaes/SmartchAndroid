@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.creapix.louisss13.smartchandoid.PointCountActivity">
+    tools:context="eu.creapix.louisss13.smartchandoid.activities.PointCountActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

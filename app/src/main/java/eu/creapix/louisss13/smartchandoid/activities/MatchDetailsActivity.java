@@ -1,4 +1,4 @@
-package eu.creapix.louisss13.smartchandoid;
+package eu.creapix.louisss13.smartchandoid.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import eu.creapix.louisss13.smartchandoid.R;
 
 public class MatchDetailsActivity extends AppCompatActivity {
 

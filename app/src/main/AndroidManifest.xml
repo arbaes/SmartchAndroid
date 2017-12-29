@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop">
             <intent-filter>
@@ -24,33 +24,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PlayerStatsActivity"
+            android:name=".activities.PlayerStatsActivity"
             android:label="@string/title_activity_player_stats"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PointCountActivity" />
+        <activity android:name=".activities.PointCountActivity" />
         <activity
-            android:name=".MatchDetailsActivity"
+            android:name=".activities.MatchDetailsActivity"
             android:label="@string/title_activity_match_details" />
         <activity
-            android:name=".MonitoredMatchesActivity"
+            android:name=".activities.MonitoredMatchesActivity"
             android:label="Matchs Arbitrés"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ListingActivity"
+            android:name=".activities.ListingActivity"
             android:label="@string/title_activity_listing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MatchListActivity"
+            android:name=".activities.MatchListActivity"
             android:label="@string/title_activity_match_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".activities.BaseActivity"></activity>
     </application>
 
 </manifest>

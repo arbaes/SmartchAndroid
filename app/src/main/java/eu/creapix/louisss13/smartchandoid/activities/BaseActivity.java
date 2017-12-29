@@ -1,4 +1,4 @@
-package eu.creapix.louisss13.smartchandoid;
+package eu.creapix.louisss13.smartchandoid.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import eu.creapix.louisss13.smartchandoid.R;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -30,7 +32,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         this.mNavigationView = findViewById(R.id.nav_view);
         this.mNavigationView.setNavigationItemSelectedListener(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupMenuSelection();
+    }
+
+    private void setupMenuSelection() {
         Menu menu = mNavigationView.getMenu();
 
         if (this instanceof MonitoredMatchesActivity) {
@@ -45,23 +55,24 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         }
 
         // TODO not forget to do this for "configuration" & "contact"
-
     }
 
     public void goToProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goToMatchList() {
         Intent intent = new Intent(this, MatchListActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goToMonitored() {
         Intent intent = new Intent(this, MonitoredMatchesActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
+        finish();
     }
 
     @Override

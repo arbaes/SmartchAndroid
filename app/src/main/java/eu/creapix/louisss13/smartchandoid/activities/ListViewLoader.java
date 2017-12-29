@@ -1,4 +1,4 @@
-package eu.creapix.louisss13.smartchandoid;
+package eu.creapix.louisss13.smartchandoid.activities;
 
 import android.app.ListActivity;
 import android.app.LoaderManager;
@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.FrameLayout.LayoutParams;
+
+import eu.creapix.louisss13.smartchandoid.R;
 
 public class ListViewLoader extends ListActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {

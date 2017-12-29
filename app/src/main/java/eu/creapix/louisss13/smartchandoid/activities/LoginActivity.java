@@ -1,4 +1,4 @@
-package eu.creapix.louisss13.smartchandoid;
+package eu.creapix.louisss13.smartchandoid.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.creapix.louisss13.smartchandoid.Dao.UsersDao;
+import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 import static android.Manifest.permission.READ_CONTACTS;

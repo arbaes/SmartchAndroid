@@ -1,7 +1,9 @@
-package eu.creapix.louisss13.smartchandoid;
+package eu.creapix.louisss13.smartchandoid.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import eu.creapix.louisss13.smartchandoid.R;
 
 public class PointCountActivity extends AppCompatActivity {
 

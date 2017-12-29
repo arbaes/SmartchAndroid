@@ -1,24 +1,29 @@
-package eu.creapix.louisss13.smartchandoid;
+package eu.creapix.louisss13.smartchandoid.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import eu.creapix.louisss13.smartchandoid.Dao.UsersDao;
+import eu.creapix.louisss13.smartchandoid.Dao.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.Model.PlayerScore;
+import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.adapter.MonitoredMatchAdapter;
+import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 /**
  * Created by arnau on 21-12-17.
  */
 
-public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, WebserviceListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -55,13 +60,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
 
     private void refresh() {
         // TODO call to webservice
-        final Handler handler = new Handler();
-        final Runnable r = new Runnable() {
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        };
-        handler.postDelayed(r, 2000);
+        new GetScore().execute();
     }
 
     @Override
@@ -74,30 +73,50 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         }
     }
 
-    /*
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
+    @Override
+    public void onWebserviceFinishWithSuccess(final String method, Object data) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (method.equals(Constants.GET_SCORE))
+                    swipeRefreshLayout.setRefreshing(false);
+                // TODO refresh adapter with new datas
             }
+        });
+    }
+
+    @Override
+    public void onWebserviceFinishWithError(String error) {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private class GetScore extends AsyncTask<Void, Void, Boolean> {
+        private UsersDao userDao;
+
+        GetScore() {
+            userDao = new UsersDao();
         }
 
         @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
+        protected Boolean doInBackground(Void... params) {
+
+            try {
+                userDao.getScores(MonitoredMatchesActivity.this, "token");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return false;
         }
 
         @Override
-        public boolean hasStableIds() {
-            return true;
+        protected void onPostExecute(final Boolean success) {
+
         }
 
-    }*/
-
+        @Override
+        protected void onCancelled() {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
 }
