@@ -1,4 +1,6 @@
-package eu.creapix.louisss13.smartchandoid.Model;
+package eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers;
+
+import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
 
@@ -6,11 +8,16 @@ import org.json.JSONObject;
  * Created by arnau on 24-12-17.
  */
 
-public class Token extends JSONObject {
+public class TokenParser extends JSONObject {
+
+    //Le nom des variables est identique aux noms dans les JSon, ne pas modifier !
+    @SerializedName("access_token")
     private String access_token;
+
+    @SerializedName("expires_in")
     private int expires_in;
 
-    public Token(){
+    public TokenParser(){
     }
 
     public String getAccessToken() {

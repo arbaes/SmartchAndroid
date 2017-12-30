@@ -1,5 +1,6 @@
-package eu.creapix.louisss13.smartchandoid.Dao;
+package eu.creapix.louisss13.smartchandoid.dataAccess;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -9,11 +10,12 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
-import eu.creapix.louisss13.smartchandoid.Dao.Model.ConnexionDaoModel;
-import eu.creapix.louisss13.smartchandoid.Dao.Model.RegisterDaoModel;
-import eu.creapix.louisss13.smartchandoid.Dao.enums.Urls;
-import eu.creapix.louisss13.smartchandoid.Model.Token;
+import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.ConnexionDaoModel;
+import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.RegisterDaoModel;
+import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TokenParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
+import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 
 /**
  * Created by Louisss13 on 18-12-17.
@@ -31,16 +33,17 @@ public class UsersDao {
         gson = new Gson();
     }
 
-    public boolean login(String mEmail, String mPassword) throws IOException, JSONException {
+    public boolean login(Context context, String mEmail, String mPassword) throws IOException, JSONException {
         ConnexionDaoModel connexionDaoModel = new ConnexionDaoModel(mEmail, mPassword);
-        HttpURLConnection connection = datahandler.PostHTTPData(Urls.Login, connexionDaoModel);
+        HttpURLConnection connection = datahandler.PostHTTPData(Urls.Login, connexionDaoModel, null);
 
         if (connection.getResponseCode() == 200) {
             Log.e(TAG, "Connexion OK");
-            Token tokenData = (Token) datahandler.extractHTTPData(connection.getInputStream(), Token.class);
-
-            Log.i("TOKEN", "access token: " + tokenData.getAccessToken());
-            Log.i("TOKEN", "Expires in : " + tokenData.getExpiresIn() + "s");
+            TokenParser tokenParserData = (TokenParser) datahandler.extractHTTPData(connection.getInputStream(), TokenParser.class);
+            PreferencesUtils.saveToken(context, tokenParserData.getAccessToken());
+            PreferencesUtils.saveTokenExpiration(context, tokenParserData.getExpiresIn());
+            Log.i("TOKEN", "access token: " + tokenParserData.getAccessToken());
+            Log.i("TOKEN", "Expires in : " + tokenParserData.getExpiresIn() + "s");
             return true;
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
@@ -51,7 +54,7 @@ public class UsersDao {
 
     public void getScores(WebserviceListener webserviceListener, String token) throws IOException {
         ConnexionDaoModel registerDaoModel = new ConnexionDaoModel("arnaud.baes@hotmail.com", "Coucou-123");
-        HttpURLConnection connection = datahandler.PostHTTPData(Urls.Login, registerDaoModel);
+        HttpURLConnection connection = datahandler.PostHTTPData(Urls.Login, registerDaoModel, null);
 
         if ((connection.getResponseCode() < 300) && (connection.getResponseCode() >= 200)) {
             Log.e(TAG, "Inscription OK");
@@ -66,7 +69,7 @@ public class UsersDao {
     public boolean register(String mEmail, String mPassword) throws IOException {
 
         RegisterDaoModel registerDaoModel = new RegisterDaoModel(mEmail, mPassword);
-        HttpURLConnection connection = datahandler.PostHTTPData(Urls.Account, registerDaoModel);
+        HttpURLConnection connection = datahandler.PostHTTPData(Urls.Account, registerDaoModel, null);
 
         if ((connection.getResponseCode() < 300) && (connection.getResponseCode() >= 200)) {
             Log.e(TAG, "Inscription OK");

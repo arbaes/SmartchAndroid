@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.Model.PlayerScore;
+import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
 import eu.creapix.louisss13.smartchandoid.activities.MonitoredMatchesActivity;
 import eu.creapix.louisss13.smartchandoid.R;
 

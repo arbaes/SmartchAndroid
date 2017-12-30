@@ -1,4 +1,4 @@
-package eu.creapix.louisss13.smartchandoid.Dao.enums;
+package eu.creapix.louisss13.smartchandoid.dataAccess.enums;
 
 /**
  * Created by Louisss13 on 18-12-17.
@@ -7,5 +7,6 @@ package eu.creapix.louisss13.smartchandoid.Dao.enums;
 public enum Urls {
     Users,
     Account,
-    Login
+    Login,
+    Tournaments
 }

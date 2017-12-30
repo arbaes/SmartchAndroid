@@ -1,15 +1,32 @@
 package eu.creapix.louisss13.smartchandoid.activities;
 
-import android.support.design.widget.TabLayout;
-
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
-import android.widget.TextView;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.adapter.BrowseListAdapter;
+import eu.creapix.louisss13.smartchandoid.dataAccess.TournamentsDao;
+import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.utils.Constants;
+import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
+import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
-public class MatchListActivity extends BaseActivity {
+public class MatchListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, WebserviceListener {
 
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView recyclerView;
+    private BrowseListAdapter browseListAdapter;
     private TabLayout tabLayout;
 
     @Override
@@ -18,8 +35,17 @@ public class MatchListActivity extends BaseActivity {
         setContentView(R.layout.activity_match_list);
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_tournaments);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_tournaments);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        swipeRefreshLayout.setColorSchemeResources(R.color.primaryLightColor, R.color.primaryColor, R.color.primaryDarkColor);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
         setupTabLayout();
-        setupContentForTab(0);
+        setupContentForTab();
     }
 
     private void setupTabLayout() {
@@ -33,7 +59,7 @@ public class MatchListActivity extends BaseActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                setupContentForTab(tab.getPosition());
+                setupContentForTab();
             }
 
             @Override
@@ -43,38 +69,79 @@ public class MatchListActivity extends BaseActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                // TODO scroll top
+                recyclerView.smoothScrollToPosition(0);
             }
         });
     }
 
-    private void setContentForTournaments() {
-
+    private void setupContentForTab() {
+        swipeRefreshLayout.setRefreshing(true);
+        new GetDatas().execute();
     }
 
-    private void setContentForMatches() {
-
+    private void setupDatasAfterFetch(ArrayList<Object> datas) {
+        browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas);
+        recyclerView.setAdapter(browseListAdapter);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void setContentForWatched() {
-
+    @Override
+    public void onWebserviceFinishWithSuccess(final String method, final ArrayList<Object> datas) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (method.equals(Constants.GET_TOURNAMENT) || method.equals(Constants.GET_MATCHES) || method.equals(Constants.GET_WATCHED)) {
+                    setupDatasAfterFetch(datas);
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
     }
 
-    private void setupContentForTab(int position) {
-        TextView textView = (TextView) findViewById(R.id.text);
-        switch (position) {
-            case 0:
-                textView.setText("TOURNAMENTS");
-                setContentForTournaments();
-                break;
-            case 1:
-                textView.setText("MATCHES");
-                setContentForMatches();
-                break;
-            case 2:
-                textView.setText("WATCHED");
-                setContentForWatched();
-                break;
+    @Override
+    public void onWebserviceFinishWithError(String error) {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private class GetDatas extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                // TODO create dao function fort matches and watched
+                switch (tabLayout.getSelectedTabPosition()) {
+                    case 0:
+                        TournamentsDao tournamentsDao = new TournamentsDao();
+                        tournamentsDao.getTournaments(MatchListActivity.this, PreferencesUtils.getToken(getApplicationContext()));
+                        break;
+                    case 1:
+                        onWebserviceFinishWithSuccess(Constants.GET_MATCHES, new ArrayList<Object>());
+                        break;
+                    case 2:
+                        onWebserviceFinishWithSuccess(Constants.GET_WATCHED, new ArrayList<Object>());
+                        break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    private void refresh() {
+        new GetDatas().execute();
+    }
+
+    @Override
+    public void onRefresh() {
+        if (Utils.hasConnexion(getApplicationContext())) {
+            refresh();
+        } else {
+            Toast.makeText(MatchListActivity.this, "An internet connection is required for this operation", Toast.LENGTH_SHORT).show();
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 }

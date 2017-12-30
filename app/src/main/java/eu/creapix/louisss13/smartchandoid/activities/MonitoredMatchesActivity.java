@@ -11,9 +11,9 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.Dao.UsersDao;
-import eu.creapix.louisss13.smartchandoid.Dao.WebserviceListener;
-import eu.creapix.louisss13.smartchandoid.Model.PlayerScore;
+import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
+import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.adapter.MonitoredMatchAdapter;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
@@ -74,7 +74,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(final String method, Object data) {
+    public void onWebserviceFinishWithSuccess(final String method, ArrayList<Object> datas) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

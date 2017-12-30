@@ -1,4 +1,4 @@
-package eu.creapix.louisss13.smartchandoid.Model;
+package eu.creapix.louisss13.smartchandoid.model;
 
 /**
  * Created by arnau on 23-12-17.

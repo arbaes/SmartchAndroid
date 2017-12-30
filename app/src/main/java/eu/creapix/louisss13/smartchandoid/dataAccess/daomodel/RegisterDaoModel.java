@@ -1,4 +1,4 @@
-package eu.creapix.louisss13.smartchandoid.Dao.Model;
+package eu.creapix.louisss13.smartchandoid.dataAccess.daomodel;
 
 /**
  * Created by Louisss13 on 19-12-17.

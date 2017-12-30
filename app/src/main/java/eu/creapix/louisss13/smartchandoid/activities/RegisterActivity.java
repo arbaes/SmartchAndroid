@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import eu.creapix.louisss13.smartchandoid.Dao.UsersDao;
+import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
