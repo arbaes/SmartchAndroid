@@ -8,21 +8,30 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
+    private TextView headerNavFullName, headerNavEmail;
 
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+
+        this.headerNavFullName =  findViewById(R.id.nav_drawerheader_fullname);
+        this.headerNavEmail = findViewById(R.id.nav_header_email);
+        populatePeronalData();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,6 +43,28 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         this.mNavigationView = findViewById(R.id.nav_view);
         this.mNavigationView.setNavigationItemSelectedListener(this);
+
+
+    }
+
+    private void populatePeronalData() {
+        String firstNameTxt = PreferencesUtils.getFirstName(getApplicationContext());
+        String lastNameTxt = PreferencesUtils.getLastname(getApplicationContext());
+        String fullNameTxt = PreferencesUtils.getFirstName(getApplicationContext()) + " " + PreferencesUtils.getLastname(getApplicationContext());
+        String emailTxt = PreferencesUtils.getEmail(getApplicationContext());
+
+        //TODO - findViewById valent null , no idea why
+        headerNavFullName = findViewById(R.id.nav_drawerheader_fullname);
+        headerNavEmail = findViewById(R.id.nav_header_email);
+        Log.e("VIEWNAV",""+headerNavEmail +" - "+ headerNavFullName);
+
+        if ((!StringUtils.isEmpty(firstNameTxt)) && (!StringUtils.isEmpty(lastNameTxt)) &&  (headerNavFullName != null))
+            if (headerNavFullName != null)
+            headerNavFullName.setText(fullNameTxt);
+
+        if ((!StringUtils.isEmpty(emailTxt)) &&(headerNavEmail != null )) {
+            headerNavEmail.setText(emailTxt);
+        }
     }
 
     @Override

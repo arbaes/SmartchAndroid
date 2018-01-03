@@ -42,7 +42,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private void populateDatas() {
         String firstNameTxt = PreferencesUtils.getFirstName(getApplicationContext());
         String lastNameTxt = PreferencesUtils.getLastname(getApplicationContext());
-        String fullNameTxt = !StringUtils.isEmpty(firstNameTxt) ? firstNameTxt + (!StringUtils.isEmpty(lastNameTxt) ? " " + lastNameTxt : "") : (!StringUtils.isEmpty(lastNameTxt) ? lastNameTxt : "");
+        String fullNameTxt = PreferencesUtils.getFirstName(getApplicationContext()) + " " + PreferencesUtils.getLastname(getApplicationContext());
 
         if (!StringUtils.isEmpty(firstNameTxt))
             firstName.setText(firstNameTxt);
@@ -62,7 +62,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     private void handleEdit(boolean show) {
         inEdit = show;
-        findViewById(R.id.details).setVisibility(show ? View.VISIBLE : View.GONE);
+        findViewById(R.id.change_password).setVisibility(inEdit ? View.VISIBLE : View.GONE);
+        findViewById(R.id.first_name).setEnabled(inEdit);
+        findViewById(R.id.last_name).setEnabled(inEdit);
+        //findViewById(R.id.email).setEnabled(inEdit);
         edit.setImageResource(show ? R.drawable.ic_done : R.drawable.ic_edit_black_24dp);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,6 +84,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private void handleSave() {
         // TODO call webservice + listener and put this code after in the response of the webservice
 
+        PreferencesUtils.saveFirstName(getApplicationContext(), firstName.getText().toString());
+        PreferencesUtils.saveLastName(getApplicationContext(), lastName.getText().toString());
         handleEdit(false);
         // TODO when new datas are available re call populateDatas to update wiew
     }

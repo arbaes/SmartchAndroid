@@ -4,16 +4,20 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.ConnexionDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.RegisterDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TokenParser;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TournamentParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 
@@ -39,7 +43,11 @@ public class UsersDao {
 
         if (connection.getResponseCode() == 200) {
             Log.e(TAG, "Connexion OK");
-            TokenParser tokenParserData = (TokenParser) datahandler.extractHTTPData(connection.getInputStream(), TokenParser.class);
+            String stream = datahandler.StreamToJson(connection.getInputStream());
+
+            Type tokenType = new TypeToken<TokenParser>(){}.getType();
+            TokenParser tokenParserData  = gson.fromJson(stream, tokenType);
+
             PreferencesUtils.saveToken(context, tokenParserData.getAccessToken());
             PreferencesUtils.saveTokenExpiration(context, tokenParserData.getExpiresIn());
             Log.i("TOKEN", "access token: " + tokenParserData.getAccessToken());
@@ -50,20 +58,6 @@ public class UsersDao {
             return false;
         }
 
-    }
-
-    public void getScores(WebserviceListener webserviceListener, String token) throws IOException {
-        ConnexionDaoModel registerDaoModel = new ConnexionDaoModel("arnaud.baes@hotmail.com", "Coucou-123");
-        HttpURLConnection connection = datahandler.PostHTTPData(Urls.Login, registerDaoModel, null);
-
-        if ((connection.getResponseCode() < 300) && (connection.getResponseCode() >= 200)) {
-            Log.e(TAG, "Inscription OK");
-            // TODO parse response and get JSON
-            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_SCORE, null);
-        } else {
-            Log.e(TAG, "Inscription NOT OK : " + connection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(String.valueOf(connection.getResponseCode()));
-        }
     }
 
     public boolean register(String mEmail, String mPassword) throws IOException {

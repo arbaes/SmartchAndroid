@@ -1,5 +1,9 @@
 package eu.creapix.louisss13.smartchandoid.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -28,6 +32,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     private RecyclerView recyclerView;
     private BrowseListAdapter browseListAdapter;
     private TabLayout tabLayout;
+    private Context classContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +105,36 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
 
     @Override
     public void onWebserviceFinishWithError(String error) {
-        swipeRefreshLayout.setRefreshing(false);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        MatchListActivity.this);
+
+                // set title
+                alertDialogBuilder.setTitle(R.string.title_session_expired);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage(R.string.content_session_expired)
+                        .setCancelable(false)
+                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+
+                                Intent intent = new Intent(MatchListActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                MatchListActivity.this.finish();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+                Toast.makeText(MatchListActivity.this, "An internet connection is required for this operation", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private class GetDatas extends AsyncTask<Void, Void, Void> {

@@ -51,7 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_header">
@@ -113,6 +112,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
+            android:enabled="false"
             android:hint="Your first name "
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,6 +127,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
+            android:enabled="false"
             android:hint="Your last name "
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
@@ -141,51 +142,109 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
+            android:enabled="false"
             android:hint="Your e-mail adress"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/last_name" />
 
-        <EditText
-            android:id="@+id/pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
 
-        <EditText
-            android:id="@+id/confirm_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pwd" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details">
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/change_pwd_headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryLightColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerstat_header">
+
+
+                <ImageView
+                    android:id="@+id/pwd_drawable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:tint="@color/primaryTextColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_vpn_key_black_24dp" />
+
+                <TextView
+                    android:id="@+id/changepwd_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Update Password"
+                    android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                    android:textColor="@color/primaryTextColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/pwd_drawable"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/primaryColor"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <EditText
+        android:id="@+id/confirm_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pwd" />
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/edit"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="126dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         android:src="@drawable/ic_edit_black_24dp"
         android:tint="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/primaryTextColor" />
 </android.support.constraint.ConstraintLayout>

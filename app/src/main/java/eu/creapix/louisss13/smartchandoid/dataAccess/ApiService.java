@@ -20,6 +20,7 @@ public class ApiService  {
     private URL accountUrl;
     private URL monitorUrl;
     private URL tournamentUrl;
+    private URL profileUrl;
     private HashMap<RequestMethods, String> methods;
     private HashMap<Urls, URL> urls;
     public ApiService() {

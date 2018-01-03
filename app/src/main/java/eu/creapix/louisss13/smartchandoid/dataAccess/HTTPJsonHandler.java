@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,6 +40,7 @@ public class HTTPJsonHandler {
         gson = new Gson();
     }
 
+
     //Only works if no array
     public JSONObject extractHTTPData(InputStream connectionInputStream, Class c){
 
@@ -46,6 +48,7 @@ public class HTTPJsonHandler {
 
             InputStream inStream = new BufferedInputStream(connectionInputStream);
             BufferedReader r = new BufferedReader(new InputStreamReader(inStream));
+            r.close();
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = r.readLine()) != null) {

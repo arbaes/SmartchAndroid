@@ -60,7 +60,6 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
 
     private void refresh() {
         // TODO call to webservice
-        new GetScore().execute();
     }
 
     @Override
@@ -90,33 +89,4 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    private class GetScore extends AsyncTask<Void, Void, Boolean> {
-        private UsersDao userDao;
-
-        GetScore() {
-            userDao = new UsersDao();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            try {
-                userDao.getScores(MonitoredMatchesActivity.this, "token");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-
-        }
-
-        @Override
-        protected void onCancelled() {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
 }

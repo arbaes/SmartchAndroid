@@ -12,6 +12,7 @@ public class Constants {
     public static final String GET_TOURNAMENT = "get_tournament";
     public static final String GET_MATCHES = "get_matches";
     public static final String GET_WATCHED = "get_watched";
+    public static final String GET_PROFILE = "get_profile";
 
 
 }
