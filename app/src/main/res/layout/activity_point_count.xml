@@ -8,56 +8,81 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/player_a_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Player A"
-                    android:textSize="14sp"
-                    android:textColor="#616161"
-                    android:fontFamily="sans-serif-medium"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"/>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/player_a_setScore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="52sp" />
+                    <TextView
+                        android:id="@+id/player_a_sendScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/primaryLightColor"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="+1"
+                        android:textAlignment="center"
+                        android:textColor="@color/primaryDarkColor"
+                        android:textSize="36sp" />
 
-                <TextView
-                    android:id="@+id/player_a_pointScore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:gravity="center_horizontal"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="28sp" />
+                </LinearLayout>
 
-                <Button
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:gravity="center_horizontal"
-                    android:tag="3"
-                    android:text="add point"
-                    android:textSize="16dp" />
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/player_a_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:gravity="center_horizontal"
+                        android:text="Player A"
+                        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+                    <TextView
+                        android:id="@+id/player_a_setScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="0"
+                        android:textAppearance="@android:style/TextAppearance.Material.Large"
+                        android:textSize="100sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/player_a_deleteScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/primaryDarkColor"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="-1"
+                        android:textAlignment="center"
+                        android:textColor="@color/primaryLightColor"
+                        android:textSize="36sp" />
+
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -65,55 +90,79 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@color/primaryTextColor" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/player_b_name"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Player B"
-                    android:textSize="14sp"
-                    android:textColor="#616161"
-                    android:fontFamily="sans-serif-medium"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/player_b_setScore"
+                    <TextView
+                        android:id="@+id/player_b_sendScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/primaryLightColor"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="+1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="36sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="0"
-                    android:textSize="52sp"
-                    android:textColor="#000000"/>
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/player_b_pointScore"
+                    <TextView
+                        android:id="@+id/player_b_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:gravity="center_horizontal"
+                        android:text="Player B"
+                        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+                    <TextView
+                        android:id="@+id/player_b_setScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="0"
+                        android:textAppearance="@android:style/TextAppearance.Material.Large"
+                        android:textSize="100sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:gravity="center_horizontal"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="28sp" />
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:gravity="center_horizontal"
-                    android:tag="3"
-                    android:text="add point"
-                    android:textSize="16dp" />
+                    <TextView
+                        android:id="@+id/player_b_deleteScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/primaryDarkColor"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="-1"
+                        android:textAlignment="center"
+                        android:textColor="@color/primaryLightColor"
+                        android:textSize="36sp" />
 
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -121,16 +170,7 @@
 
         </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="36dp"
-        android:text="reset"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </android.support.constraint.ConstraintLayout>

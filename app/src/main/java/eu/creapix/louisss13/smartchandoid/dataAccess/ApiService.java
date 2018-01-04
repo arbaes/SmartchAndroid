@@ -74,4 +74,24 @@ public class ApiService  {
         return urlConnection;
     }
 
+    public HttpURLConnection getCustomUrlConnection(URL url, RequestMethods method, String token){
+
+        Log.e(TAG, "URL : "+url.toString());
+        HttpURLConnection urlConnection = null;
+
+        try {
+
+            urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection.setRequestProperty("Content-type", "application/json");
+            urlConnection.setRequestMethod(methods.get(method));
+            if (token != null){
+                urlConnection.setRequestProperty("Authorization", "Bearer " + token);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return urlConnection;
+    }
+
 }

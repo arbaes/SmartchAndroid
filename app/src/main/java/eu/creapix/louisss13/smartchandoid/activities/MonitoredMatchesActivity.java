@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import eu.creapix.louisss13.smartchandoid.dataAccess.MonitoredMatchesDao;
 import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.MatchParser;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.PointParser;
 import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.adapter.MonitoredMatchAdapter;
@@ -51,7 +52,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
 
     }
 
-    public void monitorMatch(int matchId, PlayerScore matchScore) {
+    public void monitorMatch(int matchId,PlayerScore matchScore) {
         Intent intent = new Intent(this, PointCountActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.putExtra(Constants.MATCH_ID, matchId);
