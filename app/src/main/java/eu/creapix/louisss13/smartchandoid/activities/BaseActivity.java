@@ -32,7 +32,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         this.headerNavFullName =  findViewById(R.id.nav_drawerheader_fullname);
         this.headerNavEmail = findViewById(R.id.nav_header_email);
-        populatePeronalData();
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,6 +44,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         this.mNavigationView = findViewById(R.id.nav_view);
         this.mNavigationView.setNavigationItemSelectedListener(this);
+        populatePeronalData();
 
 
     }
@@ -54,13 +55,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         String fullNameTxt = PreferencesUtils.getFirstName(getApplicationContext()) + " " + PreferencesUtils.getLastname(getApplicationContext());
         String emailTxt = PreferencesUtils.getEmail(getApplicationContext());
 
-        //TODO - findViewById valent null , no idea why
-        /*
         View headerLayout = this.mNavigationView.getHeaderView(0);
         headerNavFullName = headerLayout.findViewById(R.id.nav_drawerheader_fullname);
         headerNavEmail = headerLayout.findViewById(R.id.nav_header_email);
-        */
-        Log.e("VIEWNAV",""+headerNavEmail +" - "+ headerNavFullName);
 
         if ((!StringUtils.isEmpty(firstNameTxt)) && (!StringUtils.isEmpty(lastNameTxt)) &&  (headerNavFullName != null))
             if (headerNavFullName != null)
