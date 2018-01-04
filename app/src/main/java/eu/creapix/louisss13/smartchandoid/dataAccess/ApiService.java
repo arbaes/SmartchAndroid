@@ -20,7 +20,8 @@ public class ApiService  {
     private URL accountUrl;
     private URL monitorUrl;
     private URL tournamentUrl;
-    private URL profileUrl;
+    private URL matchBaseUrl;
+
     private HashMap<RequestMethods, String> methods;
     private HashMap<Urls, URL> urls;
     public ApiService() {
@@ -36,6 +37,7 @@ public class ApiService  {
             usersUrl = new URL("http://smartch.azurewebsites.net/api/users");
             loginUrl = new URL("http://smartch.azurewebsites.net/api/jwt");
             accountUrl = new URL("http://smartch.azurewebsites.net/api/account");
+            matchBaseUrl = new URL ("http://smartch.azurewebsites.net/api/matchs/");
             monitorUrl = new URL("http://smartch.azurewebsites.net/api/matchs/arbitrage");
             tournamentUrl = new URL("http://smartch.azurewebsites.net/api/tournaments");
 
@@ -47,6 +49,8 @@ public class ApiService  {
         urls.put(Urls.Users, usersUrl );
         urls.put(Urls.Account, accountUrl );
         urls.put(Urls.Tournaments, tournamentUrl );
+        urls.put(Urls.Monitoring, monitorUrl);
+        urls.put(Urls.MatchBase, matchBaseUrl);
     }
 
     public HttpURLConnection getUrlConnection(Urls urlE, RequestMethods method, String token){

@@ -18,7 +18,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/display_text_view"
+                    android:id="@+id/player_a_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -73,7 +73,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/display_text_Player_b"
+                    android:id="@+id/player_b_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"

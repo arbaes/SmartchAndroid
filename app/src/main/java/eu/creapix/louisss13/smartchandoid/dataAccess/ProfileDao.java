@@ -44,6 +44,7 @@ public class ProfileDao {
             Log.e(TAG, "Connexion OK - " + connection.getResponseCode());
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
+            Log.e("JSON", "Content : " + stream);
 
             Type accountType = new TypeToken<AccountParser>(){}.getType();
             AccountParser profile = gson.fromJson(stream, accountType);

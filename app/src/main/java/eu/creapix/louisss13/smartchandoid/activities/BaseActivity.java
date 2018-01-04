@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -54,8 +55,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         String emailTxt = PreferencesUtils.getEmail(getApplicationContext());
 
         //TODO - findViewById valent null , no idea why
-        headerNavFullName = findViewById(R.id.nav_drawerheader_fullname);
-        headerNavEmail = findViewById(R.id.nav_header_email);
+        /*
+        View headerLayout = this.mNavigationView.getHeaderView(0);
+        headerNavFullName = headerLayout.findViewById(R.id.nav_drawerheader_fullname);
+        headerNavEmail = headerLayout.findViewById(R.id.nav_header_email);
+        */
         Log.e("VIEWNAV",""+headerNavEmail +" - "+ headerNavFullName);
 
         if ((!StringUtils.isEmpty(firstNameTxt)) && (!StringUtils.isEmpty(lastNameTxt)) &&  (headerNavFullName != null))

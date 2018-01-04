@@ -1,19 +1,34 @@
 package eu.creapix.louisss13.smartchandoid.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.dataAccess.ProfileDao;
+import eu.creapix.louisss13.smartchandoid.dataAccess.TournamentsDao;
+import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.AccountParser;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.UserInfoParser;
+import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 
-public class ProfileActivity extends BaseActivity implements View.OnClickListener {
+
+//TODO - Affichage des différents UserInfos ( classer par club ? )
+public class ProfileActivity extends BaseActivity implements View.OnClickListener, WebserviceListener {
 
     private EditText firstName, lastName, email, password, confirmPassword;
     private TextView headerFullName, headerEmail;
@@ -36,27 +51,28 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         edit.setOnClickListener(this);
 
-        populateDatas();
+        new GetDatas().execute();
     }
 
-    private void populateDatas() {
-        String firstNameTxt = PreferencesUtils.getFirstName(getApplicationContext());
-        String lastNameTxt = PreferencesUtils.getLastname(getApplicationContext());
-        String fullNameTxt = PreferencesUtils.getFirstName(getApplicationContext()) + " " + PreferencesUtils.getLastname(getApplicationContext());
+    private void populateDatas(String firstNameTxt, String lastNameTxt, String emailTxt) {
 
-        if (!StringUtils.isEmpty(firstNameTxt))
+        String fullNameTxt = firstNameTxt + " " + lastNameTxt;
+        if (!StringUtils.isEmpty(firstNameTxt)) {
             firstName.setText(firstNameTxt);
-
-        if (!StringUtils.isEmpty(lastNameTxt))
+            PreferencesUtils.saveFirstName(getApplicationContext(), firstName.getText().toString());
+        }
+        if (!StringUtils.isEmpty(lastNameTxt)) {
             lastName.setText(lastNameTxt);
+            PreferencesUtils.saveLastName(getApplicationContext(), lastName.getText().toString());
+        }
 
         if (!StringUtils.isEmpty(fullNameTxt))
             headerFullName.setText(fullNameTxt);
 
-        String emailTxt = PreferencesUtils.getEmail(getApplicationContext());
         if (!StringUtils.isEmpty(emailTxt)) {
             headerEmail.setText(emailTxt);
             email.setText(emailTxt);
+            PreferencesUtils.saveEmail(getApplicationContext(),headerEmail.getText().toString());
         }
     }
 
@@ -98,5 +114,50 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 else handleSave();
                 break;
         }
+    }
+
+    private class GetDatas extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                ProfileDao profileDao = new ProfileDao();
+                profileDao.getProfile(ProfileActivity.this, PreferencesUtils.getToken(getApplicationContext()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    @Override
+    public void onWebserviceFinishWithSuccess(String method, final ArrayList<Object> datas) {
+        Log.e("SUCCESS WebServ", ""+datas.get(0).getClass());
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (datas.get(0) instanceof AccountParser) {
+                    AccountParser account = (AccountParser) datas.get(0);
+                    UserInfoParser[] userInfo = account.getUserInfos();
+                    if ( userInfo.length > 0 ) {
+                        populateDatas(userInfo[0].getFirstName(), userInfo[0].getLastName(), account.getEmail());
+                    } else {
+                        Toast.makeText(ProfileActivity.this, "Aucune donnée de profil trouvée", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onWebserviceFinishWithError(String error) {
+
+        Log.e("ERROR WebServ",""+error);
+
     }
 }

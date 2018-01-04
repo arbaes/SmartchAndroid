@@ -8,5 +8,5 @@ public enum Urls {
     Users,
     Account,
     Login,
-    Tournaments
+    Monitoring, MatchBase, Tournaments
 }

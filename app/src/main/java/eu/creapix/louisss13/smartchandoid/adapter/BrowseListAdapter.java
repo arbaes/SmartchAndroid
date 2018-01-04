@@ -66,10 +66,10 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
         String tournamentId = "#IDXXXXXXX";
         String tournamentState = "";
         switch (tournament.getEtat()){
-            case 1:
+            case 2:
                 tournamentState = "EN COURS";
                 break;
-            case 2:
+            case 1:
                 tournamentState = "FINI";
                 break;
             case 3:

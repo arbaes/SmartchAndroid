@@ -34,8 +34,8 @@
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/player_right"
-        app:layout_constraintStart_toEndOf="@+id/player_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

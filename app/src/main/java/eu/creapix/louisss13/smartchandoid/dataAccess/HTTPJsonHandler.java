@@ -134,11 +134,8 @@ public class HTTPJsonHandler {
     public HttpURLConnection GetHTTPData(Urls url, String token) {
 
         HttpURLConnection urlConnection = apiService.getUrlConnection(url, RequestMethods.GET, token);
-        Log.e("ContentType",""+urlConnection.getContentType());
         Log.e("URL", ""+url.toString());
         Log.e("TOKEN", ""+token);
-        Log.e("Authorization", "" + urlConnection.getRequestProperty("Authorization"));
-
 
         try {
             urlConnection.connect();

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.MatchParser;
 import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
 import eu.creapix.louisss13.smartchandoid.activities.MonitoredMatchesActivity;
 import eu.creapix.louisss13.smartchandoid.R;
@@ -18,11 +19,11 @@ import eu.creapix.louisss13.smartchandoid.R;
 
 public class MonitoredMatchAdapter extends RecyclerView.Adapter<MonitoredMatchAdapter.MonitoredMatchViewHolder> {
 
-    private ArrayList<PlayerScore> playerScores;
+    private ArrayList<Object> matchs;
     private MonitoredMatchesActivity activity;
 
-    public MonitoredMatchAdapter(MonitoredMatchesActivity activity, ArrayList<PlayerScore> playerScores) {
-        this.playerScores = playerScores;
+    public MonitoredMatchAdapter(MonitoredMatchesActivity activity, ArrayList<Object> matchs) {
+        this.matchs = matchs;
         this.activity = activity;
     }
 
@@ -34,24 +35,34 @@ public class MonitoredMatchAdapter extends RecyclerView.Adapter<MonitoredMatchAd
 
     @Override
     public void onBindViewHolder(MonitoredMatchViewHolder viewHolder, int position) {
-        PlayerScore playerScore = playerScores.get(viewHolder.getAdapterPosition());
+        final MatchParser matchData = (MatchParser) matchs.get(viewHolder.getAdapterPosition());
 
-        String score = playerScore.getPlayerScore() + " - " + playerScore.getPlayerScore();
-        viewHolder.playerLeftName.setText(playerScore.getPlayerName());
+
+        PlayerScore matchScore = matchData.getMatchScore();
+
+        String player1Name = matchData.getPlayer1().getLastName() + " " + matchData.getPlayer1().getFirstName().charAt(0)+".";
+        String player2Name = matchData.getPlayer2().getLastName() + " " + matchData.getPlayer2().getFirstName().charAt(0)+".";
+        matchScore.setPlayer1Name(player1Name);
+        matchScore.setPlayer2Name(player2Name);
+        final PlayerScore matchScoreSetted = matchScore;
+
+
+        String score = matchScore.getPlayer1Score() + " - " + matchScore.getPlayer2Score();
+        viewHolder.playerLeftName.setText(matchScore.getPlayer1Name());
         viewHolder.playerScores.setText(score);
-        viewHolder.playerRightName.setText(playerScore.getPlayerName());
+        viewHolder.playerRightName.setText(matchScore.getPlayer2Name());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.monitorMatch();
+                activity.monitorMatch(matchData.getId(), matchScoreSetted);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return playerScores.size();
+        return matchs.size();
     }
 
     public static class MonitoredMatchViewHolder extends RecyclerView.ViewHolder {
