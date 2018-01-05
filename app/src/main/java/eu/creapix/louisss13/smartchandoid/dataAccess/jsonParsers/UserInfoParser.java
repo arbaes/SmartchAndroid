@@ -32,8 +32,14 @@ public class UserInfoParser extends JSONObject {
     private String email;
     private String firstName;
 
+    private int id;
+
     @SerializedName("name")
     private String lastName;
+
+    public int getId() {
+        return id;
+    }
 
     public String getLastName() {
         return lastName;

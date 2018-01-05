@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private FloatingActionButton edit;
     private boolean inEdit;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
             }
         });
+
 
         new GetDatas().execute();
     }

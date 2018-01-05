@@ -3,25 +3,17 @@ package eu.creapix.louisss13.smartchandoid.dataAccess;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.ConnexionDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.PointDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
-import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.PointParser;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TokenParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
-import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 
 /**
  * Created by arnau on 04-01-18.
@@ -56,8 +48,16 @@ public class PointCountDao {
         }
 
         PointDaoModel pointDaoModel = new PointDaoModel(player);
+        String urlString ="";
+        switch (requestMethod){
+            case POST:
+                urlString = Constants.BASE_URL_COUNT_POINT + matchId + "/point";
+                break;
+            case DELETE:
+                urlString = Constants.BASE_URL_COUNT_POINT + matchId + "/point/" + scoredBy;
+                break;
+        }
 
-        String urlString = Constants.COUNT_POINT_BASE_URL + matchId + "/point";
 
         URL url = new URL(urlString);
         HttpURLConnection urlConnection = apiService.getCustomUrlConnection(url, requestMethod, token);

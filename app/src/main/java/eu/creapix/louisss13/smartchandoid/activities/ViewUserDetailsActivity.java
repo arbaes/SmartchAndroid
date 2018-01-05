@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.dataAccess.ClubsDao;
 import eu.creapix.louisss13.smartchandoid.dataAccess.ProfileDao;
 import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.AccountParser;
@@ -48,6 +50,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private UserInfoParser[] userInfos;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         new GetDatas().execute();
 
         /*
@@ -73,13 +77,13 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
 
     @Override
     public void onWebserviceFinishWithSuccess(String method, final ArrayList<Object> datas) {
-        Log.e("SUCCESS WebServ", ""+datas.get(0).getClass());
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (datas.get(0) instanceof AccountParser) {
+                if ((datas != null) && (datas.get(0) instanceof AccountParser)) {
                     AccountParser account = (AccountParser) datas.get(0);
+                    ViewUserDetailsActivity.this.userId = account.getUserInfos()[0].getId();
                     UserInfoParser[] userInfo = account.getUserInfos();
                     if ( userInfo.length > 0 ) {
                         ViewUserDetailsActivity.this.userInfos = userInfo;
@@ -162,10 +166,24 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
         }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+    private class GetClubs extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                ClubsDao profileDao = new ClubsDao();
+                profileDao.getClubs(ViewUserDetailsActivity.this, ""+ViewUserDetailsActivity.this.userId,PreferencesUtils.getToken(getApplicationContext()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -184,7 +202,8 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
             String phone = ""+ViewUserDetailsActivity.this.userInfos[position].getPhone();
             String birthDate = ""+ViewUserDetailsActivity.this.userInfos[position].getParsedBirthDate();
             String birthDateBrut = ""+ViewUserDetailsActivity.this.userInfos[position].getBirthDate();
-
+            ViewUserDetailsActivity.this.userId = ViewUserDetailsActivity.this.userInfos[position].getId();
+            new GetClubs().execute();
 
             Calendar today = new GregorianCalendar();
             Calendar birthDateCal = Calendar.getInstance();

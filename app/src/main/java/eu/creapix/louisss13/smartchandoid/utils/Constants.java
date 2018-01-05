@@ -15,6 +15,7 @@ public class Constants {
     public static final String GET_WATCHED = "get_watched";
     public static final String GET_PROFILE = "get_profile";
     public static final String GET_MONITORED_MATCHES = "get_monitored_matches";
+    public static final String GET_CLUBS = "get_clubs";
     public static final String POST_POINT = "post_point";
 
 
@@ -24,7 +25,8 @@ public class Constants {
     public static final String DELETE_POINT = "delete_point";
 
     //Custom Base URL
-    public static final String COUNT_POINT_BASE_URL = "http://smartch.azurewebsites.net/api/matchs/";
+    public static final String BASE_URL_COUNT_POINT = "http://smartch.azurewebsites.net/api/matchs/";
+    public static final String BASE_URL_GET_CLUB_BY_USERID = "http://smartch.azurewebsites.net/api/clubs/user/";
 
 
 }

@@ -40,13 +40,12 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         setContentView(R.layout.activity_monitored_matches);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-
-
         swipeRefreshLayout.setColorSchemeResources(R.color.primaryLightColor, R.color.primaryColor, R.color.primaryDarkColor);
         swipeRefreshLayout.setOnRefreshListener(this);
-
         swipeRefreshLayout.setRefreshing(true);
+
         new GetMonitoredMatches().execute();
 
 
@@ -67,6 +66,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(monitoredMatchAdapter);
+        swipeRefreshLayout.setRefreshing(false);
 
     }
 
