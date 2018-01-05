@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -13,13 +14,12 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.adapter.MonitoredMatchAdapter;
 import eu.creapix.louisss13.smartchandoid.dataAccess.MonitoredMatchesDao;
 import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.MatchParser;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.PointParser;
 import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
-import eu.creapix.louisss13.smartchandoid.R;
-import eu.creapix.louisss13.smartchandoid.adapter.MonitoredMatchAdapter;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
@@ -51,18 +51,18 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
 
     }
 
-    public void monitorMatch(int matchId,PlayerScore matchScore) {
+    public void monitorMatch(int matchId, PlayerScore matchScore) {
         Intent intent = new Intent(this, PointCountActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.putExtra(Constants.MATCH_ID, matchId);
         intent.putExtra(Constants.MATCH_SCORE, matchScore);
-        startActivity(intent);
+        startActivityForResult(intent, Constants.RESULT_COUNT_POINT);
     }
 
-    public void populateMatches(ArrayList<Object> matchs){
+    public void populateMatches(ArrayList<Object> matchs) {
 
         monitoredMatchAdapter = new MonitoredMatchAdapter(MonitoredMatchesActivity.this, matchs);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext()/*, LinearLayoutManager.HORIZONTAL, false*/);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(monitoredMatchAdapter);
@@ -104,15 +104,13 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(final String method, final ArrayList<Object> datas) {
+    public void onWebserviceFinishWithSuccess(final String method, String id, final ArrayList<Object> datas) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (method.equals(Constants.GET_MONITORED_MATCHES) && (datas.size() > 0)) {
-
                     if (datas.get(0) instanceof MatchParser) {
-
-                         populateMatches(datas);
+                        populateMatches(datas);
                     }
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -125,4 +123,18 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("TAG", "onActivityResult: " + requestCode + " - " + resultCode);
+        if (requestCode == Constants.RESULT_COUNT_POINT && resultCode == RESULT_OK) {
+            if (Utils.hasConnexion(getApplicationContext())) {
+                swipeRefreshLayout.setRefreshing(true);
+                refresh();
+            } else {
+                Toast.makeText(MonitoredMatchesActivity.this, "An internet connection is required for this operation", Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
+    }
 }

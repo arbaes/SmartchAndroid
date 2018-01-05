@@ -35,8 +35,6 @@ public class PointCountDao {
     }
 
     public void postPoint(WebserviceListener webserviceListener, int scoredBy, int matchId, String token, RequestMethods requestMethod) throws IOException {
-
-
         Boolean player = false;
         switch (scoredBy){
             case 0 :
@@ -83,10 +81,10 @@ public class PointCountDao {
             scoredBys.add(scoredBy);
             switch (requestMethod){
                 case POST:
-                    webserviceListener.onWebserviceFinishWithSuccess(Constants.POST_POINT, scoredBys);
+                    webserviceListener.onWebserviceFinishWithSuccess(Constants.POST_POINT, null, scoredBys);
                     break;
                 case DELETE:
-                    webserviceListener.onWebserviceFinishWithSuccess(Constants.DELETE_POINT, scoredBys);
+                    webserviceListener.onWebserviceFinishWithSuccess(Constants.DELETE_POINT, null, scoredBys);
                     break;
             }
 

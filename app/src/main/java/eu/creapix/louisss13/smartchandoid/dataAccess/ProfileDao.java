@@ -12,11 +12,8 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.dataAccess.ApiService;
-import eu.creapix.louisss13.smartchandoid.dataAccess.HTTPJsonHandler;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.AccountParser;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TournamentParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 /**
@@ -50,7 +47,7 @@ public class ProfileDao {
             AccountParser profile = gson.fromJson(stream, accountType);
             ArrayList<Object> profileList = new ArrayList<Object>();
             profileList.add(profile);
-            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_PROFILE, profileList);
+            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_PROFILE, null, profileList);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
             webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage());

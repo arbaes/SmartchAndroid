@@ -21,13 +21,16 @@
                 android:layout_height="wrap_content" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <!-- TODO Faire pour toute les listes ( RecyclerView ) -->
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/empty"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/swipe_refresh_tournaments"
+            android:layout_height="match_parent"
+            android:background="@color/primaryTextColor"
             android:gravity="center"
-            android:textColor="@color/colorPrimary" />
+            android:text="No results found"
+            android:textColor="@android:color/darker_gray"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <View

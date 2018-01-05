@@ -1,6 +1,7 @@
 package eu.creapix.louisss13.smartchandoid.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +9,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.activities.MonitoredMatchesActivity;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.MatchParser;
 import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
-import eu.creapix.louisss13.smartchandoid.activities.MonitoredMatchesActivity;
-import eu.creapix.louisss13.smartchandoid.R;
 
 /**
  * Created by arnau on 28-12-17.
@@ -34,14 +35,12 @@ public class MonitoredMatchAdapter extends RecyclerView.Adapter<MonitoredMatchAd
     }
 
     @Override
-    public void onBindViewHolder(MonitoredMatchViewHolder viewHolder, int position) {
-        final MatchParser matchData = (MatchParser) matchs.get(viewHolder.getAdapterPosition());
+    public void onBindViewHolder(final MonitoredMatchViewHolder viewHolder, int position) {
+        Log.e("TAG", "onBindViewHolder: " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getId() + " - " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getMatchScore().getPlayer1Score() + " - " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getMatchScore().getPlayer2Score());
+        PlayerScore matchScore = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getMatchScore();
 
-
-        PlayerScore matchScore = matchData.getMatchScore();
-
-        String player1Name = matchData.getPlayer1().getLastName() + " " + matchData.getPlayer1().getFirstName().charAt(0)+".";
-        String player2Name = matchData.getPlayer2().getLastName() + " " + matchData.getPlayer2().getFirstName().charAt(0)+".";
+        String player1Name = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer1().getLastName() + " " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer1().getFirstName().charAt(0) + ".";
+        String player2Name = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer2().getLastName() + " " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer2().getFirstName().charAt(0) + ".";
         matchScore.setPlayer1Name(player1Name);
         matchScore.setPlayer2Name(player2Name);
         final PlayerScore matchScoreSetted = matchScore;
@@ -55,9 +54,13 @@ public class MonitoredMatchAdapter extends RecyclerView.Adapter<MonitoredMatchAd
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.monitorMatch(matchData.getId(), matchScoreSetted);
+                activity.monitorMatch(((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getId(), matchScoreSetted);
             }
         });
+    }
+
+    public ArrayList<Object> getMatchs() {
+        return matchs;
     }
 
     @Override

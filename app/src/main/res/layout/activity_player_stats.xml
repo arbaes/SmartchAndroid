@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
@@ -268,7 +267,6 @@
                         android:text="Club Name"
                         android:textAlignment="center" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -328,8 +326,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/user_data_details_header" />
         </LinearLayout>
     </ScrollView>
-
-
 
 
 </android.support.constraint.ConstraintLayout>

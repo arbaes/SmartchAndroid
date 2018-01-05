@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.Years;
 import org.json.JSONObject;
 
@@ -15,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import eu.creapix.louisss13.smartchandoid.activities.ProfileActivity;
 
@@ -47,7 +49,7 @@ public class UserInfoParser extends JSONObject {
 
     public String getParsedBirthDate(){
         SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        SimpleDateFormat DateToString = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat DateToString = new SimpleDateFormat("dd MMMM yyyy", new Locale(Locale.getDefault().getLanguage()));
 
         String dateParsedString = "";
         try {
@@ -56,7 +58,7 @@ public class UserInfoParser extends JSONObject {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return dateParsedString;
+        return WordUtils.capitalizeFully(dateParsedString);
     }
 
     public void setLastName(String lastName) {

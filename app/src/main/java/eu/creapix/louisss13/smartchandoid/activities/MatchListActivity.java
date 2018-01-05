@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -44,10 +45,10 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_tournaments);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        swipeRefreshLayout.setColorSchemeResources(R.color.primaryLightColor, R.color.primaryColor, R.color.primaryDarkColor);
-        swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(R.color.primaryLightColor, R.color.primaryColor, R.color.primaryDarkColor);
 
         setupTabLayout();
         setupContentForTab();
@@ -85,13 +86,20 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     }
 
     private void setupDatasAfterFetch(ArrayList<Object> datas) {
+        findViewById(R.id.empty).setVisibility(View.GONE);
         browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas);
         recyclerView.setAdapter(browseListAdapter);
+
+        if (datas == null || datas.size() == 0) {
+            findViewById(R.id.empty).setVisibility(View.VISIBLE);
+        }
+
+
         swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(final String method, final ArrayList<Object> datas) {
+    public void onWebserviceFinishWithSuccess(final String method, String id, final ArrayList<Object> datas) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -119,8 +127,8 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
                 alertDialogBuilder
                         .setMessage(R.string.content_session_expired)
                         .setCancelable(false)
-                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
 
                                 Intent intent = new Intent(MatchListActivity.this, LoginActivity.class);
                                 startActivity(intent);
@@ -149,10 +157,10 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
                         tournamentsDao.getTournaments(MatchListActivity.this, PreferencesUtils.getToken(getApplicationContext()));
                         break;
                     case 1:
-                        onWebserviceFinishWithSuccess(Constants.GET_MATCHES, new ArrayList<Object>());
+                        onWebserviceFinishWithSuccess(Constants.GET_MATCHES, null, new ArrayList<Object>());
                         break;
                     case 2:
-                        onWebserviceFinishWithSuccess(Constants.GET_WATCHED, new ArrayList<Object>());
+                        onWebserviceFinishWithSuccess(Constants.GET_WATCHED, null, new ArrayList<Object>());
                         break;
                 }
             } catch (IOException e) {

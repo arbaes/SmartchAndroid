@@ -3,20 +3,16 @@ package eu.creapix.louisss13.smartchandoid.dataAccess;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.PointDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
-import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TournamentParser;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.ClubParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 /**
@@ -39,8 +35,7 @@ public class ClubsDao {
     public void getClubs(WebserviceListener webserviceListener, String userId, String token) throws IOException, JSONException {
 
 
-
-        String urlString = Constants.BASE_URL_GET_CLUB_BY_USERID+ userId ;
+        String urlString = Constants.BASE_URL_GET_CLUB_BY_USERID + userId;
 
         URL url = new URL(urlString);
 
@@ -51,10 +46,21 @@ public class ClubsDao {
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
 
-            Log.e("JSON",""+stream);
+            Log.e("JSON", "" + stream);
             //Type tournamentListType = new TypeToken<ArrayList<TournamentParser>>(){}.getType();
             //ArrayList<Object> tournaments = gson.fromJson(stream, tournamentListType);
-            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_CLUBS, null);
+            ArrayList<Object> datas = new ArrayList<>();
+            if (Integer.parseInt(userId) == 3) {
+                datas.add(new ClubParser("Club 1 for id 3"));
+                datas.add(new ClubParser("Club 2 for id 3"));
+                datas.add(new ClubParser("Club 3 for id 3"));
+                datas.add(new ClubParser("Club 4 for id 3"));
+                datas.add(new ClubParser("Club 5 for id 3"));
+            } else if (Integer.parseInt(userId) == 4)
+                datas.add(new ClubParser("Club for id 4"));
+            else if (Integer.parseInt(userId) == 5)
+                datas.add(new ClubParser("Club for id 5"));
+            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_CLUBS, userId, datas);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
             webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage());

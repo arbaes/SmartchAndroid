@@ -23,6 +23,10 @@ public class Constants {
     public static final int PLAYER_2_POINT = 1;
     public static final String ADD_POINT = "add_point";
     public static final String DELETE_POINT = "delete_point";
+    public static final String RESULT_PLAYER_1 = "result_player_1";
+    public static final String RESULT_PLAYER_2 = "result_player_2";
+    public static final String RESULT_MATCH_ID = "result_match_id";
+    public static final int RESULT_COUNT_POINT = 200;
 
     //Custom Base URL
     public static final String BASE_URL_COUNT_POINT = "http://smartch.azurewebsites.net/api/matchs/";

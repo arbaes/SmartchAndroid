@@ -34,7 +34,9 @@
             android:name=".activities.PlayerStatsActivity"
             android:label="@string/title_activity_player_stats"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.PointCountActivity" />
+        <activity
+            android:name=".activities.PointCountActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.MatchDetailsActivity"
             android:label="@string/title_activity_match_details" />

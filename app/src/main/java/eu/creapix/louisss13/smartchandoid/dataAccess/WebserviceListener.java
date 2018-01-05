@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface WebserviceListener {
 
-    void onWebserviceFinishWithSuccess(String method, ArrayList<Object> datas);
+    void onWebserviceFinishWithSuccess(String method, String id, ArrayList<Object> datas);
 
     void onWebserviceFinishWithError(String error);
 }

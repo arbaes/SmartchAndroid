@@ -37,6 +37,7 @@ public class MatchParser extends JSONObject {
     private ArrayList<PointParser> score;
 
     public MatchParser() {
+
     }
 
     public PlayerScore getMatchScore(){

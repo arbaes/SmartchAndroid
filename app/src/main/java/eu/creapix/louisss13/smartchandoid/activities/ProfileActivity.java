@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -22,11 +21,9 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.dataAccess.ProfileDao;
-import eu.creapix.louisss13.smartchandoid.dataAccess.TournamentsDao;
 import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.AccountParser;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.UserInfoParser;
-import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 
 
@@ -36,6 +33,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private EditText firstName, lastName, email, password, confirmPassword;
     private TextView headerFullName, headerEmail;
     private FloatingActionButton edit;
+    private Button mGetUserInfos;
     private boolean inEdit;
 
 
@@ -55,7 +53,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         edit.setOnClickListener(this);
 
-        Button mGetUserInfos = findViewById(R.id.get_userinfo);
+        mGetUserInfos = findViewById(R.id.get_userinfo);
         mGetUserInfos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +61,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
             }
         });
-
 
         new GetDatas().execute();
     }
@@ -86,7 +83,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         if (!StringUtils.isEmpty(emailTxt)) {
             headerEmail.setText(emailTxt);
             email.setText(emailTxt);
-            PreferencesUtils.saveEmail(getApplicationContext(),headerEmail.getText().toString());
+            PreferencesUtils.saveEmail(getApplicationContext(), headerEmail.getText().toString());
         }
     }
 
@@ -97,6 +94,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.last_name).setEnabled(inEdit);
         //findViewById(R.id.email).setEnabled(inEdit);
         edit.setImageResource(show ? R.drawable.ic_done : R.drawable.ic_edit_black_24dp);
+        mGetUserInfos.setVisibility(show ? View.GONE : View.VISIBLE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(show ? R.drawable.ic_clear : R.drawable.ic_menu);
@@ -135,7 +133,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         @Override
         protected Void doInBackground(Void... params) {
             try {
-
                 ProfileDao profileDao = new ProfileDao();
                 profileDao.getProfile(ProfileActivity.this, PreferencesUtils.getToken(getApplicationContext()));
             } catch (IOException e) {
@@ -149,20 +146,22 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(String method, final ArrayList<Object> datas) {
-        Log.e("SUCCESS WebServ", ""+datas.get(0).getClass());
-
+    public void onWebserviceFinishWithSuccess(String method, String id, final ArrayList<Object> datas) {
+        Log.e("SUCCESS WebServ", "" + datas.get(0).getClass());
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (datas.get(0) instanceof AccountParser) {
                     AccountParser account = (AccountParser) datas.get(0);
                     UserInfoParser[] userInfo = account.getUserInfos();
-                    if ( userInfo.length > 0 ) {
+                    if (userInfo.length > 0) {
                         populateDatas(userInfo[0].getFirstName(), userInfo[0].getLastName(), account.getEmail());
                     } else {
                         Toast.makeText(ProfileActivity.this, "Aucune donnée de profil trouvée", Toast.LENGTH_SHORT).show();
                     }
+
+                    findViewById(R.id.details).setVisibility(View.VISIBLE);
+                    findViewById(R.id.progress).setVisibility(View.GONE);
                 }
             }
         });
@@ -170,8 +169,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onWebserviceFinishWithError(String error) {
-
-        Log.e("ERROR WebServ",""+error);
-
+        Log.e("ERROR WebServ", "" + error);
+        findViewById(R.id.details).setVisibility(View.VISIBLE);
+        findViewById(R.id.progress).setVisibility(View.GONE);
     }
 }

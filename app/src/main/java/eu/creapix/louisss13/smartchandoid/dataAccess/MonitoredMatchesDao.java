@@ -12,9 +12,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.activities.MonitoredMatchesActivity;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.AccountParser;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.MatchParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
@@ -46,7 +44,7 @@ public class MonitoredMatchesDao {
 
             Type matchType = new TypeToken<ArrayList<MatchParser>>(){}.getType();
             ArrayList<Object> monitoredMatches = gson.fromJson(stream, matchType);
-            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_MONITORED_MATCHES, monitoredMatches);
+            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_MONITORED_MATCHES, null, monitoredMatches);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
             webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage());
