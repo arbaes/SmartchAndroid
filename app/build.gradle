@@ -20,6 +20,7 @@ android {
 
 dependencies {
 
+    compile 'net.danlew:android.joda:2.9.9.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.code.gson:gson:2.8.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])

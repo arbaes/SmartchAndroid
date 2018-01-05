@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/user_data_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/nav_header_vertical_spacing"

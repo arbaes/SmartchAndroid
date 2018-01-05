@@ -26,6 +26,9 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     private TextView player1Name, player2Name;
     private int matchId;
 
+
+    //TODO Empecher de descendre en dessous de 0
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,5 +1,6 @@
 package eu.creapix.louisss13.smartchandoid.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +52,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         edit = (FloatingActionButton) findViewById(R.id.edit);
 
         edit.setOnClickListener(this);
+
+        Button mGetUserInfos = findViewById(R.id.get_userinfo);
+        mGetUserInfos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, ViewUserDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         new GetDatas().execute();
     }
