@@ -58,14 +58,20 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         mGetUserInfos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, ViewUserDetailsActivity.class);
-                startActivity(intent);
+                if (Utils.hasConnexion(getApplicationContext())) {
+                    Intent intent = new Intent(ProfileActivity.this, ViewUserDetailsActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(ProfileActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.progress).setVisibility(View.GONE);
+                }
             }
         });
         if (Utils.hasConnexion(getApplicationContext())) {
             new GetDatas().execute();
         } else {
             Toast.makeText(ProfileActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+            findViewById(R.id.progress).setVisibility(View.GONE);
         }
 
 
@@ -164,6 +170,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                         populateDatas(userInfo[0].getFirstName(), userInfo[0].getLastName(), account.getEmail());
                     } else {
                         Toast.makeText(ProfileActivity.this, "Aucune donnée de profil trouvée", Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.progress).setVisibility(View.GONE);
+
                     }
 
                     findViewById(R.id.details).setVisibility(View.VISIBLE);

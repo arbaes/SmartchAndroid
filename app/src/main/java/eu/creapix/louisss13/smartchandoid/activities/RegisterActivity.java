@@ -49,7 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    if (Utils.hasConnexion(getApplicationContext())) {
+                        attemptRegister();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 }
                 return false;
@@ -60,7 +64,11 @@ public class RegisterActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                if (Utils.hasConnexion(getApplicationContext())) {
+                    attemptRegister();
+                } else {
+                    Toast.makeText(RegisterActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -68,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void attemptLogin() {
+    private void attemptRegister() {
         if (mAuthTask != null) {
             return;
         }
@@ -114,6 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                 mAuthTask.execute((Void) null);
             } else {
                 Toast.makeText(RegisterActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+
             }
 
         }

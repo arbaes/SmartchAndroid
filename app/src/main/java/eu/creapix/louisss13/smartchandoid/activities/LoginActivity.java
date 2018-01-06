@@ -67,7 +67,12 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                if (Utils.hasConnexion(getApplicationContext())) {
+                    attemptLogin();
+                } else {
+                    Toast.makeText(LoginActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -160,12 +165,7 @@ public class LoginActivity extends AppCompatActivity {
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-
-            if (Utils.hasConnexion(getApplicationContext())) {
-                mAuthTask.execute((Void) null);
-            } else {
-                Toast.makeText(LoginActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
-            }
+            mAuthTask.execute((Void) null);
 
         }
     }
