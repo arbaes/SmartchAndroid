@@ -68,29 +68,25 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/player_a_sendScore"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/primaryLightColor"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="+1"
+                android:textAlignment="center"
+                android:textColor="@color/primaryDarkColor"
+                android:textSize="36sp" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/player_a_sendScore"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/primaryLightColor"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="+1"
-                    android:textAlignment="center"
-                    android:textColor="@color/primaryDarkColor"
-                    android:textSize="36sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="196dp"
+                android:gravity="center_vertical"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -99,7 +95,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:gravity="center_horizontal"
                     android:text="Player A"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
@@ -123,43 +118,36 @@
                 <TextView
                     android:id="@+id/finished_sets_score_player_1"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:ellipsize="start"
                     android:gravity="center"
+                    android:padding="8dp"
                     android:singleLine="true"
                     android:text=" 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15"
-                    android:padding="8dp"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
             </LinearLayout>
 
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/player_a_deleteScore"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/player_a_deleteScore"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/primaryDarkColor"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="-1"
-                    android:textAlignment="center"
-                    android:textColor="@color/primaryLightColor"
-                    android:textSize="36sp" />
-
-            </LinearLayout>
+                android:background="@color/primaryDarkColor"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="-1"
+                android:textAlignment="center"
+                android:textColor="@color/primaryLightColor"
+                android:textSize="36sp" />
 
 
         </LinearLayout>
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="4dp"
             android:layout_height="match_parent"
-            android:background="@color/primaryTextColor" />
+            android:background="@color/colorAccent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,29 +155,25 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/player_b_sendScore"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/primaryLightColor"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="+1"
+                android:textAlignment="center"
+                android:textColor="@color/primaryDarkColor"
+                android:textSize="36sp" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/player_b_sendScore"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/primaryLightColor"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="+1"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="36sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="196dp"
+                android:gravity="center_vertical"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -198,9 +182,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:gravity="center_horizontal"
-                    android:text="Player B"
+                    android:text="Player A"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
                 <TextView
@@ -222,7 +205,7 @@
                 <TextView
                     android:id="@+id/finished_sets_score_player_2"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:ellipsize="start"
                     android:gravity="center"
                     android:padding="8dp"
@@ -232,25 +215,18 @@
             </LinearLayout>
 
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/player_b_deleteScore"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/player_b_deleteScore"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/primaryDarkColor"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="-1"
-                    android:textAlignment="center"
-                    android:textColor="@color/primaryLightColor"
-                    android:textSize="36sp" />
-
-            </LinearLayout>
+                android:background="@color/primaryDarkColor"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="-1"
+                android:textAlignment="center"
+                android:textColor="@color/primaryLightColor"
+                android:textSize="36sp" />
 
 
         </LinearLayout>
