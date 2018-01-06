@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -19,7 +18,7 @@ import eu.creapix.louisss13.smartchandoid.adapter.MonitoredMatchAdapter;
 import eu.creapix.louisss13.smartchandoid.dataAccess.MonitoredMatchesDao;
 import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.MatchParser;
-import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.ScoreCalculatedParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
@@ -46,16 +45,24 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
 
-        new GetMonitoredMatches().execute();
+        if (Utils.hasConnexion(getApplicationContext())) {
+            new GetMonitoredMatches().execute();
+        } else {
+            Toast.makeText(MonitoredMatchesActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
 
 
     }
 
-    public void monitorMatch(int matchId, PlayerScore matchScore) {
+    public void monitorMatch(int matchId, ScoreCalculatedParser matchScore, String player1DisplayName, String player2DisplayName) {
         Intent intent = new Intent(this, PointCountActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.putExtra(Constants.MATCH_ID, matchId);
         intent.putExtra(Constants.MATCH_SCORE, matchScore);
+        intent.putExtra(Constants.PLAYER_1_NAME, player1DisplayName);
+        intent.putExtra(Constants.PLAYER_2_NAME, player2DisplayName);
         startActivityForResult(intent, Constants.RESULT_COUNT_POINT);
     }
 
@@ -104,7 +111,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(final String method, String id, final ArrayList<Object> datas) {
+    public void onWebserviceFinishWithSuccess(final String method, Integer id, final ArrayList<Object> datas) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -119,20 +126,20 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error) {
+    public void onWebserviceFinishWithError(String error, int errorCode) {
         swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("TAG", "onActivityResult: " + requestCode + " - " + resultCode);
+
         if (requestCode == Constants.RESULT_COUNT_POINT && resultCode == RESULT_OK) {
             if (Utils.hasConnexion(getApplicationContext())) {
                 swipeRefreshLayout.setRefreshing(true);
                 refresh();
             } else {
-                Toast.makeText(MonitoredMatchesActivity.this, "An internet connection is required for this operation", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MonitoredMatchesActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
         }

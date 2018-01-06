@@ -41,13 +41,15 @@ public class MonitoredMatchesDao {
             Log.e(TAG, "Connexion OK - " + connection.getResponseCode());
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
+            Log.e(TAG, "JSON - " + stream);
+
 
             Type matchType = new TypeToken<ArrayList<MatchParser>>(){}.getType();
             ArrayList<Object> monitoredMatches = gson.fromJson(stream, matchType);
-            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_MONITORED_MATCHES, null, monitoredMatches);
+            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_MONITORED_MATCHES, 0, monitoredMatches);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage());
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), 707);
         }
     }
 }

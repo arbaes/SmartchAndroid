@@ -90,7 +90,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="196dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -112,6 +112,24 @@
                     android:text="0"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"
                     android:textSize="100sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Previous Sets"
+                    android:textAppearance="@android:style/TextAppearance.Material.Small" />
+
+                <TextView
+                    android:id="@+id/finished_sets_score_player_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:ellipsize="start"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text=" 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15"
+                    android:padding="8dp"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
             </LinearLayout>
 
 
@@ -171,7 +189,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="196dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -193,6 +211,24 @@
                     android:text="0"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"
                     android:textSize="100sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Previous Sets"
+                    android:textAppearance="@android:style/TextAppearance.Material.Small" />
+
+                <TextView
+                    android:id="@+id/finished_sets_score_player_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:ellipsize="start"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:text=" 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
             </LinearLayout>
 
 

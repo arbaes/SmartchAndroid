@@ -146,7 +146,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(String method, String id, final ArrayList<Object> datas) {
+    public void onWebserviceFinishWithSuccess(String method, Integer id, final ArrayList<Object> datas) {
         Log.e("SUCCESS WebServ", "" + datas.get(0).getClass());
         runOnUiThread(new Runnable() {
             @Override
@@ -168,7 +168,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error) {
+    public void onWebserviceFinishWithError(String error, int errorCode) {
         Log.e("ERROR WebServ", "" + error);
         findViewById(R.id.details).setVisibility(View.VISIBLE);
         findViewById(R.id.progress).setVisibility(View.GONE);

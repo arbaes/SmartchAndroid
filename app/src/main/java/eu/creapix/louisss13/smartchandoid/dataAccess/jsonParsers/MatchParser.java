@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
@@ -33,8 +34,8 @@ public class MatchParser extends JSONObject {
     @SerializedName("phase")
     private int phase;
 
-    @SerializedName("score")
-    private ArrayList<PointParser> score;
+    @SerializedName("calculatedScore")
+    private ScoreCalculatedParser score;
 
     public MatchParser() {
 
@@ -45,9 +46,10 @@ public class MatchParser extends JSONObject {
         int totPlayer1Points = 0;
         int totPlayer2Points = 0;
 
-        for (int i = 0; i < this.score.size(); i++) {
 
-            switch (this.score.get(i).getScoredBy()){
+        for (int i = 0; i < this.score.getPointLevels().size() - 1; i++) {
+
+            switch (this.score.getPointLevels().get(i).getSetWinner()){
                 case Constants.PLAYER_1_POINT:
                     totPlayer1Points++;
                     break;
@@ -112,11 +114,11 @@ public class MatchParser extends JSONObject {
         this.phase = phase;
     }
 
-    public ArrayList<PointParser> getScore() {
+    public ScoreCalculatedParser getScore() {
         return score;
     }
 
-    public void setScore(ArrayList<PointParser> score) {
+    public void setScore(ScoreCalculatedParser score) {
         this.score = score;
     }
 }

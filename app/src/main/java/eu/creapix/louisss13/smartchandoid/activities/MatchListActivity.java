@@ -59,7 +59,6 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
 
         tabLayout.addTab(tabLayout.newTab().setText("Tournaments"));
         tabLayout.addTab(tabLayout.newTab().setText("Matches"));
-        tabLayout.addTab(tabLayout.newTab().setText("Watched"));
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -82,7 +81,13 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
 
     private void setupContentForTab() {
         swipeRefreshLayout.setRefreshing(true);
-        new GetDatas().execute();
+        if (Utils.hasConnexion(getApplicationContext())) {
+            new GetDatas().execute();
+        } else {
+            Toast.makeText(MatchListActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
     }
 
     private void setupDatasAfterFetch(ArrayList<Object> datas) {
@@ -99,7 +104,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(final String method, String id, final ArrayList<Object> datas) {
+    public void onWebserviceFinishWithSuccess(final String method, Integer id, final ArrayList<Object> datas) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -112,7 +117,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error) {
+    public void onWebserviceFinishWithError(String error, int errorCode) {
 
         runOnUiThread(new Runnable() {
             @Override
@@ -157,10 +162,10 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
                         tournamentsDao.getTournaments(MatchListActivity.this, PreferencesUtils.getToken(getApplicationContext()));
                         break;
                     case 1:
-                        onWebserviceFinishWithSuccess(Constants.GET_MATCHES, null, new ArrayList<Object>());
+                        onWebserviceFinishWithSuccess(Constants.GET_MATCHES, 0, new ArrayList<Object>());
                         break;
                     case 2:
-                        onWebserviceFinishWithSuccess(Constants.GET_WATCHED, null, new ArrayList<Object>());
+                        onWebserviceFinishWithSuccess(Constants.GET_WATCHED, 0, new ArrayList<Object>());
                         break;
                 }
             } catch (IOException e) {

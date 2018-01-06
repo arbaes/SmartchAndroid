@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,15 +17,19 @@ import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.dataAccess.PointCountDao;
 import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
-import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.PointLevelParser;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.ScoreCalculatedParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
+import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 public class PointCountActivity extends AppCompatActivity implements WebserviceListener {
 
     private TextView player1Score, player2Score;
     private TextView player1Name, player2Name;
+    private TextView player1PreviousSets, player2PreviousSets;
     private int matchId;
+    private int player1CurrentSetScore, player2CurrentSetScore;
     private View wait;
     private int asyncCnt;
 
@@ -40,6 +45,9 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         player2Score = findViewById(R.id.player_b_setScore);
         player1Name = findViewById(R.id.player_a_name);
         player2Name = findViewById(R.id.player_b_name);
+        player1PreviousSets = findViewById(R.id.finished_sets_score_player_1);
+        player2PreviousSets = findViewById(R.id.finished_sets_score_player_2);
+
         wait = findViewById(R.id.relative_wait);
 
         checkIntent(getIntent());
@@ -52,9 +60,15 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             @Override
             public void onClick(View view) {
                 SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.POST);
-                mAddPointPlayer1.setBackgroundResource(R.color.colorAccent);
+                mAddPointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
+                mAddPointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
                 mAddPointPlayer1.setEnabled(false);
-                new SendPoint().execute(params);
+                if (Utils.hasConnexion(getApplicationContext())) {
+                    new SendPoint().execute(params);
+                } else {
+                    Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
@@ -64,9 +78,14 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             @Override
             public void onClick(View view) {
                 SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.POST);
-                mAddPointPlayer2.setBackgroundResource(R.color.colorAccent);
+                mAddPointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
+                mAddPointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
                 mAddPointPlayer2.setEnabled(false);
-                new SendPoint().execute(params);
+                if (Utils.hasConnexion(getApplicationContext())) {
+                    new SendPoint().execute(params);
+                } else {
+                    Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -76,9 +95,14 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             @Override
             public void onClick(View view) {
                 SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.DELETE);
-                mDeletePointPlayer1.setBackgroundResource(R.color.colorAccent);
+                mDeletePointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
+                mDeletePointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
                 mDeletePointPlayer1.setEnabled(false);
-                new SendPoint().execute(params);
+                if (Utils.hasConnexion(getApplicationContext())) {
+                    new SendPoint().execute(params);
+                } else {
+                    Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -88,49 +112,63 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             @Override
             public void onClick(View view) {
                 SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.DELETE);
-                mDeletePointPlayer2.setBackgroundResource(R.color.colorAccent);
+                mDeletePointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
+                mDeletePointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
                 mDeletePointPlayer2.setEnabled(false);
-                new SendPoint().execute(params);
+                if (Utils.hasConnexion(getApplicationContext())) {
+                    new SendPoint().execute(params);
+                } else {
+                    Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(final String method, String id, final ArrayList<Object> datas) {
+    public void onWebserviceFinishWithSuccess(final String method, final Integer scoredBy, final ArrayList<Object> datas) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
+                if (datas != null && datas.size() > 0){
+                    Log.e("POINT COUNT DATA", "received");
+                    ScoreCalculatedParser scores = (ScoreCalculatedParser) datas.get(0);
+                    populateScores(scores.getPointLevels());
+                }
+
+
+
                 if (Constants.POST_POINT.equals(method)) {
 
-                    int scoredBy = (Integer) datas.get(0);
-                    updateScore(scoredBy, Constants.ADD_POINT);
                     switch (scoredBy) {
                         case Constants.PLAYER_1_POINT:
                             TextView mAddPointPlayer1 = findViewById(R.id.player_a_sendScore);
                             mAddPointPlayer1.setBackgroundResource(R.color.primaryLightColor);
+                            mAddPointPlayer1.setTextColor(getResources().getColor(R.color.primaryDarkColor));
                             mAddPointPlayer1.setEnabled(true);
                             break;
                         case Constants.PLAYER_2_POINT:
                             TextView mAddPointPlayer2 = findViewById(R.id.player_b_sendScore);
                             mAddPointPlayer2.setBackgroundResource(R.color.primaryLightColor);
+                            mAddPointPlayer2.setTextColor(getResources().getColor(R.color.primaryDarkColor));
                             mAddPointPlayer2.setEnabled(true);
 
 
                     }
                 } else if (Constants.DELETE_POINT.equals(method)) {
-                    Log.e("DELETE", "OK");
-                    int scoredBy = (Integer) datas.get(0);
-                    updateScore(scoredBy, Constants.DELETE_POINT);
+
                     switch (scoredBy) {
                         case Constants.PLAYER_1_POINT:
                             TextView mAddPointPlayer1 = findViewById(R.id.player_a_deleteScore);
                             mAddPointPlayer1.setBackgroundResource(R.color.primaryDarkColor);
+                            mAddPointPlayer1.setTextColor(getResources().getColor(R.color.primaryLightColor));
                             mAddPointPlayer1.setEnabled(true);
                             break;
                         case Constants.PLAYER_2_POINT:
                             TextView mAddPointPlayer2 = findViewById(R.id.player_b_deleteScore);
                             mAddPointPlayer2.setBackgroundResource(R.color.primaryDarkColor);
+                            mAddPointPlayer2.setTextColor(getResources().getColor(R.color.primaryLightColor));
                             mAddPointPlayer2.setEnabled(true);
                     }
                 }
@@ -139,7 +177,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error) {
+    public void onWebserviceFinishWithError(String error, int errorCode) {
 
     }
 
@@ -180,6 +218,26 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         }
     }
 
+    private String getFinishedSetsDisplay(ArrayList<PointLevelParser> sets, int scoredBy){
+
+        String finishedSetsDisplay = "";
+        switch (scoredBy) {
+            case Constants.PLAYER_1_POINT:
+                for (int i = 0; i < sets.size() - 1; i++){
+                    finishedSetsDisplay += sets.get(i).getScorePlayer1()+ "  ";
+                }
+                break;
+            case Constants.PLAYER_2_POINT:
+                for (int i = 0; i < sets.size() - 1; i++){
+                    finishedSetsDisplay += sets.get(i).getScorePlayer2()+ "  ";
+                }
+                break;
+        }
+        if ( sets.size() > 0 ){
+            finishedSetsDisplay.substring(0, finishedSetsDisplay.length() - 2);
+        }
+        return finishedSetsDisplay;
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -193,6 +251,22 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         finish();
     }
 
+    public void populateScores(ArrayList<PointLevelParser> currentScore){
+
+        String displayPreviousSetsPlayer1 = this.getFinishedSetsDisplay(currentScore, Constants.PLAYER_1_POINT);
+        String displayPreviousSetsPlayer2 = this.getFinishedSetsDisplay(currentScore, Constants.PLAYER_2_POINT);
+
+        player1PreviousSets.setText(displayPreviousSetsPlayer1);
+        player2PreviousSets.setText(displayPreviousSetsPlayer2);
+
+        player1CurrentSetScore = currentScore.get(currentScore.size()-1).getScorePlayer1();
+        player2CurrentSetScore = currentScore.get(currentScore.size()-1).getScorePlayer2();
+
+        player1Score.setText(String.valueOf(player1CurrentSetScore));
+        player2Score.setText(String.valueOf(player2CurrentSetScore));
+
+    }
+
     private void checkIntent(Intent intent) {
         if (intent.hasExtra(Constants.MATCH_ID)) {
             int matchId = intent.getIntExtra(Constants.MATCH_ID, 0);
@@ -200,43 +274,19 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             this.matchId = matchId;
 
         }
-        if (intent.hasExtra(Constants.MATCH_SCORE)) {
+        if (intent.hasExtra(Constants.MATCH_SCORE) && intent.hasExtra(Constants.PLAYER_1_NAME) && intent.hasExtra(Constants.PLAYER_2_NAME)) {
 
+            ScoreCalculatedParser matchState = (ScoreCalculatedParser) intent.getSerializableExtra(Constants.MATCH_SCORE);
+            ArrayList<PointLevelParser> currentScore = matchState.getPointLevels();
 
-            PlayerScore currentScore = (PlayerScore) intent.getSerializableExtra(Constants.MATCH_SCORE);
-            player1Name.setText(currentScore.getPlayer1Name());
-            player1Score.setText("" + currentScore.getPlayer1Score());
-
-            player2Name.setText(currentScore.getPlayer2Name());
-            player2Score.setText("" + currentScore.getPlayer2Score());
+            player1Name.setText(intent.getStringExtra(Constants.PLAYER_1_NAME));
+            player2Name.setText(intent.getStringExtra(Constants.PLAYER_2_NAME));
+            populateScores(currentScore);
         }
 
     }
 
-    public void updateScore(int scoredBy, String actionType) {
-
-        TextView currentScoreView = null;
-        switch (scoredBy) {
-            case Constants.PLAYER_1_POINT:
-                currentScoreView = player1Score;
-                break;
-            case Constants.PLAYER_2_POINT:
-                currentScoreView = player2Score;
-                break;
-        }
-        int currentScore = Integer.parseInt(currentScoreView.getText().toString());
-
-        switch (actionType) {
-            case Constants.ADD_POINT:
-                currentScore++;
-                break;
-            case Constants.DELETE_POINT:
-                currentScore--;
-                break;
-        }
-
-        currentScoreView.setText("" + currentScore);
-    }
+    //TODO export en model
 
     private static class SendPointsParams {
         int matchId;

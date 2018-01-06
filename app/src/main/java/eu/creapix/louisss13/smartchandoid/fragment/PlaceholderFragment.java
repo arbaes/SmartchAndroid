@@ -111,11 +111,11 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(String method, final String id, final ArrayList<Object> datas) {
+    public void onWebserviceFinishWithSuccess(String method, final Integer id, final ArrayList<Object> datas) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if ((datas != null) && id != null && id.equals(String.valueOf(userInfo.getId())) && (datas.get(0) instanceof ClubParser)) {
+                if ((datas != null) && (id != null) && (datas.size() > 0) && id.equals(String.valueOf(userInfo.getId())) && (datas.get(0) instanceof ClubParser)) {
                     updateClubList(datas);
                 }
             }
@@ -123,7 +123,7 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error) {
+    public void onWebserviceFinishWithError(String error, int errorCode) {
         updateClubList(null);
     }
 
@@ -133,7 +133,7 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
         protected Void doInBackground(Void... params) {
             try {
                 ClubsDao profileDao = new ClubsDao();
-                profileDao.getClubs(PlaceholderFragment.this, String.valueOf(userInfo.getId()), PreferencesUtils.getToken(getActivity().getApplicationContext()));
+                profileDao.getClubs(PlaceholderFragment.this, userInfo.getId(), PreferencesUtils.getToken(getActivity().getApplicationContext()));
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {

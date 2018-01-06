@@ -41,12 +41,13 @@ public class TournamentsDao {
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
 
+            Log.e(TAG, "JSON - " + stream);
             Type tournamentListType = new TypeToken<ArrayList<TournamentParser>>(){}.getType();
             ArrayList<Object> tournaments = gson.fromJson(stream, tournamentListType);
-            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_TOURNAMENT, null, tournaments);
+            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_TOURNAMENT, 0, tournaments);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage());
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), 707);
         }
     }
 

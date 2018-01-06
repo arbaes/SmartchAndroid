@@ -37,7 +37,7 @@ public class ProfileDao {
 
         HttpURLConnection connection = datahandler.GetHTTPData(Urls.Account, token);
 
-        if (connection.getResponseCode() == 200) {
+        if ((connection.getResponseCode() >= 200) && ( connection.getResponseCode() < 300)) {
             Log.e(TAG, "Connexion OK - " + connection.getResponseCode());
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
@@ -47,10 +47,10 @@ public class ProfileDao {
             AccountParser profile = gson.fromJson(stream, accountType);
             ArrayList<Object> profileList = new ArrayList<Object>();
             profileList.add(profile);
-            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_PROFILE, null, profileList);
+            webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_PROFILE, 0, profileList);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage());
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), 707);
         }
     }
 }

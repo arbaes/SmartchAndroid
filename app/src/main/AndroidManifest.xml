@@ -31,31 +31,18 @@
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.PlayerStatsActivity"
-            android:label="@string/title_activity_player_stats"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.PointCountActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.MatchDetailsActivity"
-            android:label="@string/title_activity_match_details" />
         <activity
             android:name=".activities.MonitoredMatchesActivity"
             android:label="Matchs Arbitrés"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.ListingActivity"
-            android:label="@string/title_activity_listing"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.MatchListActivity"
             android:label="@string/title_activity_match_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.BaseActivity" />
-        <activity
-            android:name=".activities.ExpiredSessionActivity"
-            android:theme="@style/dialogueStyleWhite" />
         <activity
             android:name=".activities.ViewUserDetailsActivity"
             android:label="@string/title_activity_view_user_details"

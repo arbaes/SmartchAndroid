@@ -3,16 +3,21 @@ package eu.creapix.louisss13.smartchandoid.dataAccess;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.PointDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.PointLevelParser;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.ScoreCalculatedParser;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TournamentParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 /**
@@ -27,7 +32,6 @@ public class PointCountDao {
     private HTTPJsonHandler datahandler = new HTTPJsonHandler();
     private String TAG = "PointDao";
 
-    private static final String pointBaseUrl = "/api/matchs/{id}/point/";
 
     public PointCountDao() {
         apiService = new ApiService();
@@ -75,23 +79,31 @@ public class PointCountDao {
             e1.printStackTrace();
         }
 
-        if (urlConnection.getResponseCode() == 200) {
+        if ((urlConnection.getResponseCode() >= 200) && (urlConnection.getResponseCode() < 300)){
             Log.e(TAG, "SENDPOINT OK - " + urlConnection.getResponseCode());
-            ArrayList<Object> scoredBys = new ArrayList<Object>();
-            scoredBys.add(scoredBy);
+            String stream = datahandler.StreamToJson(urlConnection.getInputStream());
+            Log.e(TAG , "JSON Response Content : " + stream);
+
+            Type scoreCalculatedType = new TypeToken<ScoreCalculatedParser>(){}.getType();
+            ScoreCalculatedParser sets = gson.fromJson(stream, scoreCalculatedType);
+            ArrayList<Object> scores = new ArrayList<>();
+            scores.add(sets);
+
+
+
             switch (requestMethod){
                 case POST:
-                    webserviceListener.onWebserviceFinishWithSuccess(Constants.POST_POINT, null, scoredBys);
+                    webserviceListener.onWebserviceFinishWithSuccess(Constants.POST_POINT, scoredBy, scores);
                     break;
                 case DELETE:
-                    webserviceListener.onWebserviceFinishWithSuccess(Constants.DELETE_POINT, null, scoredBys);
+                    webserviceListener.onWebserviceFinishWithSuccess(Constants.DELETE_POINT, scoredBy, scores);
                     break;
             }
 
 
         } else {
             Log.e(TAG, "SENDPOINT NOT OK : " + urlConnection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(urlConnection.getResponseCode() +" - " + urlConnection.getResponseMessage());
+            webserviceListener.onWebserviceFinishWithError(urlConnection.getResponseCode() +" - " + urlConnection.getResponseMessage(), urlConnection.getResponseCode());
 
         }
     }

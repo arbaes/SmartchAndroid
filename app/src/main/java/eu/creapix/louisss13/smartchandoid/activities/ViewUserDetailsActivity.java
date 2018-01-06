@@ -53,7 +53,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
     }
 
     @Override
-    public void onWebserviceFinishWithSuccess(String method, String id, final ArrayList<Object> datas) {
+    public void onWebserviceFinishWithSuccess(String method, Integer id, final ArrayList<Object> datas) {
 
         runOnUiThread(new Runnable() {
             @Override
@@ -76,7 +76,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error) {
+    public void onWebserviceFinishWithError(String error, int errorCode) {
 
     }
 

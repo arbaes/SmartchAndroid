@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.activities.MonitoredMatchesActivity;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.MatchParser;
+import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.ScoreCalculatedParser;
 import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
 
 /**
@@ -36,25 +37,23 @@ public class MonitoredMatchAdapter extends RecyclerView.Adapter<MonitoredMatchAd
 
     @Override
     public void onBindViewHolder(final MonitoredMatchViewHolder viewHolder, int position) {
-        Log.e("TAG", "onBindViewHolder: " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getId() + " - " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getMatchScore().getPlayer1Score() + " - " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getMatchScore().getPlayer2Score());
-        PlayerScore matchScore = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getMatchScore();
 
-        String player1Name = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer1().getLastName() + " " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer1().getFirstName().charAt(0) + ".";
-        String player2Name = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer2().getLastName() + " " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer2().getFirstName().charAt(0) + ".";
-        matchScore.setPlayer1Name(player1Name);
-        matchScore.setPlayer2Name(player2Name);
-        final PlayerScore matchScoreSetted = matchScore;
+        PlayerScore matchScore = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getMatchScore();
+        final ScoreCalculatedParser matchState = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getScore();
+
+        final String player1Name = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer1().getLastName() + " " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer1().getFirstName().charAt(0) + ".";
+        final String player2Name = ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer2().getLastName() + " " + ((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getPlayer2().getFirstName().charAt(0) + ".";
 
 
         String score = matchScore.getPlayer1Score() + " - " + matchScore.getPlayer2Score();
-        viewHolder.playerLeftName.setText(matchScore.getPlayer1Name());
+        viewHolder.playerLeftName.setText(player1Name);
         viewHolder.playerScores.setText(score);
-        viewHolder.playerRightName.setText(matchScore.getPlayer2Name());
+        viewHolder.playerRightName.setText(player2Name);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.monitorMatch(((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getId(), matchScoreSetted);
+                activity.monitorMatch(((MatchParser) matchs.get(viewHolder.getAdapterPosition())).getId(), matchState, player1Name, player2Name);
             }
         });
     }

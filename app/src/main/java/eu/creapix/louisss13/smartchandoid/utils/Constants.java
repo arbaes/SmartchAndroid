@@ -6,6 +6,8 @@ package eu.creapix.louisss13.smartchandoid.utils;
 
 public class Constants {
 
+
+    //DAO Related
     public static final String LOGIN = "login";
     public static final String PWD = "pwd";
     public static final String MATCH_ID = "match_id";
@@ -19,8 +21,11 @@ public class Constants {
     public static final String POST_POINT = "post_point";
 
 
+    //Player Management
     public static final int PLAYER_1_POINT = 0;
     public static final int PLAYER_2_POINT = 1;
+    public static final String PLAYER_1_NAME = "player_1_name";
+    public static final String PLAYER_2_NAME = "player_2_name";
     public static final String ADD_POINT = "add_point";
     public static final String DELETE_POINT = "delete_point";
     public static final String RESULT_PLAYER_1 = "result_player_1";
