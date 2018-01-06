@@ -22,6 +22,7 @@ import java.io.IOException;
 import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
+import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 /**
  * A login screen that offers login via email/password.
@@ -109,7 +110,12 @@ public class RegisterActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             mAuthTask = new RegisterActivity.RegisterTask(email, password);
-            mAuthTask.execute((Void) null);
+            if (Utils.hasConnexion(getApplicationContext())) {
+                mAuthTask.execute((Void) null);
+            } else {
+                Toast.makeText(RegisterActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 

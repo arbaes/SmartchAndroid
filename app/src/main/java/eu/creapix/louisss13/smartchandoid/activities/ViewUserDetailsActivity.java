@@ -21,6 +21,7 @@ import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.AccountParser;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.UserInfoParser;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
+import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 public class ViewUserDetailsActivity extends AppCompatActivity implements WebserviceListener {
 
@@ -38,7 +39,12 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        new GetDatas().execute();
+        if (Utils.hasConnexion(getApplicationContext())) {
+            new GetDatas().execute();
+        } else {
+            Toast.makeText(ViewUserDetailsActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+        }
+
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

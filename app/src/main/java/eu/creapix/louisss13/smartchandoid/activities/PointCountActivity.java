@@ -195,7 +195,6 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             try {
 
                 PointCountDao pointCountDao = new PointCountDao();
-
                 pointCountDao.postPoint(
                         PointCountActivity.this,
                         params[0].scoredBy,

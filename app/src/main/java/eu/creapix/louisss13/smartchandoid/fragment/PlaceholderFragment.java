@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -20,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.activities.RegisterActivity;
 import eu.creapix.louisss13.smartchandoid.activities.ViewUserDetailsActivity;
 import eu.creapix.louisss13.smartchandoid.adapter.ClubListAdapter;
 import eu.creapix.louisss13.smartchandoid.dataAccess.ClubsDao;
@@ -27,6 +30,7 @@ import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.ClubParser;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.UserInfoParser;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
+import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 /**
  * Created by arnau on 05-01-18.
@@ -92,7 +96,17 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
         age.setText(String.valueOf(ageTxt));
         email.setText(emailTxt);
 
-        new GetClubs().execute();
+
+
+
+        if (Utils.hasConnexion(super.getContext())) {
+            Log.e("HAS CONN","COND OK");
+            new GetClubs().execute();
+        } else {
+            Log.e("HAS CONN","COND FAILED");
+            Toast.makeText(getActivity(), R.string.no_connection, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void updateClubList(ArrayList<Object> datas) {
@@ -111,11 +125,13 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
     }
 
     @Override
+    //TODO - Prevoir le NoData
     public void onWebserviceFinishWithSuccess(String method, final Integer id, final ArrayList<Object> datas) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if ((datas != null) && (id != null) && (datas.size() > 0) && id.equals(String.valueOf(userInfo.getId())) && (datas.get(0) instanceof ClubParser)) {
+                Log.e("DEBUG", "Content : " + id);
+                if ((datas != null) && (id != null) && (datas.size() > 0) && id.equals(userInfo.getId()) && (datas.get(0) instanceof ClubParser)) {
                     updateClubList(datas);
                 }
             }

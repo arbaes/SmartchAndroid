@@ -23,7 +23,7 @@ import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 public class ClubsDao {
 
-    private static final String TAG = "TournamentsDao";
+    private static final String TAG = "ClubsDao";
 
     private ApiService apiService;
     private Gson gson;

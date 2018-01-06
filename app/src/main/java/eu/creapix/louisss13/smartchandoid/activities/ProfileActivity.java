@@ -25,6 +25,7 @@ import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.AccountParser;
 import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.UserInfoParser;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
+import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 
 //TODO - Affichage des différents UserInfos ( classer par club ? )
@@ -61,8 +62,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
             }
         });
+        if (Utils.hasConnexion(getApplicationContext())) {
+            new GetDatas().execute();
+        } else {
+            Toast.makeText(ProfileActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+        }
 
-        new GetDatas().execute();
+
     }
 
     private void populateDatas(String firstNameTxt, String lastNameTxt, String emailTxt) {

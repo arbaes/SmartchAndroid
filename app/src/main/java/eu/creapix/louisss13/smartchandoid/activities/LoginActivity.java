@@ -29,6 +29,7 @@ import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
+import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 /**
  * A login screen that offers login via email/password.
@@ -159,7 +160,13 @@ public class LoginActivity extends AppCompatActivity {
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+
+            if (Utils.hasConnexion(getApplicationContext())) {
+                mAuthTask.execute((Void) null);
+            } else {
+                Toast.makeText(LoginActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
