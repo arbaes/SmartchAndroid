@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 import java.io.IOException;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
@@ -24,9 +26,7 @@ import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class RegisterActivity extends AppCompatActivity {
 
     private RegisterTask mAuthTask = null;
@@ -94,9 +94,34 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError(getString(R.string.error_invalid_password_too_short_part1));
             focusView = mPasswordView;
             cancel = true;
+        } else {
+            boolean[] pwdValidity = Utils.PasswordValidity(password);
+            if (!(pwdValidity[Constants.HAS_UPPER_CASE])){
+                mPasswordView.setError(getString(R.string.error_invalid_password_no_uppercase));
+                focusView = mPasswordView;
+                cancel = true;
+            } else if (!(pwdValidity[Constants.HAS_LOWER_CASE])) {
+                mPasswordView.setError(getString(R.string.error_invalid_password_no_lowercase));
+                focusView = mPasswordView;
+                cancel = true;
+            } else if (!(pwdValidity[Constants.HAS_DIGIT])) {
+                mPasswordView.setError(getString(R.string.error_invalid_password_no_digit));
+                focusView = mPasswordView;
+                cancel = true;
+            } else if (!(pwdValidity[Constants.HAS_SPECIAL_CHAR])) {
+                mPasswordView.setError(getString(R.string.error_invalid_password_no_special));
+                focusView = mPasswordView;
+                cancel = true;
+            } else if (!(pwdValidity[Constants.HAS_ENOUGH_UNIQUE_CHAR])) {
+                mPasswordView.setError(getString(R.string.error_invalid_password_not_enough_unique_part1) +
+                        " " + String.valueOf(Constants.MIN_UNIQUE_CHAR_REQUIRED + " " +
+                        getString(R.string.error_invalid_password_not_enough_unique_part2)));
+                focusView = mPasswordView;
+                cancel = true;
+            }
         }
 
         // Check for a valid email address.
@@ -111,12 +136,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
+
             mAuthTask = new RegisterActivity.RegisterTask(email, password);
             if (Utils.hasConnexion(getApplicationContext())) {
                 mAuthTask.execute((Void) null);
@@ -129,13 +152,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+
+        EmailValidator emailValidator = EmailValidator.getInstance();
+        return emailValidator.isValid(email);
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+
+        return password.length() > Constants.MIN_CHAR_REQUIRED;
     }
 
 
@@ -171,7 +195,7 @@ public class RegisterActivity extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-                Toast.makeText(RegisterActivity.this, "Inscription", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, R.string.register_success, Toast.LENGTH_SHORT).show();
                 Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                 loginIntent.putExtra(Constants.LOGIN, mEmailView.getText().toString());
                 loginIntent.putExtra(Constants.PWD, mPasswordView.getText().toString());
@@ -179,7 +203,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(loginIntent);
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError(getString(R.string.register_failed));
                 mPasswordView.requestFocus();
             }
         }

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -31,9 +32,7 @@ import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class LoginActivity extends AppCompatActivity {
 
     private UserLoginTask mAuthTask = null;
@@ -67,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                findViewById(R.id.account_incorrect).setVisibility(View.GONE);
                 if (Utils.hasConnexion(getApplicationContext())) {
                     attemptLogin();
                 } else {
@@ -93,8 +93,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        findViewById(R.id.account_incorrect).setVisibility(View.GONE);
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        findViewById(R.id.account_incorrect).setVisibility(View.GONE);
         checkIntent(intent);
     }
 
@@ -117,11 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
+
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -140,9 +143,34 @@ public class LoginActivity extends AppCompatActivity {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError(getString(R.string.error_invalid_password_too_short_part1));
             focusView = mPasswordView;
             cancel = true;
+        } else {
+            boolean[] pwdValidity = Utils.PasswordValidity(password);
+            if (!(pwdValidity[Constants.HAS_UPPER_CASE])){
+                mPasswordView.setError(getString(R.string.error_invalid_password_no_uppercase));
+                focusView = mPasswordView;
+                cancel = true;
+            } else if (!(pwdValidity[Constants.HAS_LOWER_CASE])) {
+                mPasswordView.setError(getString(R.string.error_invalid_password_no_lowercase));
+                focusView = mPasswordView;
+                cancel = true;
+            } else if (!(pwdValidity[Constants.HAS_DIGIT])) {
+                mPasswordView.setError(getString(R.string.error_invalid_password_no_digit));
+                focusView = mPasswordView;
+                cancel = true;
+            } else if (!(pwdValidity[Constants.HAS_SPECIAL_CHAR])) {
+                    mPasswordView.setError(getString(R.string.error_invalid_password_no_special));
+                    focusView = mPasswordView;
+                    cancel = true;
+            } else if (!(pwdValidity[Constants.HAS_ENOUGH_UNIQUE_CHAR])) {
+                mPasswordView.setError(getString(R.string.error_invalid_password_not_enough_unique_part1) +
+                        " " + String.valueOf(Constants.MIN_UNIQUE_CHAR_REQUIRED + " " +
+                        getString(R.string.error_invalid_password_not_enough_unique_part2)));
+                focusView = mPasswordView;
+                cancel = true;
+            }
         }
 
         // Check for a valid email address.
@@ -157,12 +185,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
@@ -171,18 +195,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+
+        EmailValidator emailValidator = EmailValidator.getInstance();
+        return emailValidator.isValid(email);
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > Constants.MIN_CHAR_REQUIRED;
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -216,10 +237,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
+
     private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -256,8 +274,9 @@ public class LoginActivity extends AppCompatActivity {
                 PreferencesUtils.saveEmail(getApplicationContext(), mEmailView.getText().toString());
                 goToMonitoredMatches();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                findViewById(R.id.account_incorrect).setVisibility(View.VISIBLE);
                 mPasswordView.requestFocus();
+                mEmailView.requestFocus();
             }
         }
 

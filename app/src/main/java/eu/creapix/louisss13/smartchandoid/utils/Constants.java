@@ -33,6 +33,16 @@ public class Constants {
     public static final String RESULT_MATCH_ID = "result_match_id";
     public static final int RESULT_COUNT_POINT = 200;
 
+    //Error Management - Password
+    public static final int HAS_SPECIAL_CHAR = 0;
+    public static final int HAS_UPPER_CASE = 1;
+    public static final int HAS_LOWER_CASE = 2;
+    public static final int HAS_DIGIT = 3;
+    public static final int HAS_ENOUGH_UNIQUE_CHAR = 4;
+
+    public static final int MIN_UNIQUE_CHAR_REQUIRED = 6;
+    public static final int MIN_CHAR_REQUIRED = 8;
+
     //Custom Base URL
     public static final String BASE_URL_COUNT_POINT = "http://smartch.azurewebsites.net/api/matchs/";
     public static final String BASE_URL_GET_CLUB_BY_USERID = "http://smartch.azurewebsites.net/api/clubs/user/";
