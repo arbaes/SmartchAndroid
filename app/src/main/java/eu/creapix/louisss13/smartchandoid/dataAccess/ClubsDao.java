@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.ClubParser;
+import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ClubParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 /**

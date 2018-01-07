@@ -15,9 +15,7 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.PointDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.PointLevelParser;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.ScoreCalculatedParser;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TournamentParser;
+import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ScoreCalculatedParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 /**

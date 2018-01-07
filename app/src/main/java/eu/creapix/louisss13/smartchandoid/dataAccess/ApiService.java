@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.HashMap;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.*;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TokenParser;
 
 public class ApiService  {
     private static final String TAG = "ApiService";

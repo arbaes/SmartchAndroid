@@ -7,15 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import eu.creapix.louisss13.smartchandoid.R;
-import eu.creapix.louisss13.smartchandoid.activities.LoginActivity;
-import eu.creapix.louisss13.smartchandoid.activities.MatchListActivity;
+import eu.creapix.louisss13.smartchandoid.conroller.activities.LoginActivity;
 
 /**
  * Created by arnau on 28-12-17.

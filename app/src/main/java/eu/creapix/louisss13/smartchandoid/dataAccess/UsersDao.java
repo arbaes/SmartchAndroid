@@ -11,13 +11,11 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.ConnexionDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.RegisterDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TokenParser;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TournamentParser;
+import eu.creapix.louisss13.smartchandoid.model.jsonParsers.TokenParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 

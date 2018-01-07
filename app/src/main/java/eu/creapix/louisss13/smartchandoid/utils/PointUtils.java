@@ -2,9 +2,8 @@ package eu.creapix.louisss13.smartchandoid.utils;
 
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.PointParser;
+import eu.creapix.louisss13.smartchandoid.model.jsonParsers.PointParser;
 import eu.creapix.louisss13.smartchandoid.model.MatchDetails;
-import eu.creapix.louisss13.smartchandoid.model.Point;
 
 /**
  * Created by arnau on 04-01-18.

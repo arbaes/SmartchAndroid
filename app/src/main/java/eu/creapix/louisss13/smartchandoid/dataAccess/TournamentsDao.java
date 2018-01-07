@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
-import eu.creapix.louisss13.smartchandoid.dataAccess.jsonParsers.TournamentParser;
+import eu.creapix.louisss13.smartchandoid.model.jsonParsers.TournamentParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 /**
