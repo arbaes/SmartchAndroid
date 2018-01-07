@@ -18,7 +18,14 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="register_success">The account was registered successfully</string>
-    <string name="register_failed">This account already exist</string>
+    <string name="login_success">Logged successfully</string>
+    <string name="registered_already">This account already exist</string>
+    <string name="something_wrong">Oops, something went wrong !</string>
+    <string name="server_error_content">The distant server sent an unexpected response</string>
+    <string name="server_error_title">Server Error</string>
+    <string name="error_unauthorized">You are not allowed to perform this operation</string>
+
+    <string name="ok">OK</string>
 
     <string name="title_activity_register">Register</string>
     <string name="title_activity_profile">Profile</string>
@@ -26,19 +33,13 @@
     <string name="content_session_expired">Your session has expired, you will be now redirected to the login screen.</string>
     <string name="no_connection">No connection detected</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_player_stats">PlayerStatsActivity</string>
-    <string name="title_activity_browse_tournaments">BrowseTournamentsActivity</string>
-    <string name="title_activity_match_details">MatchDetailsActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
-    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_menu">Menu</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_listing">ListingActivity</string>
-    <string name="title_activity_match_list">MatchListActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_view_user_details">ViewUserDetailsActivity</string>
+    <string name="title_activity_match_list">Browse Tournaments</string>
+    <string name="title_activity_view_user_details">Members</string>
 </resources>

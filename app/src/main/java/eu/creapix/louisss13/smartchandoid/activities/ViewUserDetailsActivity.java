@@ -45,17 +45,6 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
             Toast.makeText(ViewUserDetailsActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
         }
 
-
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
     }
 
     @Override
@@ -82,8 +71,20 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error, int errorCode) {
-
+    public void onWebserviceFinishWithError(String error, final int errorCode) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switch (errorCode) {
+                    case 401:
+                        Utils.alertSessionExpired(ViewUserDetailsActivity.this);
+                        break;
+                    default:
+                        Utils.alertError(ViewUserDetailsActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        break;
+                }
+            }
+        });
     }
 
 

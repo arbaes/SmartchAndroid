@@ -25,15 +25,17 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements WebserviceListener {
 
     private UserLoginTask mAuthTask = null;
 
@@ -230,11 +232,42 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
+
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onWebserviceFinishWithSuccess(String method, Integer id, ArrayList<Object> datas) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                PreferencesUtils.saveEmail(getApplicationContext(), mEmailView.getText().toString());
+                goToMonitoredMatches();
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void onWebserviceFinishWithError(String error, final int errorCode) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView errorField = findViewById(R.id.account_incorrect);
+
+                switch (errorCode) {
+                    case 400:
+                        mEmailView.setError(getString(R.string.registered_already));
+                        mEmailView.requestFocus();
+                        break;
+                    default:
+                        errorField.setVisibility(View.VISIBLE);
+                        errorField.setText(R.string.server_error_content);
+                }
+            }
+        });
     }
 
 
@@ -254,7 +287,7 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
 
             try {
-                return userDao.login(getApplicationContext(), mEmail, mPassword);
+                return userDao.login(LoginActivity.this, getApplicationContext(), mEmail, mPassword);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -270,9 +303,8 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success) {
-                Toast.makeText(LoginActivity.this, "Connexion réussie", Toast.LENGTH_SHORT).show();
-                PreferencesUtils.saveEmail(getApplicationContext(), mEmailView.getText().toString());
-                goToMonitoredMatches();
+                Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
+
             } else {
                 findViewById(R.id.account_incorrect).setVisibility(View.VISIBLE);
                 mPasswordView.requestFocus();

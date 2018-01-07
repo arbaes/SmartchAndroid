@@ -8,6 +8,8 @@ public class Constants {
 
 
     //DAO Related
+    public static final String ATTEMPT_LOGIN = "attempt_login";
+    public static final String ATTEMPT_REGISTER = "attempt_register";
     public static final String LOGIN = "login";
     public static final String PWD = "pwd";
     public static final String MATCH_ID = "match_id";
@@ -19,6 +21,7 @@ public class Constants {
     public static final String GET_MONITORED_MATCHES = "get_monitored_matches";
     public static final String GET_CLUBS = "get_clubs";
     public static final String POST_POINT = "post_point";
+    public static final String HOST_URL=  "http://smartch.azurewebsites.net/";
 
 
     //Player Management

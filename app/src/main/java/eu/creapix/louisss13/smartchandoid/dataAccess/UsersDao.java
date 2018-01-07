@@ -37,7 +37,7 @@ public class UsersDao {
         gson = new Gson();
     }
 
-    public boolean login(Context context, String mEmail, String mPassword) throws IOException, JSONException {
+    public boolean login(WebserviceListener webserviceListener, Context context, String mEmail, String mPassword) throws IOException, JSONException {
         ConnexionDaoModel connexionDaoModel = new ConnexionDaoModel(mEmail, mPassword);
         HttpURLConnection connection = datahandler.PostHTTPData(Urls.Login, connexionDaoModel, null);
 
@@ -52,23 +52,27 @@ public class UsersDao {
             PreferencesUtils.saveTokenExpiration(context, tokenParserData.getExpiresIn());
             Log.i("TOKEN", "access token: " + tokenParserData.getAccessToken());
             Log.i("TOKEN", "Expires in : " + tokenParserData.getExpiresIn() + "s");
+            webserviceListener.onWebserviceFinishWithSuccess(Constants.ATTEMPT_LOGIN, null, null);
             return true;
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseMessage(),connection.getResponseCode());
             return false;
         }
 
     }
 
-    public boolean register(String mEmail, String mPassword) throws IOException {
+    public boolean register(WebserviceListener webserviceListener, String mEmail, String mPassword) throws IOException {
 
         RegisterDaoModel registerDaoModel = new RegisterDaoModel(mEmail, mPassword);
         HttpURLConnection connection = datahandler.PostHTTPData(Urls.Account, registerDaoModel, null);
 
         if ((connection.getResponseCode() < 300) && (connection.getResponseCode() >= 200)) {
+            webserviceListener.onWebserviceFinishWithSuccess(Constants.ATTEMPT_REGISTER, null, null);
             Log.e(TAG, "Inscription OK");
             return true;
         } else {
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseMessage(),connection.getResponseCode());
             Log.e(TAG, "Inscription NOT OK : " + connection.getResponseCode());
             return false;
         }

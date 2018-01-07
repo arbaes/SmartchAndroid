@@ -126,8 +126,22 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error, int errorCode) {
-        swipeRefreshLayout.setRefreshing(false);
+    public void onWebserviceFinishWithError(String error, final int errorCode) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+                switch (errorCode) {
+                    case 401:
+                        Utils.alertSessionExpired(MonitoredMatchesActivity.this);
+                        break;
+                    default:
+                        Utils.alertError(MonitoredMatchesActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        break;
+                }
+            }
+        });
     }
 
     @Override

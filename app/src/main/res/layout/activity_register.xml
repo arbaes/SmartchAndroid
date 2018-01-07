@@ -30,6 +30,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/account_incorrect2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Your email or your password is incorrect"
+                android:textAlignment="center"
+                android:textColor="@color/secondaryDarkColor"
+                android:visibility="gone" />
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -62,6 +72,16 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/account_incorrect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Your email or your password is incorrect"
+                android:textAlignment="center"
+                android:textColor="@color/secondaryDarkColor"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/email_sign_in_button"

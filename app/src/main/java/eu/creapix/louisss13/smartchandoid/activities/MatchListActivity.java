@@ -117,34 +117,19 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error, int errorCode) {
+    public void onWebserviceFinishWithError(String error, final int errorCode) {
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        MatchListActivity.this);
-
-                // set title
-                alertDialogBuilder.setTitle(R.string.title_session_expired);
-
-                // set dialog message
-                alertDialogBuilder
-                        .setMessage(R.string.content_session_expired)
-                        .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                                Intent intent = new Intent(MatchListActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                MatchListActivity.this.finish();
-                            }
-                        });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-                Toast.makeText(MatchListActivity.this, "An internet connection is required for this operation", Toast.LENGTH_SHORT).show();
+                switch (errorCode) {
+                    case 401:
+                        Utils.alertSessionExpired(MatchListActivity.this);
+                        break;
+                    default:
+                        Utils.alertError(MatchListActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        break;
+                }
             }
         });
 
@@ -155,7 +140,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                // TODO create dao function fort matches and watched
+                // TODO create dao function fort matches
                 switch (tabLayout.getSelectedTabPosition()) {
                     case 0:
                         TournamentsDao tournamentsDao = new TournamentsDao();
@@ -164,9 +149,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
                     case 1:
                         onWebserviceFinishWithSuccess(Constants.GET_MATCHES, 0, new ArrayList<Object>());
                         break;
-                    case 2:
-                        onWebserviceFinishWithSuccess(Constants.GET_WATCHED, 0, new ArrayList<Object>());
-                        break;
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();

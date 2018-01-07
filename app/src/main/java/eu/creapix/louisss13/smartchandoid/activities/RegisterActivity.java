@@ -20,14 +20,16 @@ import android.widget.Toast;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements WebserviceListener {
 
     private RegisterTask mAuthTask = null;
 
@@ -162,6 +164,42 @@ public class RegisterActivity extends AppCompatActivity {
         return password.length() > Constants.MIN_CHAR_REQUIRED;
     }
 
+    @Override
+    public void onWebserviceFinishWithSuccess(String method, Integer id, ArrayList<Object> datas) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                loginIntent.putExtra(Constants.LOGIN, mEmailView.getText().toString());
+                loginIntent.putExtra(Constants.PWD, mPasswordView.getText().toString());
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(loginIntent);
+                finish();
+            }
+        });
+
+    }
+
+    @Override
+    public void onWebserviceFinishWithError(String error, final int errorCode) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView errorField = findViewById(R.id.account_incorrect);
+
+                switch (errorCode) {
+                    case 400:
+                        mEmailView.setError(getString(R.string.registered_already));
+                        mEmailView.requestFocus();
+                        break;
+                    default:
+                        errorField.setVisibility(View.VISIBLE);
+                        errorField.setText(R.string.server_error_content);
+                }
+            }
+        });
+    }
+
 
     private class RegisterTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -179,7 +217,7 @@ public class RegisterActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
 
             try {
-                return userDao.register(mEmail,mPassword);
+                return userDao.register(RegisterActivity.this, mEmail,mPassword);
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -196,15 +234,8 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (success) {
                 Toast.makeText(RegisterActivity.this, R.string.register_success, Toast.LENGTH_SHORT).show();
-                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                loginIntent.putExtra(Constants.LOGIN, mEmailView.getText().toString());
-                loginIntent.putExtra(Constants.PWD, mPasswordView.getText().toString());
-                loginIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(loginIntent);
-                finish();
             } else {
-                mPasswordView.setError(getString(R.string.register_failed));
-                mPasswordView.requestFocus();
+                Toast.makeText(RegisterActivity.this, R.string.something_wrong, Toast.LENGTH_SHORT).show();
             }
         }
 

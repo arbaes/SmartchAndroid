@@ -177,7 +177,45 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error, int errorCode) {
+    public void onWebserviceFinishWithError(String error, final int errorCode) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switch (errorCode) {
+                    case 400:
+                        Toast.makeText(PointCountActivity.this, R.string.error_unauthorized, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 401:
+                        Utils.alertSessionExpired(PointCountActivity.this);
+                        break;
+                    default:
+                        Utils.alertError(PointCountActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        break;
+                }
+
+                TextView mAddPointPlayer = findViewById(R.id.player_a_sendScore);
+                mAddPointPlayer.setBackgroundResource(R.color.primaryLightColor);
+                mAddPointPlayer.setTextColor(getResources().getColor(R.color.primaryDarkColor));
+                mAddPointPlayer.setEnabled(true);
+
+                mAddPointPlayer = findViewById(R.id.player_b_sendScore);
+                mAddPointPlayer.setBackgroundResource(R.color.primaryLightColor);
+                mAddPointPlayer.setTextColor(getResources().getColor(R.color.primaryDarkColor));
+                mAddPointPlayer.setEnabled(true);
+
+                TextView mDeletePointPlayer = findViewById(R.id.player_a_deleteScore);
+                mDeletePointPlayer.setBackgroundResource(R.color.primaryDarkColor);
+                mDeletePointPlayer.setTextColor(getResources().getColor(R.color.primaryLightColor));
+                mDeletePointPlayer.setEnabled(true);
+
+                mDeletePointPlayer = findViewById(R.id.player_b_deleteScore);
+                mDeletePointPlayer.setBackgroundResource(R.color.primaryDarkColor);
+                mDeletePointPlayer.setTextColor(getResources().getColor(R.color.primaryLightColor));
+                mDeletePointPlayer.setEnabled(true);
+
+            }
+        });
 
     }
 

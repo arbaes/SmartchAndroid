@@ -182,9 +182,25 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error, int errorCode) {
+    public void onWebserviceFinishWithError(String error, final int errorCode) {
         Log.e("ERROR WebServ", "" + error);
         findViewById(R.id.details).setVisibility(View.VISIBLE);
         findViewById(R.id.progress).setVisibility(View.GONE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switch (errorCode) {
+                    case 400:
+                        Toast.makeText(ProfileActivity.this, R.string.error_unauthorized, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 401:
+                        Utils.alertSessionExpired(ProfileActivity.this);
+                        break;
+                    default:
+                        Utils.alertError(ProfileActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        break;
+                }
+            }
+        });
     }
 }
