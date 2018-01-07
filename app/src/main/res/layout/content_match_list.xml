@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:background="@color/primaryTextColor"
             android:gravity="center"
-            android:text="No results found"
+            android:text="@string/no_data"
             android:textColor="@android:color/darker_gray"
             android:visibility="gone" />
     </RelativeLayout>
@@ -36,7 +36,7 @@
     <View
         android:id="@+id/separator"
         android:layout_width="match_parent"
-        android:layout_height="2px"
+        android:layout_height="2dp"
         android:layout_above="@+id/tab_layout"
         android:background="@color/colorPrimary" />
 

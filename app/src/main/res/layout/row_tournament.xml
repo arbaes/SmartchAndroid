@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,7 +12,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Tournament Name"
+        android:text="@string/default_tournament_name"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="@color/primaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="#ID"
+        android:text="@string/default_id_label"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

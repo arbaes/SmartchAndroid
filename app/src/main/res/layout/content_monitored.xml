@@ -15,9 +15,9 @@
             android:id="@+id/player_left_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:text="Joueur 1"
+            android:text="@string/player_1_label"
             android:textAlignment="textStart"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@color/primaryTextColor" />
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Score"
+            android:text="@string/score"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@color/colorPrimaryDark" />
@@ -36,9 +36,9 @@
             android:id="@+id/player_right_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:text="Joueur 2"
+            android:text="@string/player_2_label"
             android:textAlignment="textEnd"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@color/primaryTextColor" />
