@@ -8,9 +8,15 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.activities.LoginActivity;
@@ -41,6 +47,26 @@ public class Utils {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static String[] getParsedDateTime(String dateTime){
+
+        SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat DateToString = new SimpleDateFormat("EEEE, d MMM yyyy", new Locale(Locale.getDefault().getLanguage()));
+        SimpleDateFormat TimeToString = new SimpleDateFormat("HH:mm");
+        String dateParsedString = "";
+        String timeParsedString = "";
+        try {
+            Date date = StringToDate.parse(dateTime);
+            dateParsedString = DateToString.format(date);
+            timeParsedString = TimeToString.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        dateParsedString.toLowerCase();
+        WordUtils.capitalizeFully(dateParsedString);
+        String[] parsedDateTime = {dateParsedString, timeParsedString};
+        return parsedDateTime;
     }
 
     public static void alertError(Context context, String title, String content) {

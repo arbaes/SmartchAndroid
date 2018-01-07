@@ -54,8 +54,10 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     private void setupTabLayout() {
         tabLayout.removeAllTabs();
 
+        tabLayout.getTabAt(1);
+
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tournaments));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.matches));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tournament_details));
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -79,7 +81,15 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     private void setupContentForTab() {
         swipeRefreshLayout.setRefreshing(true);
         if (Utils.hasConnexion(getApplicationContext())) {
-            new GetDatas().execute();
+            switch (tabLayout.getSelectedTabPosition()){
+                case 0:
+                    new GetDatas().execute();
+                    break;
+                case 1 :
+                    swipeRefreshLayout.setRefreshing(false);
+                    findViewById(R.id.empty).setVisibility(View.VISIBLE);
+                    break;
+            }
         } else {
             Toast.makeText(MatchListActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
             swipeRefreshLayout.setRefreshing(false);
@@ -89,7 +99,14 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
 
     private void setupDatasAfterFetch(ArrayList<Object> datas) {
         findViewById(R.id.empty).setVisibility(View.GONE);
-        browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas);
+        switch (tabLayout.getSelectedTabPosition()) {
+            case 0:
+                browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas,Constants.TYPE_TOURNAMENT, tabLayout, this );
+                break;
+            case 1:
+                browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas,Constants.TYPE_TOURNAMENT_DETAILS, tabLayout,this);
+                break;
+        }
         recyclerView.setAdapter(browseListAdapter);
 
         if (datas == null || datas.size() == 0) {
@@ -144,7 +161,8 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
                         tournamentsDao.getTournaments(MatchListActivity.this, PreferencesUtils.getToken(getApplicationContext()));
                         break;
                     case 1:
-                        onWebserviceFinishWithSuccess(Constants.GET_MATCHES, 0, new ArrayList<Object>());
+                        TournamentsDao tournamentsDetailsDao = new TournamentsDao();
+                        tournamentsDetailsDao.getTournaments(MatchListActivity.this, PreferencesUtils.getToken(getApplicationContext()));
                         break;
                 }
                 return true;
@@ -170,6 +188,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     }
 
     private void refresh() {
+        Toast.makeText(MatchListActivity.this, R.string.load_all_data, Toast.LENGTH_SHORT).show();
         new GetDatas().execute();
     }
 

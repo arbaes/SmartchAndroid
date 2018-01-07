@@ -29,7 +29,7 @@
     <string name="tournament_status_closed">finished</string>
     <string name="tournament_status_pending">pending</string>
     <string name="tournament_status_ongoing">ongoing</string>
-    <string name="matches">matches</string>
+    <string name="tournament_details">details</string>
     <string name="tournaments">tournaments</string>
 
     <string name="error_connection_lost_title">Connection Lost</string>
@@ -40,6 +40,7 @@
     <string name="ok">OK</string>
 
     <string name="no_data">No data found</string>
+    <string name="load_all_data">Loading all details</string>
 
     <string name="title_activity_register">Register</string>
     <string name="title_activity_profile">Profile</string>

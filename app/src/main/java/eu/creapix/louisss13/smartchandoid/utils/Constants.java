@@ -32,6 +32,10 @@ public class Constants {
     public static final String POST_POINT = "post_point";
     public static final int RESULT_COUNT_POINT = 200;
 
+    //Tournament Management
+    public static final int TYPE_TOURNAMENT_DETAILS = 0;
+    public static final int TYPE_TOURNAMENT = 1;
+
     //Error Management - Password
     public static final int HAS_SPECIAL_CHAR = 0;
     public static final int HAS_UPPER_CASE = 1;
