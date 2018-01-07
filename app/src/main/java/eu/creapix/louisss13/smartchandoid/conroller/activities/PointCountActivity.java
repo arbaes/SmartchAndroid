@@ -59,11 +59,12 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         mAddPointPlayer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.POST);
-                mAddPointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
-                mAddPointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
-                mAddPointPlayer1.setEnabled(false);
+
                 if (Utils.hasConnexion(getApplicationContext())) {
+                    SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.POST);
+                    mAddPointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
+                    mAddPointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
+                    mAddPointPlayer1.setEnabled(false);
                     new SendPoint().execute(params);
                 } else {
                     Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
@@ -77,11 +78,12 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         mAddPointPlayer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.POST);
-                mAddPointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
-                mAddPointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
-                mAddPointPlayer2.setEnabled(false);
+
                 if (Utils.hasConnexion(getApplicationContext())) {
+                    SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.POST);
+                    mAddPointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
+                    mAddPointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
+                    mAddPointPlayer2.setEnabled(false);
                     new SendPoint().execute(params);
                 } else {
                     Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
@@ -94,11 +96,12 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         mDeletePointPlayer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.DELETE);
-                mDeletePointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
-                mDeletePointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
-                mDeletePointPlayer1.setEnabled(false);
+
                 if (Utils.hasConnexion(getApplicationContext())) {
+                    SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.DELETE);
+                    mDeletePointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
+                    mDeletePointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
+                    mDeletePointPlayer1.setEnabled(false);
                     new SendPoint().execute(params);
                 } else {
                     Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
@@ -111,11 +114,12 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         mDeletePointPlayer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.DELETE);
-                mDeletePointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
-                mDeletePointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
-                mDeletePointPlayer2.setEnabled(false);
+
                 if (Utils.hasConnexion(getApplicationContext())) {
+                    SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.DELETE);
+                    mDeletePointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
+                    mDeletePointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
+                    mDeletePointPlayer2.setEnabled(false);
                     new SendPoint().execute(params);
                 } else {
                     Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
