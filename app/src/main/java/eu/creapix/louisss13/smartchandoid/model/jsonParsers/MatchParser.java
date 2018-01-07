@@ -44,15 +44,17 @@ public class MatchParser extends JSONObject {
         int totPlayer2Points = 0;
 
 
-        for (int i = 0; i < this.score.getPointLevels().size() - 1; i++) {
+        if (this.score.getPointLevels() != null ) {
+            for (int i = 0; i < this.score.getPointLevels().size() - 1; i++) {
 
-            switch (this.score.getPointLevels().get(i).getSetWinner()){
-                case Constants.PLAYER_1_POINT:
-                    totPlayer1Points++;
-                    break;
-                case Constants.PLAYER_2_POINT:
-                    totPlayer2Points++;
-                    break;
+                switch (this.score.getPointLevels().get(i).getSetWinner()) {
+                    case Constants.PLAYER_1_POINT:
+                        totPlayer1Points++;
+                        break;
+                    case Constants.PLAYER_2_POINT:
+                        totPlayer2Points++;
+                        break;
+                }
             }
         }
 

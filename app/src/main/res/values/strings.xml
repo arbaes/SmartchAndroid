@@ -53,4 +53,16 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_match_list">Browse Tournaments</string>
     <string name="title_activity_view_user_details">Members</string>
+    <string name="password_incorrect">Your email or your password is incorrect</string>
+    <string name="default_pwd">Coucou-123</string>
+    <string name="default_email">louisss13@gmail.com</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register">Register</string>
+    <string name="notify_point_server_upload">Sending</string>
+    <string name="player_default_name">Player A.</string>
+    <string name="add_point_label">+1</string>
+    <string name="default_point_score">0</string>
+    <string name="previous_sets_label">Previous Sets</string>
+    <string name="previous_sets_default_content">15 15 15 15 15 15 15 15 15 15 15 15 15 15 15</string>
+    <string name="delete_point_label">-1</string>
 </resources>

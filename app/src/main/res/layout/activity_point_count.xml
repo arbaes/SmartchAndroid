@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:textColor="#ffffff"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -42,7 +42,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="Upload to server"
+                    android:text="@string/notify_point_server_upload"
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
 
@@ -51,7 +51,7 @@
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
-                    android:layout_toRightOf="@+id/wait" />
+                    android:layout_toEndOf="@+id/wait" />
             </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
@@ -77,10 +77,12 @@
                 android:background="@color/primaryLightColor"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="+1"
+                android:text="@string/add_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryDarkColor"
-                android:textSize="36sp" />
+                android:textSize="36sp"
+                tools:ignore="NestedWeights"
+                android:focusable="true" />
 
 
             <LinearLayout
@@ -96,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:gravity="center_horizontal"
-                    android:text="Player A"
+                    android:text="@string/player_default_name"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
                 <TextView
@@ -104,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="0"
+                    android:text="@string/default_point_score"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"
                     android:textSize="100sp" />
 
@@ -112,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="Previous Sets"
+                    android:text="@string/previous_sets_label"
                     android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
                 <TextView
@@ -123,7 +125,7 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:singleLine="true"
-                    android:text=" 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15"
+                    android:text="@string/previous_sets_default_content"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
             </LinearLayout>
 
@@ -136,10 +138,11 @@
                 android:background="@color/primaryDarkColor"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="-1"
+                android:text="@string/delete_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryLightColor"
-                android:textSize="36sp" />
+                android:textSize="36sp"
+                android:focusable="true" />
 
 
         </LinearLayout>
@@ -164,10 +167,12 @@
                 android:background="@color/primaryLightColor"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="+1"
+                android:text="@string/add_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryDarkColor"
-                android:textSize="36sp" />
+                android:textSize="36sp"
+                tools:ignore="NestedWeights"
+                android:focusable="true" />
 
 
             <LinearLayout
@@ -183,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:gravity="center_horizontal"
-                    android:text="Player A"
+                    android:text="@string/player_default_name"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
                 <TextView
@@ -191,7 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="0"
+                    android:text="@string/default_point_score"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"
                     android:textSize="100sp" />
 
@@ -199,7 +204,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="Previous Sets"
+                    android:text="@string/previous_sets_label"
                     android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
                 <TextView
@@ -210,7 +215,6 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:singleLine="true"
-                    android:text=" 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium" />
             </LinearLayout>
 
@@ -223,10 +227,11 @@
                 android:background="@color/primaryDarkColor"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="-1"
+                android:text="@string/delete_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryLightColor"
-                android:textSize="36sp" />
+                android:textSize="36sp"
+                android:focusable="true" />
 
 
         </LinearLayout>

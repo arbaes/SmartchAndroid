@@ -53,7 +53,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         checkIntent(getIntent());
 
         TextView title = findViewById(R.id.title);
-        title.setText(R.string.title_activity_point_count_prefix + String.valueOf(matchId));
+        title.setText(getString(R.string.title_activity_point_count_prefix) + String.valueOf(matchId));
 
         final TextView mAddPointPlayer1 = findViewById(R.id.player_a_sendScore);
         mAddPointPlayer1.setOnClickListener(new View.OnClickListener() {
@@ -257,20 +257,22 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     private String getFinishedSetsDisplay(ArrayList<PointLevelParser> sets, int scoredBy){
 
         String finishedSetsDisplay = "";
-        switch (scoredBy) {
-            case Constants.PLAYER_1_POINT:
-                for (int i = 0; i < sets.size() - 1; i++){
-                    finishedSetsDisplay += sets.get(i).getScorePlayer1()+ "  ";
-                }
-                break;
-            case Constants.PLAYER_2_POINT:
-                for (int i = 0; i < sets.size() - 1; i++){
-                    finishedSetsDisplay += sets.get(i).getScorePlayer2()+ "  ";
-                }
-                break;
-        }
-        if ( sets.size() > 0 ){
-            finishedSetsDisplay.substring(0, finishedSetsDisplay.length() - 2);
+        if (sets != null ) {
+            switch (scoredBy) {
+                case Constants.PLAYER_1_POINT:
+                    for (int i = 0; i < sets.size() - 1; i++) {
+                        finishedSetsDisplay += sets.get(i).getScorePlayer1() + "  ";
+                    }
+                    break;
+                case Constants.PLAYER_2_POINT:
+                    for (int i = 0; i < sets.size() - 1; i++) {
+                        finishedSetsDisplay += sets.get(i).getScorePlayer2() + "  ";
+                    }
+                    break;
+            }
+            if (sets.size() > 1) {
+                finishedSetsDisplay.substring(0, finishedSetsDisplay.length() - 2);
+            }
         }
         return finishedSetsDisplay;
     }
@@ -295,9 +297,13 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         player1PreviousSets.setText(displayPreviousSetsPlayer1);
         player2PreviousSets.setText(displayPreviousSetsPlayer2);
 
-        player1CurrentSetScore = currentScore.get(currentScore.size()-1).getScorePlayer1();
-        player2CurrentSetScore = currentScore.get(currentScore.size()-1).getScorePlayer2();
-
+        if (currentScore != null) {
+            player1CurrentSetScore = currentScore.get(currentScore.size() - 1).getScorePlayer1();
+            player2CurrentSetScore = currentScore.get(currentScore.size() - 1).getScorePlayer2();
+        } else {
+            player1CurrentSetScore = 0;
+            player2CurrentSetScore = 0;
+        }
         player1Score.setText(String.valueOf(player1CurrentSetScore));
         player2Score.setText(String.valueOf(player2CurrentSetScore));
 

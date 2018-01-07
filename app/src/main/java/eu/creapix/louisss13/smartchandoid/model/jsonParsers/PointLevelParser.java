@@ -22,6 +22,11 @@ public class PointLevelParser implements Serializable {
     public PointLevelParser() {
     }
 
+    public PointLevelParser(int scorePlayer1, int scorePlayer2) {
+        this.scorePlayer1 = scorePlayer1;
+        this.scorePlayer2 = scorePlayer2;
+    }
+
     public int getSetWinner(){
 
         return scorePlayer1 > scorePlayer2 ? Constants.PLAYER_1_POINT : Constants.PLAYER_2_POINT;
