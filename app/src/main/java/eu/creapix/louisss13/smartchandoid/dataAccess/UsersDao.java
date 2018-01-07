@@ -1,7 +1,6 @@
 package eu.creapix.louisss13.smartchandoid.dataAccess;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,7 +25,7 @@ import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
  */
 
 public class UsersDao implements UsersDataAccess {
-    private static final String TAG = "UsersDao";
+
 
     private ApiService apiService;
     private Gson gson;
@@ -43,7 +42,6 @@ public class UsersDao implements UsersDataAccess {
         HttpURLConnection connection = datahandler.PostHTTPData(Urls.Login, connexionDaoModel, null);
 
         if (connection.getResponseCode() == 200) {
-            Log.e(TAG, "Connexion OK");
             String stream = datahandler.StreamToJson(connection.getInputStream());
 
             Type tokenType = new TypeToken<TokenParser>() {
@@ -52,12 +50,9 @@ public class UsersDao implements UsersDataAccess {
 
             PreferencesUtils.saveToken(context, tokenParserData.getAccessToken());
             PreferencesUtils.saveTokenExpiration(context, tokenParserData.getExpiresIn());
-            Log.i("TOKEN", "access token: " + tokenParserData.getAccessToken());
-            Log.i("TOKEN", "Expires in : " + tokenParserData.getExpiresIn() + "s");
             webserviceListener.onWebserviceFinishWithSuccess(Constants.ATTEMPT_LOGIN, null, null);
             return true;
         } else {
-            Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
             webserviceListener.onWebserviceFinishWithError(connection.getResponseMessage(), connection.getResponseCode());
             return false;
         }
@@ -72,11 +67,9 @@ public class UsersDao implements UsersDataAccess {
 
         if ((connection.getResponseCode() < 300) && (connection.getResponseCode() >= 200)) {
             webserviceListener.onWebserviceFinishWithSuccess(Constants.ATTEMPT_REGISTER, null, null);
-            Log.e(TAG, "Inscription OK");
             return true;
         } else {
             webserviceListener.onWebserviceFinishWithError(connection.getResponseMessage(), connection.getResponseCode());
-            Log.e(TAG, "Inscription NOT OK : " + connection.getResponseCode());
             return false;
         }
     }

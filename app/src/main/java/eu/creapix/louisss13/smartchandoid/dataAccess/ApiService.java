@@ -1,18 +1,15 @@
 package eu.creapix.louisss13.smartchandoid.dataAccess;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
-import eu.creapix.louisss13.smartchandoid.dataAccess.enums.*;
+import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
+import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
 
 public class ApiService {
-    private static final String TAG = "ApiService";
-
 
     private URL loginUrl;
     private URL usersUrl;
@@ -55,7 +52,6 @@ public class ApiService {
     public HttpURLConnection getUrlConnection(Urls urlE, RequestMethods method, String token) {
 
         URL url = urls.get(urlE);
-        Log.e(TAG, "URL : " + urls.get(urlE).toString());
         HttpURLConnection urlConnection = null;
 
         try {
@@ -74,7 +70,6 @@ public class ApiService {
 
     public HttpURLConnection getCustomUrlConnection(URL url, RequestMethods method, String token) {
 
-        Log.e(TAG, "URL : " + url.toString());
         HttpURLConnection urlConnection = null;
 
         try {

@@ -189,7 +189,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onWebserviceFinishWithError(String error, final int errorCode) {
-        Log.e("ERROR WebServ", "" + error);
         findViewById(R.id.details).setVisibility(View.VISIBLE);
         findViewById(R.id.progress).setVisibility(View.GONE);
         runOnUiThread(new Runnable() {

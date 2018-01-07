@@ -1,7 +1,5 @@
 package eu.creapix.louisss13.smartchandoid.dataAccess;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,10 +39,8 @@ public class ProfileDao implements ProfileDataAccess {
         HttpURLConnection connection = datahandler.GetHTTPData(Urls.Account, token);
 
         if ((connection.getResponseCode() >= 200) && (connection.getResponseCode() < 300)) {
-            Log.e(TAG, "Connexion OK - " + connection.getResponseCode());
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
-            Log.e("JSON", "Content : " + stream);
 
             Type accountType = new TypeToken<AccountParser>() {
             }.getType();
@@ -53,7 +49,6 @@ public class ProfileDao implements ProfileDataAccess {
             profileList.add(profile);
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_PROFILE, 0, profileList);
         } else {
-            Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
             webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), connection.getResponseCode());
         }
     }

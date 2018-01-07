@@ -1,7 +1,5 @@
 package eu.creapix.louisss13.smartchandoid.dataAccess;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,10 +39,8 @@ public class MonitoredMatchesDao implements MonitoredMatchesDataAccess {
         HttpURLConnection connection = datahandler.GetHTTPData(Urls.Monitoring, token);
 
         if (connection.getResponseCode() == 200) {
-            Log.e(TAG, "Connexion OK - " + connection.getResponseCode());
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
-            Log.e(TAG, "JSON - " + stream);
 
 
             Type matchType = new TypeToken<ArrayList<MatchParser>>() {
@@ -52,7 +48,6 @@ public class MonitoredMatchesDao implements MonitoredMatchesDataAccess {
             ArrayList<Object> monitoredMatches = gson.fromJson(stream, matchType);
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_MONITORED_MATCHES, 0, monitoredMatches);
         } else {
-            Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
             webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), connection.getResponseCode());
         }
     }

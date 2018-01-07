@@ -328,7 +328,6 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     private void checkIntent(Intent intent) {
         if (intent.hasExtra(Constants.MATCH_ID)) {
             int matchId = intent.getIntExtra(Constants.MATCH_ID, 0);
-            Log.e("MATCH_ID", "#" + matchId);
             this.matchId = matchId;
 
         }

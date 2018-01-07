@@ -1,7 +1,5 @@
 package eu.creapix.louisss13.smartchandoid.dataAccess;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,7 +21,6 @@ import eu.creapix.louisss13.smartchandoid.utils.Constants;
  */
 
 public class TournamentsDao {
-    private static final String TAG = "TournamentsDao";
 
     private ApiService apiService;
     private Gson gson;
@@ -39,17 +36,14 @@ public class TournamentsDao {
         HttpURLConnection connection = datahandler.GetHTTPData(Urls.Tournaments, token);
 
         if (connection.getResponseCode() == 200) {
-            Log.e(TAG, "Connexion OK - " + connection.getResponseCode());
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
 
-            Log.e(TAG, "JSON - " + stream);
             Type tournamentListType = new TypeToken<ArrayList<TournamentParser>>() {
             }.getType();
             ArrayList<Object> tournaments = gson.fromJson(stream, tournamentListType);
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_TOURNAMENT, 0, tournaments);
         } else {
-            Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
             webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), connection.getResponseCode());
         }
     }

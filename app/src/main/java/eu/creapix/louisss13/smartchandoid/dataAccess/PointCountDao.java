@@ -1,7 +1,5 @@
 package eu.creapix.louisss13.smartchandoid.dataAccess;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,7 +28,6 @@ public class PointCountDao implements PointCountDataAccess {
     private ApiService apiService;
     private Gson gson;
     private HTTPJsonHandler datahandler = new HTTPJsonHandler();
-    private String TAG = "PointDao";
 
 
     public PointCountDao() {
@@ -81,9 +78,7 @@ public class PointCountDao implements PointCountDataAccess {
         }
 
         if ((urlConnection.getResponseCode() >= 200) && (urlConnection.getResponseCode() < 300)) {
-            Log.e(TAG, "SENDPOINT OK - " + urlConnection.getResponseCode());
             String stream = datahandler.StreamToJson(urlConnection.getInputStream());
-            Log.e(TAG, "JSON Response Content : " + stream);
 
             Type scoreCalculatedType = new TypeToken<ScoreCalculatedParser>() {
             }.getType();
@@ -103,7 +98,6 @@ public class PointCountDao implements PointCountDataAccess {
 
 
         } else {
-            Log.e(TAG, "SENDPOINT NOT OK : " + urlConnection.getResponseCode());
             webserviceListener.onWebserviceFinishWithError(urlConnection.getResponseCode() + " - " + urlConnection.getResponseMessage(), urlConnection.getResponseCode());
 
         }
