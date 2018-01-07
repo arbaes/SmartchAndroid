@@ -59,7 +59,7 @@ public class ClubsDao implements ClubsDataAccess {
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_CLUBS, userId, clubs);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), 707);
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), connection.getResponseCode());
         }
     }
 }

@@ -53,7 +53,7 @@ public class MonitoredMatchesDao implements MonitoredMatchesDataAccess {
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_MONITORED_MATCHES, 0, monitoredMatches);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), 707);
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), connection.getResponseCode());
         }
     }
 }
