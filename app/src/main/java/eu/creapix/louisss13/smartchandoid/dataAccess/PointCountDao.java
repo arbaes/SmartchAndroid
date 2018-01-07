@@ -51,10 +51,10 @@ public class PointCountDao {
         String urlString ="";
         switch (requestMethod){
             case POST:
-                urlString = Constants.BASE_URL_COUNT_POINT + matchId + "/point";
+                urlString = Constants.BASE_URL_COUNT_POINT + "/" + matchId + "/" + Constants.URL_DIRECTORY_POINT;
                 break;
             case DELETE:
-                urlString = Constants.BASE_URL_COUNT_POINT + matchId + "/point/" + scoredBy;
+                urlString = Constants.BASE_URL_COUNT_POINT + "/" + matchId + "/" + Constants.URL_DIRECTORY_POINT + "/" + scoredBy;
                 break;
         }
 

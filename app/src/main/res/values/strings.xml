@@ -25,10 +25,21 @@
     <string name="server_error_title">Server Error</string>
     <string name="error_unauthorized">You are not allowed to perform this operation</string>
 
+    <!-- Strings related to tournaments-->
+    <string name="tournament_status_closed">finished</string>
+    <string name="tournament_status_pending">pending</string>
+    <string name="tournament_status_ongoing">ongoing</string>
+    <string name="matches">matches</string>
+    <string name="tournaments">tournaments</string>
+
+    <string name="press_back_to_quit">Please press \'BACK\' again to exit the app.</string>
     <string name="ok">OK</string>
+
+    <string name="no_data">No data found</string>
 
     <string name="title_activity_register">Register</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_point_count_prefix">Match #</string>
     <string name="title_session_expired">Session expired</string>
     <string name="content_session_expired">Your session has expired, you will be now redirected to the login screen.</string>
     <string name="no_connection">No connection detected</string>

@@ -46,9 +46,10 @@ public class Constants {
     public static final int MIN_UNIQUE_CHAR_REQUIRED = 6;
     public static final int MIN_CHAR_REQUIRED = 8;
 
-    //Custom Base URL
-    public static final String BASE_URL_COUNT_POINT = "http://smartch.azurewebsites.net/api/matchs/";
+    //Custom URL
+    public static final String BASE_URL_COUNT_POINT = "http://smartch.azurewebsites.net/api/matchs";
     public static final String BASE_URL_GET_CLUB_BY_USERID = "http://smartch.azurewebsites.net/api/clubs/user/";
+    public static final String URL_DIRECTORY_POINT = "point";
 
 
 }

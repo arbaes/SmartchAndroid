@@ -63,22 +63,21 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
     }
 
     private void populateTournament(BrowseListViewHolder viewHolder, TournamentParser tournament) {
-        String tournamentId = "#IDXXXXXXX";
         String tournamentState = "";
         switch (tournament.getEtat()){
             case 2:
-                tournamentState = "EN COURS";
+                tournamentState = this.activity.getResources().getString(R.string.tournament_status_pending);
                 break;
             case 1:
-                tournamentState = "FINI";
+                tournamentState = this.activity.getResources().getString(R.string.tournament_status_closed);
                 break;
-            case 3:
-                tournamentState = "EN PREPARATION";
+            case 0:
+                tournamentState = this.activity.getResources().getString(R.string.tournament_status_ongoing);
                 break;
         }
 
         viewHolder.tournamentName.setText(tournament.getName());
-        viewHolder.tournamentId.setText(tournamentId);
+        //viewHolder.tournamentId.setText(tournamentId);
         viewHolder.tournamentState.setText(tournamentState);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

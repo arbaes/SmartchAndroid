@@ -126,7 +126,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 return;
             }
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please press 'BACK' again to exit the app.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.press_back_to_quit, Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
                 @Override

@@ -54,8 +54,8 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     private void setupTabLayout() {
         tabLayout.removeAllTabs();
 
-        tabLayout.addTab(tabLayout.newTab().setText("Tournaments"));
-        tabLayout.addTab(tabLayout.newTab().setText("Matches"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.matches));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tournaments));
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -167,7 +167,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
         if (Utils.hasConnexion(getApplicationContext())) {
             refresh();
         } else {
-            Toast.makeText(MatchListActivity.this, "An internet connection is required for this operation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MatchListActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
             swipeRefreshLayout.setRefreshing(false);
         }
     }

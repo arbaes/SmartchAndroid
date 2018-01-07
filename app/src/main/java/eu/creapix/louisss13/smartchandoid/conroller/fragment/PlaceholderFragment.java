@@ -37,7 +37,6 @@ import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 public class PlaceholderFragment extends Fragment implements WebserviceListener {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
     private UserInfoParser userInfo;
     private View rootView;
 
@@ -57,7 +56,7 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
     }
 
     private void populate() {
-        TextView fullname = (TextView) rootView.findViewById(R.id.user_data_fullname);
+        TextView fullname = rootView.findViewById(R.id.user_data_fullname);
         TextView address = rootView.findViewById(R.id.user_data_address);
         TextView phone = rootView.findViewById(R.id.user_data_phone);
         TextView birthdate = rootView.findViewById(R.id.user_data_birthdate);
@@ -99,10 +98,8 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
 
 
         if (Utils.hasConnexion(super.getContext())) {
-            Log.e("HAS CONN","COND OK");
             new GetClubs().execute();
         } else {
-            Log.e("HAS CONN","COND FAILED");
             Toast.makeText(getActivity(), R.string.no_connection, Toast.LENGTH_SHORT).show();
         }
 
@@ -129,7 +126,6 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.e("DEBUG", "Content : " + id);
                 if ((datas != null) && (id != null) && (datas.size() > 0) && id.equals(userInfo.getId()) && (datas.get(0) instanceof ClubParser)) {
                     updateClubList(datas);
                 }

@@ -63,7 +63,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
                         mViewPager = (ViewPager) findViewById(R.id.container);
                         mViewPager.setAdapter(mSectionsPagerAdapter);
                     } else {
-                        Toast.makeText(ViewUserDetailsActivity.this, "Aucune donnée de profil trouvée", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ViewUserDetailsActivity.this, R.string.no_data, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

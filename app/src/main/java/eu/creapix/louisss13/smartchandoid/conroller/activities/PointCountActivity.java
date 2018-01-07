@@ -53,7 +53,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         checkIntent(getIntent());
 
         TextView title = findViewById(R.id.title);
-        title.setText("Match #" + String.valueOf(matchId));
+        title.setText(R.string.title_activity_point_count_prefix + String.valueOf(matchId));
 
         final TextView mAddPointPlayer1 = findViewById(R.id.player_a_sendScore);
         mAddPointPlayer1.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +132,6 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             public void run() {
 
                 if (datas != null && datas.size() > 0){
-                    Log.e("POINT COUNT DATA", "received");
                     ScoreCalculatedParser scores = (ScoreCalculatedParser) datas.get(0);
                     populateScores(scores.getPointLevels());
                 }

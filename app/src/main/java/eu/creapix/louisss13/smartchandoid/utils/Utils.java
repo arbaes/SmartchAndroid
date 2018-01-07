@@ -66,7 +66,7 @@ public class Utils {
         alertDialogBuilder.setTitle(R.string.title_session_expired);
 
         // set dialog message
-        alertDialogBuilder.setMessage(R.string.content_session_expired).setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setMessage(R.string.content_session_expired).setCancelable(false).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         Intent intent = new Intent(activity, LoginActivity.class);

@@ -169,7 +169,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     if (userInfo.length > 0) {
                         populateDatas(userInfo[0].getFirstName(), userInfo[0].getLastName(), account.getEmail());
                     } else {
-                        Toast.makeText(ProfileActivity.this, "Aucune donnée de profil trouvée", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, R.string.no_data, Toast.LENGTH_SHORT).show();
                         findViewById(R.id.progress).setVisibility(View.GONE);
 
                     }

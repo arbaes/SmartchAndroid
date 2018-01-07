@@ -105,7 +105,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         if (Utils.hasConnexion(getApplicationContext())) {
             refresh();
         } else {
-            Toast.makeText(MonitoredMatchesActivity.this, "An internet connection is required for this operation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MonitoredMatchesActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
             swipeRefreshLayout.setRefreshing(false);
         }
     }
