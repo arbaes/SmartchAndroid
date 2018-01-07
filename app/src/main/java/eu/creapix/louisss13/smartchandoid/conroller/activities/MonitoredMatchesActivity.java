@@ -77,22 +77,33 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
 
     }
 
-    private class GetMonitoredMatches extends AsyncTask<Void, Void, Void> {
+    private class GetMonitoredMatches extends AsyncTask<Void, Void, Boolean> {
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
 
                 MonitoredMatchesDao monitoredMatchesDao = new MonitoredMatchesDao();
                 monitoredMatchesDao.getMonitoredMatches(MonitoredMatchesActivity.this, PreferencesUtils.getToken(getApplicationContext()));
-
-            } catch (IOException e) {
+                return true;
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                return false;
             }
 
-            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (!(success)) {
+                Utils.alertError(MonitoredMatchesActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
         }
     }
 

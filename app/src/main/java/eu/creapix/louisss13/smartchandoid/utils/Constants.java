@@ -20,8 +20,7 @@ public class Constants {
     public static final String GET_PROFILE = "get_profile";
     public static final String GET_MONITORED_MATCHES = "get_monitored_matches";
     public static final String GET_CLUBS = "get_clubs";
-    public static final String POST_POINT = "post_point";
-    public static final String HOST_URL=  "http://smartch.azurewebsites.net/";
+    public static final String HOST_URL=  "google.be";
 
 
     //Player Management
@@ -29,11 +28,8 @@ public class Constants {
     public static final int PLAYER_2_POINT = 1;
     public static final String PLAYER_1_NAME = "player_1_name";
     public static final String PLAYER_2_NAME = "player_2_name";
-    public static final String ADD_POINT = "add_point";
     public static final String DELETE_POINT = "delete_point";
-    public static final String RESULT_PLAYER_1 = "result_player_1";
-    public static final String RESULT_PLAYER_2 = "result_player_2";
-    public static final String RESULT_MATCH_ID = "result_match_id";
+    public static final String POST_POINT = "post_point";
     public static final int RESULT_COUNT_POINT = 200;
 
     //Error Management - Password

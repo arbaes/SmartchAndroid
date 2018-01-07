@@ -54,8 +54,8 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     private void setupTabLayout() {
         tabLayout.removeAllTabs();
 
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.matches));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tournaments));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.matches));
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -132,10 +132,10 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
 
     }
 
-    private class GetDatas extends AsyncTask<Void, Void, Void> {
+    private class GetDatas extends AsyncTask<Void, Void, Boolean> {
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
                 // TODO create dao function fort matches
                 switch (tabLayout.getSelectedTabPosition()) {
@@ -146,15 +146,26 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
                     case 1:
                         onWebserviceFinishWithSuccess(Constants.GET_MATCHES, 0, new ArrayList<Object>());
                         break;
-
                 }
-            } catch (IOException e) {
+                return true;
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                return false;
             }
 
-            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (!(success)) {
+                Utils.alertError(MatchListActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
         }
     }
 

@@ -17,6 +17,7 @@ import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.dataAccess.PointCountDao;
 import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
+import eu.creapix.louisss13.smartchandoid.model.SendPointParams;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.PointLevelParser;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ScoreCalculatedParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
@@ -61,7 +62,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             public void onClick(View view) {
 
                 if (Utils.hasConnexion(getApplicationContext())) {
-                    SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.POST);
+                    SendPointParams params = new SendPointParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.POST);
                     mAddPointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
                     mAddPointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
                     mAddPointPlayer1.setEnabled(false);
@@ -80,7 +81,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             public void onClick(View view) {
 
                 if (Utils.hasConnexion(getApplicationContext())) {
-                    SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.POST);
+                    SendPointParams params = new SendPointParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.POST);
                     mAddPointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
                     mAddPointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
                     mAddPointPlayer2.setEnabled(false);
@@ -98,7 +99,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             public void onClick(View view) {
 
                 if (Utils.hasConnexion(getApplicationContext())) {
-                    SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.DELETE);
+                    SendPointParams params = new SendPointParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.DELETE);
                     mDeletePointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
                     mDeletePointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
                     mDeletePointPlayer1.setEnabled(false);
@@ -116,7 +117,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             public void onClick(View view) {
 
                 if (Utils.hasConnexion(getApplicationContext())) {
-                    SendPointsParams params = new SendPointsParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.DELETE);
+                    SendPointParams params = new SendPointParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.DELETE);
                     mDeletePointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
                     mDeletePointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
                     mDeletePointPlayer2.setEnabled(false);
@@ -179,6 +180,29 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         });
     }
 
+    public void resetButtons(){
+        TextView mAddPointPlayer = findViewById(R.id.player_a_sendScore);
+        mAddPointPlayer.setBackgroundResource(R.color.primaryLightColor);
+        mAddPointPlayer.setTextColor(getResources().getColor(R.color.primaryDarkColor));
+        mAddPointPlayer.setEnabled(true);
+
+        mAddPointPlayer = findViewById(R.id.player_b_sendScore);
+        mAddPointPlayer.setBackgroundResource(R.color.primaryLightColor);
+        mAddPointPlayer.setTextColor(getResources().getColor(R.color.primaryDarkColor));
+        mAddPointPlayer.setEnabled(true);
+
+        TextView mDeletePointPlayer = findViewById(R.id.player_a_deleteScore);
+        mDeletePointPlayer.setBackgroundResource(R.color.primaryDarkColor);
+        mDeletePointPlayer.setTextColor(getResources().getColor(R.color.primaryLightColor));
+        mDeletePointPlayer.setEnabled(true);
+
+        mDeletePointPlayer = findViewById(R.id.player_b_deleteScore);
+        mDeletePointPlayer.setBackgroundResource(R.color.primaryDarkColor);
+        mDeletePointPlayer.setTextColor(getResources().getColor(R.color.primaryLightColor));
+        mDeletePointPlayer.setEnabled(true);
+    }
+
+
     @Override
     public void onWebserviceFinishWithError(String error, final int errorCode) {
 
@@ -196,33 +220,13 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
                         Utils.alertError(PointCountActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
                         break;
                 }
-
-                TextView mAddPointPlayer = findViewById(R.id.player_a_sendScore);
-                mAddPointPlayer.setBackgroundResource(R.color.primaryLightColor);
-                mAddPointPlayer.setTextColor(getResources().getColor(R.color.primaryDarkColor));
-                mAddPointPlayer.setEnabled(true);
-
-                mAddPointPlayer = findViewById(R.id.player_b_sendScore);
-                mAddPointPlayer.setBackgroundResource(R.color.primaryLightColor);
-                mAddPointPlayer.setTextColor(getResources().getColor(R.color.primaryDarkColor));
-                mAddPointPlayer.setEnabled(true);
-
-                TextView mDeletePointPlayer = findViewById(R.id.player_a_deleteScore);
-                mDeletePointPlayer.setBackgroundResource(R.color.primaryDarkColor);
-                mDeletePointPlayer.setTextColor(getResources().getColor(R.color.primaryLightColor));
-                mDeletePointPlayer.setEnabled(true);
-
-                mDeletePointPlayer = findViewById(R.id.player_b_deleteScore);
-                mDeletePointPlayer.setBackgroundResource(R.color.primaryDarkColor);
-                mDeletePointPlayer.setTextColor(getResources().getColor(R.color.primaryLightColor));
-                mDeletePointPlayer.setEnabled(true);
-
+                resetButtons();
             }
         });
 
     }
 
-    private class SendPoint extends AsyncTask<SendPointsParams, Void, Void> {
+    private class SendPoint extends AsyncTask<SendPointParams, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -232,29 +236,40 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         }
 
         @Override
-        protected Void doInBackground(SendPointsParams... params) {
+        protected Boolean doInBackground(SendPointParams... params) {
             try {
 
                 PointCountDao pointCountDao = new PointCountDao();
                 pointCountDao.postPoint(
                         PointCountActivity.this,
-                        params[0].scoredBy,
-                        params[0].matchId,
+                        params[0].getScoredBy(),
+                        params[0].getMatchId(),
                         PreferencesUtils.getToken(PointCountActivity.this),
-                        params[0].method
+                        params[0].getMethod()
                 );
+                return true;
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
 
-            return null;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(Boolean aSuccess) {
+            super.onPostExecute(aSuccess);
             asyncCnt--;
             if (asyncCnt == 0) wait.setVisibility(View.GONE);
+            if (!(aSuccess)) {
+                Toast.makeText(PointCountActivity.this, R.string.error_connection_lost_title, Toast.LENGTH_SHORT).show();
+                Utils.alertError(PointCountActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        resetButtons();
+                    }
+                });
+            }
         }
     }
 
@@ -328,21 +343,6 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             player1Name.setText(intent.getStringExtra(Constants.PLAYER_1_NAME));
             player2Name.setText(intent.getStringExtra(Constants.PLAYER_2_NAME));
             populateScores(currentScore);
-        }
-
-    }
-
-    //TODO export en model
-
-    private static class SendPointsParams {
-        int matchId;
-        int scoredBy;
-        RequestMethods method;
-
-        public SendPointsParams(int matchId, int scoredBy, RequestMethods method) {
-            this.matchId = matchId;
-            this.scoredBy = scoredBy;
-            this.method = method;
         }
 
     }

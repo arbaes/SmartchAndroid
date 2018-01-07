@@ -300,15 +300,14 @@ public class LoginActivity extends AppCompatActivity implements WebserviceListen
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
+
             showProgress(false);
 
             if (success) {
                 Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
 
             } else {
-                findViewById(R.id.account_incorrect).setVisibility(View.VISIBLE);
-                mPasswordView.requestFocus();
-                mEmailView.requestFocus();
+                Utils.alertError(LoginActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
             }
         }
 

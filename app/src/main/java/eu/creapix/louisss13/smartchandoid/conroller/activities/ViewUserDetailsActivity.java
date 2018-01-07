@@ -92,21 +92,27 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
 
     }
 
-    private class GetDatas extends AsyncTask<Void, Void, Void> {
+    private class GetDatas extends AsyncTask<Void, Void, Boolean> {
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
 
                 ProfileDao profileDao = new ProfileDao();
                 profileDao.getProfile(ViewUserDetailsActivity.this, PreferencesUtils.getToken(getApplicationContext()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                return true;
 
-            return null;
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (!(success)) {
+                Utils.alertError(ViewUserDetailsActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+            }
         }
     }
 }

@@ -32,6 +32,10 @@
     <string name="matches">matches</string>
     <string name="tournaments">tournaments</string>
 
+    <string name="error_connection_lost_title">Connection Lost</string>
+    <string name="error_connection_lost_content">The connection has been lost. Please use a stronger connection if this situation occurs too often.</string>
+
+
     <string name="press_back_to_quit">Please press \'BACK\' again to exit the app.</string>
     <string name="ok">OK</string>
 
@@ -39,6 +43,7 @@
 
     <string name="title_activity_register">Register</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_monitoring">Monitored Matches</string>
     <string name="title_activity_point_count_prefix">Match #</string>
     <string name="title_session_expired">Session expired</string>
     <string name="content_session_expired">Your session has expired, you will be now redirected to the login screen.</string>

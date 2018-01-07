@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".conroller.activities.MonitoredMatchesActivity"
-            android:label="Matchs Arbitrés"
+            android:label="@string/title_activity_monitoring"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity

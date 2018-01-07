@@ -140,20 +140,29 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    private class GetDatas extends AsyncTask<Void, Void, Void> {
+    private class GetDatas extends AsyncTask<Void, Void, Boolean> {
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
             try {
                 ProfileDao profileDao = new ProfileDao();
                 profileDao.getProfile(ProfileActivity.this, PreferencesUtils.getToken(getApplicationContext()));
-            } catch (IOException e) {
+                return true;
+
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                return false;
             }
 
-            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (!(success)) {
+                Utils.alertError(ProfileActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                findViewById(R.id.details).setVisibility(View.VISIBLE);
+                findViewById(R.id.progress).setVisibility(View.GONE);
+            }
         }
     }
 
