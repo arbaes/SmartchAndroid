@@ -279,12 +279,13 @@
 
     <Button
         android:id="@+id/get_userinfo"
-        style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
+        style="@android:style/Widget.Material.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Your Personal Info"
+        android:text="Members"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
