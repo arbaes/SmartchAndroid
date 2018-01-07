@@ -1,6 +1,5 @@
 package eu.creapix.louisss13.smartchandoid.conroller.activities;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.adapter.BrowseListAdapter;
 import eu.creapix.louisss13.smartchandoid.dataAccess.TournamentsDao;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
@@ -30,16 +29,15 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     private RecyclerView recyclerView;
     private BrowseListAdapter browseListAdapter;
     private TabLayout tabLayout;
-    private Context classContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_list);
 
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_tournaments);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_tournaments);
+        tabLayout = findViewById(R.id.tab_layout);
+        recyclerView = findViewById(R.id.recycler_tournaments);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_tournaments);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setHasFixedSize(true);
@@ -131,7 +129,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     }
 
     @Override
-    public void onWebserviceFinishWithError(String error, final int errorCode) {
+    public void onWebserviceFinishWithError(final String error, final int errorCode) {
 
         runOnUiThread(new Runnable() {
             @Override

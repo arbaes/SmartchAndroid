@@ -13,6 +13,8 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.daoInterfaces.ProfileDataAccess;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.AccountParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
@@ -20,7 +22,7 @@ import eu.creapix.louisss13.smartchandoid.utils.Constants;
  * Created by arnau on 03-01-18.
  */
 
-public class ProfileDao {
+public class ProfileDao implements ProfileDataAccess {
 
     private static final String TAG = "ProfileDao";
 
@@ -33,6 +35,7 @@ public class ProfileDao {
         gson = new Gson();
     }
 
+    @Override
     public void getProfile(WebserviceListener webserviceListener, String token) throws IOException, JSONException {
 
         HttpURLConnection connection = datahandler.GetHTTPData(Urls.Account, token);

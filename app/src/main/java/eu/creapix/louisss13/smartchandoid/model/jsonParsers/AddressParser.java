@@ -15,7 +15,7 @@ public class AddressParser {
 
     public AddressParser(){
 
-    };
+    }
 
     public String getShortAdress(){
         return city + ", " + country;

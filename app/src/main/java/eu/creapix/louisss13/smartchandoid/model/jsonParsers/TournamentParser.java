@@ -90,6 +90,6 @@ public class TournamentParser extends JSONObject {
         this.participantsId = participantsId;
     }
 
-    public TournamentParser(){};
+    public TournamentParser(){}
 
 }

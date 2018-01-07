@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
@@ -288,9 +288,7 @@ public class LoginActivity extends AppCompatActivity implements WebserviceListen
 
             try {
                 return userDao.login(LoginActivity.this, getApplicationContext(), mEmail, mPassword);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
 

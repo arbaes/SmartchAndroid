@@ -66,14 +66,14 @@ public class MonitoredMatchAdapter extends RecyclerView.Adapter<MonitoredMatchAd
         return matchs.size();
     }
 
-    public static class MonitoredMatchViewHolder extends RecyclerView.ViewHolder {
+    static class MonitoredMatchViewHolder extends RecyclerView.ViewHolder {
         private TextView playerLeftName, playerScores, playerRightName;
 
-        public MonitoredMatchViewHolder(View itemView) {
+        MonitoredMatchViewHolder(View itemView) {
             super(itemView);
-            playerLeftName = (TextView) itemView.findViewById(R.id.player_left);
-            playerRightName = (TextView) itemView.findViewById(R.id.player_right);
-            playerScores = (TextView) itemView.findViewById(R.id.score);
+            playerLeftName = itemView.findViewById(R.id.player_left);
+            playerRightName = itemView.findViewById(R.id.player_right);
+            playerScores = itemView.findViewById(R.id.score);
         }
     }
 }

@@ -13,11 +13,13 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.TournamentParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
 /**
- * Created by arnau on 30-12-17.
+ * Created by Arnaud Baes on 30-12-17.
+ * IG-3C 2017 - 2018
  */
 
 public class TournamentsDao {
@@ -47,7 +49,7 @@ public class TournamentsDao {
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_TOURNAMENT, 0, tournaments);
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), 707);
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseCode() + " - " + connection.getResponseMessage(), connection.getResponseCode());
         }
     }
 

@@ -13,6 +13,8 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.daoInterfaces.MonitoredMatchesDataAccess;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.MatchParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
@@ -20,7 +22,7 @@ import eu.creapix.louisss13.smartchandoid.utils.Constants;
  * Created by arnau on 30-12-17.
  */
 
-public class MonitoredMatchesDao {
+public class MonitoredMatchesDao implements MonitoredMatchesDataAccess {
 
     private static final String TAG = "MonitoredMatchesDao";
 
@@ -33,6 +35,7 @@ public class MonitoredMatchesDao {
         gson = new Gson();
     }
 
+    @Override
     public void getMonitoredMatches(WebserviceListener webserviceListener, String token) throws IOException, JSONException {
 
         HttpURLConnection connection = datahandler.GetHTTPData(Urls.Monitoring, token);

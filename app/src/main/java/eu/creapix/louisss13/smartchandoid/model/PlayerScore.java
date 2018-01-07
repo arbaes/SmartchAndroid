@@ -14,7 +14,7 @@ public class PlayerScore implements Serializable {
     private int player2Score;
 
 
-    public PlayerScore(){};
+    public PlayerScore(){}
 
     public PlayerScore (String player1Name, int player1Score, int player2Score, String player2Name){
 

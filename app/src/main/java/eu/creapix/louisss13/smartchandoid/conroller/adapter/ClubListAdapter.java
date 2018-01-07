@@ -51,12 +51,12 @@ public class ClubListAdapter extends RecyclerView.Adapter<ClubListAdapter.ClubLi
         return datas.size();
     }
 
-    public static class ClubListViewHolder extends RecyclerView.ViewHolder {
+    static class ClubListViewHolder extends RecyclerView.ViewHolder {
         private TextView clubName;
 
-        public ClubListViewHolder(View itemView) {
+        ClubListViewHolder(View itemView) {
             super(itemView);
-            clubName = (TextView) itemView.findViewById(R.id.club_name);
+            clubName = itemView.findViewById(R.id.club_name);
         }
     }
 }

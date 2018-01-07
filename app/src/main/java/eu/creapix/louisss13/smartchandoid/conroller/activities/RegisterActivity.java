@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
@@ -44,9 +44,9 @@ public class RegisterActivity extends AppCompatActivity implements WebserviceLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements WebserviceLis
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

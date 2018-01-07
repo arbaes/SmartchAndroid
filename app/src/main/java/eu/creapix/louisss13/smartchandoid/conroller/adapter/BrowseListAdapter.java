@@ -7,17 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.text.WordUtils;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import eu.creapix.louisss13.smartchandoid.conroller.activities.MatchListActivity;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
-import eu.creapix.louisss13.smartchandoid.model.jsonParsers.MatchParser;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.TournamentParser;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
@@ -70,7 +63,7 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
                 @Override
                 public void onClick(View view) {
 
-                    ArrayList<Object> selectedTrounament = new ArrayList<Object>();
+                    ArrayList<Object> selectedTrounament = new ArrayList<>();
                     selectedTrounament.add(datas.get(viewHolder.getAdapterPosition()));
                     TabLayout.Tab tabsel = tabLayout.getTabAt(1);
                     tabsel.select();
@@ -88,8 +81,8 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
 
         viewHolder.tournamentNameDetails.setText(tournament.getName());
 
-        viewHolder.addressLine1.setText(tournament.getAddress().getStreet() + " " + tournament.getAddress().getNumber());
-        viewHolder.addressLine2.setText(tournament.getAddress().getZipCode()+" "+tournament.getAddress().getCity());
+        viewHolder.addressLine1.setText(new StringBuilder().append(tournament.getAddress().getStreet()).append(" ").append(tournament.getAddress().getNumber()).toString());
+        viewHolder.addressLine2.setText(new StringBuilder().append(tournament.getAddress().getZipCode()).append(" ").append(tournament.getAddress().getCity()).toString());
 
 
         String startDate = tournament.getBeginDate();
@@ -158,15 +151,15 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
         return datas.size();
     }
 
-    public static class BrowseListViewHolder extends RecyclerView.ViewHolder {
+    static class BrowseListViewHolder extends RecyclerView.ViewHolder {
         private TextView tournamentName, tournamentId, tournamentState;
         private TextView startDate, endDate, startTime, endTime, addressLine1, addressLine2, statusTournament, tournamentNameDetails;
 
-        public BrowseListViewHolder(View itemView) {
+        BrowseListViewHolder(View itemView) {
             super(itemView);
-            tournamentName = (TextView) itemView.findViewById(R.id.tournament_label);
-            tournamentId = (TextView) itemView.findViewById(R.id.tournament_id);
-            tournamentState = (TextView) itemView.findViewById(R.id.tournament_state);
+            tournamentName = itemView.findViewById(R.id.tournament_label);
+            tournamentId = itemView.findViewById(R.id.tournament_id);
+            tournamentState = itemView.findViewById(R.id.tournament_state);
 
             startDate = itemView.findViewById(R.id.start_date);
             endDate = itemView.findViewById(R.id.end_date);

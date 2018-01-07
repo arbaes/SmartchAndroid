@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.activities.ViewUserDetailsActivity;
 import eu.creapix.louisss13.smartchandoid.conroller.adapter.ClubListAdapter;
 import eu.creapix.louisss13.smartchandoid.dataAccess.ClubsDao;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ClubParser;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.UserInfoParser;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
@@ -39,6 +38,8 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
 
     private UserInfoParser userInfo;
     private View rootView;
+    private TextView noDataView;
+
 
     public PlaceholderFragment() {
 
@@ -52,6 +53,7 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_view_user_details, container, false);
         populate();
+        noDataView.setVisibility(View.GONE);
         return rootView;
     }
 
@@ -121,13 +123,14 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
     }
 
     @Override
-    //TODO - Prevoir le NoData
     public void onWebserviceFinishWithSuccess(String method, final Integer id, final ArrayList<Object> datas) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if ((datas != null) && (id != null) && (datas.size() > 0) && id.equals(userInfo.getId()) && (datas.get(0) instanceof ClubParser)) {
                     updateClubList(datas);
+                } else {
+                    noDataView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -145,9 +148,7 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
             try {
                 ClubsDao profileDao = new ClubsDao();
                 profileDao.getClubs(PlaceholderFragment.this, userInfo.getId(), PreferencesUtils.getToken(getActivity().getApplicationContext()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
             return null;

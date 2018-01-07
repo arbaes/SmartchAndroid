@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.daoInterfaces.ClubsDataAccess;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ClubParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
@@ -21,7 +23,7 @@ import eu.creapix.louisss13.smartchandoid.utils.Constants;
  * Created by arnau on 05-01-18.
  */
 
-public class ClubsDao {
+public class ClubsDao implements ClubsDataAccess {
 
     private static final String TAG = "ClubsDao";
 
@@ -34,6 +36,7 @@ public class ClubsDao {
         gson = new Gson();
     }
 
+    @Override
     public void getClubs(WebserviceListener webserviceListener, int userId, String token) throws IOException, JSONException {
 
 

@@ -21,7 +21,6 @@
                 android:layout_height="wrap_content" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <!-- TODO Faire pour toute les listes ( RecyclerView ) -->
         <TextView
             android:id="@+id/empty"
             android:layout_width="match_parent"

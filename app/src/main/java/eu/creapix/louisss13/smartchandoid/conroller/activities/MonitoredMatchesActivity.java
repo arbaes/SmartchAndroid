@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.adapter.MonitoredMatchAdapter;
 import eu.creapix.louisss13.smartchandoid.dataAccess.MonitoredMatchesDao;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.MatchParser;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ScoreCalculatedParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
@@ -38,9 +39,10 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitored_matches);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView = findViewById(R.id.recycler);
+        findViewById(R.id.no_data_view).setVisibility(View.GONE);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.primaryLightColor, R.color.primaryColor, R.color.primaryDarkColor);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
@@ -113,6 +115,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
 
     @Override
     public void onRefresh() {
+        findViewById(R.id.no_data_view).setVisibility(View.GONE);
         if (Utils.hasConnexion(getApplicationContext())) {
             refresh();
         } else {
@@ -130,6 +133,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
                     if (datas.get(0) instanceof MatchParser) {
                         populateMatches(datas);
                     }
+                    findViewById(R.id.no_data_view).setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setRefreshing(false);
                 }
             }

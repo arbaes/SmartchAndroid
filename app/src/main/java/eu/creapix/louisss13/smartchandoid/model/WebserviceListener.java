@@ -1,4 +1,4 @@
-package eu.creapix.louisss13.smartchandoid.dataAccess;
+package eu.creapix.louisss13.smartchandoid.model;
 
 import java.util.ArrayList;
 

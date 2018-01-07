@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.PointDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.daoInterfaces.PointCountDataAccess;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ScoreCalculatedParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 
@@ -23,7 +25,7 @@ import eu.creapix.louisss13.smartchandoid.utils.Constants;
  */
 
 
-public class PointCountDao {
+public class PointCountDao implements PointCountDataAccess {
 
     private ApiService apiService;
     private Gson gson;
@@ -36,6 +38,7 @@ public class PointCountDao {
         gson = new Gson();
     }
 
+    @Override
     public void postPoint(WebserviceListener webserviceListener, int scoredBy, int matchId, String token, RequestMethods requestMethod) throws IOException {
         Boolean player = false;
         switch (scoredBy){

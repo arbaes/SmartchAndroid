@@ -15,6 +15,8 @@ import java.net.HttpURLConnection;
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.ConnexionDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.daomodel.RegisterDaoModel;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.Urls;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.daoInterfaces.UsersDataAccess;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.TokenParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
@@ -23,7 +25,7 @@ import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
  * Created by Louisss13 on 18-12-17.
  */
 
-public class UsersDao {
+public class UsersDao implements UsersDataAccess {
     private static final String TAG = "UsersDao";
 
     private ApiService apiService;
@@ -35,6 +37,7 @@ public class UsersDao {
         gson = new Gson();
     }
 
+    @Override
     public boolean login(WebserviceListener webserviceListener, Context context, String mEmail, String mPassword) throws IOException, JSONException {
         ConnexionDaoModel connexionDaoModel = new ConnexionDaoModel(mEmail, mPassword);
         HttpURLConnection connection = datahandler.PostHTTPData(Urls.Login, connexionDaoModel, null);
@@ -60,6 +63,7 @@ public class UsersDao {
 
     }
 
+    @Override
     public boolean register(WebserviceListener webserviceListener, String mEmail, String mPassword) throws IOException {
 
         RegisterDaoModel registerDaoModel = new RegisterDaoModel(mEmail, mPassword);

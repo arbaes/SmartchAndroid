@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.dataAccess.ProfileDao;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.AccountParser;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.UserInfoParser;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
@@ -43,14 +43,14 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        headerFullName = (TextView) findViewById(R.id.header_full_name);
-        headerEmail = (TextView) findViewById(R.id.header_email);
-        firstName = (EditText) findViewById(R.id.first_name);
-        lastName = (EditText) findViewById(R.id.last_name);
-        email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password);
-        confirmPassword = (EditText) findViewById(R.id.confirm_pwd);
-        edit = (FloatingActionButton) findViewById(R.id.edit);
+        headerFullName = findViewById(R.id.header_full_name);
+        headerEmail = findViewById(R.id.header_email);
+        firstName = findViewById(R.id.first_name);
+        lastName = findViewById(R.id.last_name);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirm_pwd);
+        edit = findViewById(R.id.edit);
 
         edit.setOnClickListener(this);
 
@@ -108,7 +108,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         edit.setImageResource(show ? R.drawable.ic_done : R.drawable.ic_edit_black_24dp);
         mGetUserInfos.setVisibility(show ? View.GONE : View.VISIBLE);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(show ? R.drawable.ic_clear : R.drawable.ic_menu);
 
         ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(show ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED);

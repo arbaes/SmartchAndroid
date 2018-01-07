@@ -36,10 +36,10 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         this.headerNavEmail = findViewById(R.id.nav_header_email);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        this.mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         this.mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -117,7 +117,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -150,10 +150,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_match_list) {
             if (!(this instanceof MatchListActivity))
                 goToMatchList();
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

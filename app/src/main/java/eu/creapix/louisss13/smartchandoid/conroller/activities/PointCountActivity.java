@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.dataAccess.PointCountDao;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
 import eu.creapix.louisss13.smartchandoid.model.SendPointParams;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.PointLevelParser;
@@ -35,8 +35,6 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     private int asyncCnt;
 
 
-    //TODO Empecher de descendre en dessous de 0
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +52,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         checkIntent(getIntent());
 
         TextView title = findViewById(R.id.title);
-        title.setText(getString(R.string.title_activity_point_count_prefix) + String.valueOf(matchId));
+        title.setText(new StringBuilder().append(getString(R.string.title_activity_point_count_prefix)).append(String.valueOf(matchId)).toString());
 
         final TextView mAddPointPlayer1 = findViewById(R.id.player_a_sendScore);
         mAddPointPlayer1.setOnClickListener(new View.OnClickListener() {
@@ -275,17 +273,17 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
 
     private String getFinishedSetsDisplay(ArrayList<PointLevelParser> sets, int scoredBy){
 
-        String finishedSetsDisplay = "";
+        StringBuilder finishedSetsDisplay = new StringBuilder();
         if (sets != null ) {
             switch (scoredBy) {
                 case Constants.PLAYER_1_POINT:
                     for (int i = 0; i < sets.size() - 1; i++) {
-                        finishedSetsDisplay += sets.get(i).getScorePlayer1() + "  ";
+                        finishedSetsDisplay.append(sets.get(i).getScorePlayer1()).append("  ");
                     }
                     break;
                 case Constants.PLAYER_2_POINT:
                     for (int i = 0; i < sets.size() - 1; i++) {
-                        finishedSetsDisplay += sets.get(i).getScorePlayer2() + "  ";
+                        finishedSetsDisplay.append(sets.get(i).getScorePlayer2()).append("  ");
                     }
                     break;
             }
@@ -293,7 +291,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
                 finishedSetsDisplay.substring(0, finishedSetsDisplay.length() - 2);
             }
         }
-        return finishedSetsDisplay;
+        return finishedSetsDisplay.toString();
     }
 
     @Override

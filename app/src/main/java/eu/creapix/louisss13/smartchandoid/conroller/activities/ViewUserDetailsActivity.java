@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.adapter.SectionsPagerAdapter;
 import eu.creapix.louisss13.smartchandoid.dataAccess.ProfileDao;
-import eu.creapix.louisss13.smartchandoid.dataAccess.WebserviceListener;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.AccountParser;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.UserInfoParser;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
@@ -36,7 +36,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
         JodaTimeAndroid.init(this);
         setContentView(R.layout.activity_view_user_details);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if (Utils.hasConnexion(getApplicationContext())) {
@@ -60,7 +60,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
                     if ( userInfo.length > 0 ) {
                         ViewUserDetailsActivity.this.userInfos = userInfo;
                         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), userInfo);
-                        mViewPager = (ViewPager) findViewById(R.id.container);
+                        mViewPager = findViewById(R.id.container);
                         mViewPager.setAdapter(mSectionsPagerAdapter);
                     } else {
                         Toast.makeText(ViewUserDetailsActivity.this, R.string.no_data, Toast.LENGTH_SHORT).show();
@@ -85,11 +85,6 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
                 }
             }
         });
-    }
-
-
-    public void populateUserData(){
-
     }
 
     private class GetDatas extends AsyncTask<Void, Void, Boolean> {
