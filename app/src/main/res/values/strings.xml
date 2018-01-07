@@ -20,10 +20,30 @@
     <string name="register_success">The account was registered successfully</string>
     <string name="login_success">Logged successfully</string>
     <string name="registered_already">This account already exist</string>
+    <string name="password_incorrect">Your email or your password is incorrect</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register">Register</string>
+
+    <!-- Generic error-->
     <string name="something_wrong">Oops, something went wrong !</string>
     <string name="server_error_content">The distant server sent an unexpected response</string>
     <string name="server_error_title">Server Error</string>
+
+
+    <!-- Custom error-->
+    <string name="error_connection_lost_title">Connection Lost</string>
+    <string name="error_connection_lost_content">The connection has been lost. Please use a stronger connection if this situation occurs too often.</string>
     <string name="error_unauthorized">You are not allowed to perform this operation</string>
+    <string name="content_session_expired">Your session has expired, you will be now redirected to the login screen.</string>
+    <string name="no_connection">No connection detected</string>
+
+    <!-- General Information -->
+    <string name="press_back_to_quit">Please press \'BACK\' again to exit the app.</string>
+    <string name="ok">OK</string>
+    <string name="no_data">No data found</string>
+    <string name="load_all_data">Loading all details</string>
+    <string name="notify_point_server_upload">Sending</string>
+
 
     <!-- Strings related to tournaments-->
     <string name="tournament_status_closed">finished</string>
@@ -32,46 +52,28 @@
     <string name="tournament_details">details</string>
     <string name="tournaments">tournaments</string>
 
-    <string name="error_connection_lost_title">Connection Lost</string>
-    <string name="error_connection_lost_content">The connection has been lost. Please use a stronger connection if this situation occurs too often.</string>
 
-
-    <string name="press_back_to_quit">Please press \'BACK\' again to exit the app.</string>
-    <string name="ok">OK</string>
-
-    <string name="no_data">No data found</string>
-    <string name="load_all_data">Loading all details</string>
-
+    <!-- Activity Related -->
     <string name="title_activity_register">Register</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_monitoring">Monitored Matches</string>
     <string name="title_activity_point_count_prefix">Match #</string>
     <string name="title_session_expired">Session expired</string>
-    <string name="content_session_expired">Your session has expired, you will be now redirected to the login screen.</string>
-    <string name="no_connection">No connection detected</string>
     <string name="action_settings">Settings</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_menu">Menu</string>
 
+    <!-- Layout values -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_match_list">Browse Tournaments</string>
     <string name="title_activity_view_user_details">Members</string>
-    <string name="password_incorrect">Your email or your password is incorrect</string>
-    <string name="default_pwd">Coucou-123</string>
-    <string name="default_email">louisss13@gmail.com</string>
-    <string name="sign_in">Sign In</string>
-    <string name="register">Register</string>
-    <string name="notify_point_server_upload">Sending</string>
-    <string name="player_default_name">Player A.</string>
     <string name="player_1_label">Player 1</string>
     <string name="player_2_label">Player 2</string>
     <string name="add_point_label">+1</string>
-    <string name="default_point_score">0</string>
     <string name="previous_sets_label">Previous Sets</string>
-    <string name="previous_sets_default_content">15 15 15 15 15 15 15 15 15 15 15 15 15 15 15</string>
     <string name="delete_point_label">-1</string>
     <string name="score">Score</string>
     <string name="accout_avatar">Account avatar</string>
@@ -86,8 +88,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="members_button_label">Managed members</string>
     <string name="member_avatar">Member avatar</string>
-    <string name="default_full_name">John Doe</string>
-    <string name="default_short_address">Namur, Belgium</string>
     <string name="age_label">Years Old</string>
     <string name="clubs_label">Clubs</string>
     <string name="member_details_account">Member details account</string>
@@ -95,16 +95,28 @@
     <string name="phone_label">Phone</string>
     <string name="birth_date_label">Birth Date</string>
     <string name="email_label">E-mail</string>
+    <string name="start_date_label">Start</string>
+    <string name="end_date_label">End</string>
+    <string name="address_label">Address</string>
+    <string name="status_label">Status</string>
+
+
+    <!-- Dummy/Test values-->
+    <string name="default_email">louisss13@gmail.com</string>
+    <string name="default_pwd">Coucou-123</string>
+    <string name="previous_sets_default_content">15 15 15 15 15 15 15 15 15 15 15 15 15 15 15</string>
+    <string name="player_default_name">Player A.</string>
+    <string name="default_point_score">0</string>
+    <string name="default_full_name">John Doe</string>
+    <string name="default_short_address">Namur, Belgium</string>
     <string name="default_generic_email">android.studio@android.com</string>
     <string name="default_club_name">Club Name</string>
     <string name="default_tournament_name">Tournament Name</string>
     <string name="default_id_label">#ID</string>
-    <string name="start_date_label">Start</string>
-    <string name="dummy_date">15 Janvier 2017</string>
-    <string name="dummy_time">At 13:37</string>
-    <string name="end_date_label">End</string>
-    <string name="address_label">Address</string>
     <string name="dummy_address">Route de labas, 29</string>
     <string name="dummy_address_line_2">5000 Namur City</string>
-    <string name="status_label">Status</string>
+    <string name="dummy_date">15 Janvier 2017</string>
+    <string name="dummy_time">At 13:37</string>
+
+
 </resources>
