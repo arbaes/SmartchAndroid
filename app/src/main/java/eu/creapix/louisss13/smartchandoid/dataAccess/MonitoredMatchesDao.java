@@ -47,7 +47,8 @@ public class MonitoredMatchesDao implements MonitoredMatchesDataAccess {
             Log.e(TAG, "JSON - " + stream);
 
 
-            Type matchType = new TypeToken<ArrayList<MatchParser>>(){}.getType();
+            Type matchType = new TypeToken<ArrayList<MatchParser>>() {
+            }.getType();
             ArrayList<Object> monitoredMatches = gson.fromJson(stream, matchType);
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_MONITORED_MATCHES, 0, monitoredMatches);
         } else {

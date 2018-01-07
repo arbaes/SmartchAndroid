@@ -14,9 +14,10 @@ public class PlayerScore implements Serializable {
     private int player2Score;
 
 
-    public PlayerScore(){}
+    public PlayerScore() {
+    }
 
-    public PlayerScore (String player1Name, int player1Score, int player2Score, String player2Name){
+    public PlayerScore(String player1Name, int player1Score, int player2Score, String player2Name) {
 
         this.player1Name = player1Name;
         this.player1Score = player1Score;

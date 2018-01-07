@@ -9,7 +9,7 @@ import eu.creapix.louisss13.smartchandoid.utils.Constants;
  * Created by arnau on 04-01-18.
  */
 
-public class MatchDetails implements Serializable{
+public class MatchDetails implements Serializable {
 
     private int currentPointPlayer1;
     private int currentPointPlayer2;
@@ -27,9 +27,9 @@ public class MatchDetails implements Serializable{
         this.detailsPointsPlayer2 = detailsPointsPlayer2;
     }
 
-    public void addPoint(int scoredBy){
+    public void addPoint(int scoredBy) {
 
-        switch (scoredBy){
+        switch (scoredBy) {
             case Constants.PLAYER_1_POINT:
                 currentPointPlayer1++;
                 break;
@@ -38,16 +38,16 @@ public class MatchDetails implements Serializable{
                 break;
         }
 
-        if ((this.currentPointPlayer2 >= 11)||(this.currentPointPlayer1 >= 11)){
+        if ((this.currentPointPlayer2 >= 11) || (this.currentPointPlayer1 >= 11)) {
 
-            if ((this.currentPointPlayer1 > this.currentPointPlayer2) && (this.currentPointPlayer1 - this.currentPointPlayer2 >= 2 )){
+            if ((this.currentPointPlayer1 > this.currentPointPlayer2) && (this.currentPointPlayer1 - this.currentPointPlayer2 >= 2)) {
                 this.nbSetWonPlayer1++;
                 this.detailsPointsPlayer1.add(this.currentPointPlayer1);
                 this.detailsPointsPlayer2.add(this.currentPointPlayer2);
                 this.currentPointPlayer1 = 0;
                 this.currentPointPlayer2 = 0;
 
-            } else if ((this.currentPointPlayer1 > this.currentPointPlayer2) && (this.currentPointPlayer1 - this.currentPointPlayer2 >= 2 )){
+            } else if ((this.currentPointPlayer1 > this.currentPointPlayer2) && (this.currentPointPlayer1 - this.currentPointPlayer2 >= 2)) {
                 this.nbSetWonPlayer2++;
                 this.detailsPointsPlayer1.add(this.currentPointPlayer1);
                 this.detailsPointsPlayer2.add(this.currentPointPlayer2);

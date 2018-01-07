@@ -13,17 +13,16 @@ import eu.creapix.louisss13.smartchandoid.conroller.activities.ViewUserDetailsAc
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ClubParser;
 
 /**
- * Created by arnau on 29-12-17.
+ * Created by Arnaud Baes on 29-12-17.
+ * IG-3C 2017 - 2018
  */
 
 public class ClubListAdapter extends RecyclerView.Adapter<ClubListAdapter.ClubListViewHolder> {
 
     private ArrayList<Object> datas;
-    private ViewUserDetailsActivity activity;
 
     public ClubListAdapter(ViewUserDetailsActivity activity, ArrayList<Object> datas) {
         this.datas = datas;
-        this.activity = activity;
     }
 
     @Override

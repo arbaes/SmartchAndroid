@@ -55,7 +55,6 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         }
 
 
-
     }
 
     public void monitorMatch(int matchId, ScoreCalculatedParser matchScore, String player1DisplayName, String player2DisplayName) {
@@ -98,7 +97,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
         @Override
         protected void onPostExecute(final Boolean success) {
             if (!(success)) {
-                Utils.alertError(MonitoredMatchesActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                Utils.alertError(MonitoredMatchesActivity.this, getString(R.string.error_connection_lost_title), getString(R.string.error_connection_lost_content));
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -152,7 +151,7 @@ public class MonitoredMatchesActivity extends BaseActivity implements SwipeRefre
                         Utils.alertSessionExpired(MonitoredMatchesActivity.this);
                         break;
                     default:
-                        Utils.alertError(MonitoredMatchesActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        Utils.alertError(MonitoredMatchesActivity.this, getString(R.string.server_error_title), getString(R.string.server_error_content));
                         break;
                 }
             }

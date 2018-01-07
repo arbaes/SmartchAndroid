@@ -7,7 +7,8 @@ package eu.creapix.louisss13.smartchandoid.dataAccess.daomodel;
 public class RegisterDaoModel {
     public String email;
     public String password;
-    public RegisterDaoModel(String email, String password){
+
+    public RegisterDaoModel(String email, String password) {
         this.email = email;
         this.password = password;
     }

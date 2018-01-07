@@ -26,12 +26,12 @@
             android:layout_marginBottom="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/member_avatar"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher_round"
-            android:contentDescription="@string/member_avatar" />
+            app:srcCompat="@mipmap/ic_launcher_round" />
 
         <TextView
             android:id="@+id/user_data_fullname"
@@ -104,12 +104,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:contentDescription="@string/club_icon"
                     android:tint="@color/primaryTextColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_svg_trophy_star"
-                    android:contentDescription="@string/club_icon" />
+                    app:srcCompat="@drawable/ic_svg_trophy_star" />
 
                 <TextView
                     android:id="@+id/clubs_label"
@@ -144,15 +144,15 @@
                     android:id="@+id/no_data_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/no_data"
                     android:gravity="center"
-                    android:visibility="gone"/>
+                    android:text="@string/no_data"
+                    android:visibility="gone" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_club"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
 
                 <ProgressBar
                     android:id="@+id/progress_club"
@@ -176,12 +176,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:contentDescription="@string/member_details_account"
                     android:tint="@color/primaryTextColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_person_black_24dp"
-                    android:contentDescription="@string/member_details_account" />
+                    app:srcCompat="@drawable/ic_person_black_24dp" />
 
                 <TextView
                     android:id="@+id/user_data_details_label"

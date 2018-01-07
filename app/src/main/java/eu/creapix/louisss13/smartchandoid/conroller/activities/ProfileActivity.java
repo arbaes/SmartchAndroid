@@ -28,7 +28,6 @@ import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 
-//TODO - Affichage des différents UserInfos ( classer par club ? )
 public class ProfileActivity extends BaseActivity implements View.OnClickListener, WebserviceListener {
 
     private EditText firstName, lastName, email, password, confirmPassword;
@@ -122,12 +121,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void handleSave() {
-        // TODO call webservice + listener and put this code after in the response of the webservice
 
         PreferencesUtils.saveFirstName(getApplicationContext(), firstName.getText().toString());
         PreferencesUtils.saveLastName(getApplicationContext(), lastName.getText().toString());
         handleEdit(false);
-        // TODO when new datas are available re call populateDatas to update wiew
     }
 
     @Override
@@ -159,7 +156,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         @Override
         protected void onPostExecute(final Boolean success) {
             if (!(success)) {
-                Utils.alertError(ProfileActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                Utils.alertError(ProfileActivity.this, getString(R.string.error_connection_lost_title), getString(R.string.error_connection_lost_content));
                 findViewById(R.id.details).setVisibility(View.VISIBLE);
                 findViewById(R.id.progress).setVisibility(View.GONE);
             }
@@ -168,7 +165,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onWebserviceFinishWithSuccess(String method, Integer id, final ArrayList<Object> datas) {
-        Log.e("SUCCESS WebServ", "" + datas.get(0).getClass());
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -206,7 +203,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                         Utils.alertSessionExpired(ProfileActivity.this);
                         break;
                     default:
-                        Utils.alertError(ProfileActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        Utils.alertError(ProfileActivity.this, getString(R.string.server_error_title), getString(R.string.server_error_content));
                         break;
                 }
             }

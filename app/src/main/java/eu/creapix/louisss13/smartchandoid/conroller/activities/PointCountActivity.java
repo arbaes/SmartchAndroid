@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.dataAccess.PointCountDao;
-import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.RequestMethods;
 import eu.creapix.louisss13.smartchandoid.model.SendPointParams;
+import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.PointLevelParser;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ScoreCalculatedParser;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
@@ -134,11 +134,10 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             @Override
             public void run() {
 
-                if (datas != null && datas.size() > 0){
+                if (datas != null && datas.size() > 0) {
                     ScoreCalculatedParser scores = (ScoreCalculatedParser) datas.get(0);
                     populateScores(scores.getPointLevels());
                 }
-
 
 
                 if (Constants.POST_POINT.equals(method)) {
@@ -178,7 +177,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         });
     }
 
-    public void resetButtons(){
+    public void resetButtons() {
         TextView mAddPointPlayer = findViewById(R.id.player_a_sendScore);
         mAddPointPlayer.setBackgroundResource(R.color.primaryLightColor);
         mAddPointPlayer.setTextColor(getResources().getColor(R.color.primaryDarkColor));
@@ -215,7 +214,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
                         Utils.alertSessionExpired(PointCountActivity.this);
                         break;
                     default:
-                        Utils.alertError(PointCountActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        Utils.alertError(PointCountActivity.this, getString(R.string.server_error_title), getString(R.string.server_error_content));
                         break;
                 }
                 resetButtons();
@@ -260,7 +259,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             if (asyncCnt == 0) wait.setVisibility(View.GONE);
             if (!(aSuccess)) {
                 Toast.makeText(PointCountActivity.this, R.string.error_connection_lost_title, Toast.LENGTH_SHORT).show();
-                Utils.alertError(PointCountActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                Utils.alertError(PointCountActivity.this, getString(R.string.error_connection_lost_title), getString(R.string.error_connection_lost_content));
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -271,10 +270,10 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         }
     }
 
-    private String getFinishedSetsDisplay(ArrayList<PointLevelParser> sets, int scoredBy){
+    private String getFinishedSetsDisplay(ArrayList<PointLevelParser> sets, int scoredBy) {
 
         StringBuilder finishedSetsDisplay = new StringBuilder();
-        if (sets != null ) {
+        if (sets != null) {
             switch (scoredBy) {
                 case Constants.PLAYER_1_POINT:
                     for (int i = 0; i < sets.size() - 1; i++) {
@@ -306,7 +305,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
         finish();
     }
 
-    public void populateScores(ArrayList<PointLevelParser> currentScore){
+    public void populateScores(ArrayList<PointLevelParser> currentScore) {
 
         String displayPreviousSetsPlayer1 = this.getFinishedSetsDisplay(currentScore, Constants.PLAYER_1_POINT);
         String displayPreviousSetsPlayer2 = this.getFinishedSetsDisplay(currentScore, Constants.PLAYER_2_POINT);

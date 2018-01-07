@@ -52,7 +52,8 @@ public class ClubsDao implements ClubsDataAccess {
             String stream = datahandler.StreamToJson(connection.getInputStream());
 
             Log.e("JSON", "" + stream);
-            Type clubType = new TypeToken<ArrayList<ClubParser>>(){}.getType();
+            Type clubType = new TypeToken<ArrayList<ClubParser>>() {
+            }.getType();
             ArrayList<Object> clubs = gson.fromJson(stream, clubType);
 
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_CLUBS, userId, clubs);

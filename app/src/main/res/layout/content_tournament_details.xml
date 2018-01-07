@@ -9,13 +9,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent" />
+
     <TextView
         android:id="@+id/tournament_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/default_tournament_name"
         android:padding="8dp"
+        android:text="@string/default_tournament_name"
         android:textAllCaps="true"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         android:textColor="@color/colorAccent"
@@ -26,7 +27,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent" />
 
     <LinearLayout
         android:id="@+id/date_bloc"
@@ -129,14 +130,14 @@
         android:layout_height="1dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@color/primaryLightColor"/>
+        android:background="@color/primaryLightColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/address_label"
@@ -166,14 +167,14 @@
         android:layout_height="1dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@color/primaryLightColor"/>
+        android:background="@color/primaryLightColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/status_label"

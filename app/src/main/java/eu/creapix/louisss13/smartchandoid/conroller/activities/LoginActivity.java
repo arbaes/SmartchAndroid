@@ -4,12 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,8 +25,8 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
@@ -95,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements WebserviceListen
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         findViewById(R.id.account_incorrect).setVisibility(View.GONE);
     }
@@ -150,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements WebserviceListen
             cancel = true;
         } else {
             boolean[] pwdValidity = Utils.PasswordValidity(password);
-            if (!(pwdValidity[Constants.HAS_UPPER_CASE])){
+            if (!(pwdValidity[Constants.HAS_UPPER_CASE])) {
                 mPasswordView.setError(getString(R.string.error_invalid_password_no_uppercase));
                 focusView = mPasswordView;
                 cancel = true;
@@ -163,9 +161,9 @@ public class LoginActivity extends AppCompatActivity implements WebserviceListen
                 focusView = mPasswordView;
                 cancel = true;
             } else if (!(pwdValidity[Constants.HAS_SPECIAL_CHAR])) {
-                    mPasswordView.setError(getString(R.string.error_invalid_password_no_special));
-                    focusView = mPasswordView;
-                    cancel = true;
+                mPasswordView.setError(getString(R.string.error_invalid_password_no_special));
+                focusView = mPasswordView;
+                cancel = true;
             } else if (!(pwdValidity[Constants.HAS_ENOUGH_UNIQUE_CHAR])) {
                 mPasswordView.setError(getString(R.string.error_invalid_password_not_enough_unique_part1) +
                         " " + String.valueOf(Constants.MIN_UNIQUE_CHAR_REQUIRED + " " +
@@ -305,7 +303,7 @@ public class LoginActivity extends AppCompatActivity implements WebserviceListen
                 Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
 
             } else {
-                Utils.alertError(LoginActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                Utils.alertError(LoginActivity.this, getString(R.string.error_connection_lost_title), getString(R.string.error_connection_lost_content));
             }
         }
 

@@ -79,11 +79,11 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
     private void setupContentForTab() {
         swipeRefreshLayout.setRefreshing(true);
         if (Utils.hasConnexion(getApplicationContext())) {
-            switch (tabLayout.getSelectedTabPosition()){
+            switch (tabLayout.getSelectedTabPosition()) {
                 case 0:
                     new GetDatas().execute();
                     break;
-                case 1 :
+                case 1:
                     swipeRefreshLayout.setRefreshing(false);
                     findViewById(R.id.empty).setVisibility(View.VISIBLE);
                     break;
@@ -99,10 +99,10 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
         findViewById(R.id.empty).setVisibility(View.GONE);
         switch (tabLayout.getSelectedTabPosition()) {
             case 0:
-                browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas,Constants.TYPE_TOURNAMENT, tabLayout, this );
+                browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas, Constants.TYPE_TOURNAMENT, tabLayout, this);
                 break;
             case 1:
-                browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas,Constants.TYPE_TOURNAMENT_DETAILS, tabLayout,this);
+                browseListAdapter = new BrowseListAdapter(MatchListActivity.this, datas, Constants.TYPE_TOURNAMENT_DETAILS, tabLayout, this);
                 break;
         }
         recyclerView.setAdapter(browseListAdapter);
@@ -139,7 +139,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
                         Utils.alertSessionExpired(MatchListActivity.this);
                         break;
                     default:
-                        Utils.alertError(MatchListActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        Utils.alertError(MatchListActivity.this, getString(R.string.server_error_title), getString(R.string.server_error_content));
                         break;
                 }
             }
@@ -152,7 +152,6 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                // TODO create dao function fort matches
                 switch (tabLayout.getSelectedTabPosition()) {
                     case 0:
                         TournamentsDao tournamentsDao = new TournamentsDao();
@@ -174,7 +173,7 @@ public class MatchListActivity extends BaseActivity implements SwipeRefreshLayou
         @Override
         protected void onPostExecute(final Boolean success) {
             if (!(success)) {
-                Utils.alertError(MatchListActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                Utils.alertError(MatchListActivity.this, getString(R.string.error_connection_lost_title), getString(R.string.error_connection_lost_content));
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

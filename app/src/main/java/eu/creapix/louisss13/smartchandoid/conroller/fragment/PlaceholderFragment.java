@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.activities.ViewUserDetailsActivity;
@@ -31,7 +32,8 @@ import eu.creapix.louisss13.smartchandoid.utils.PreferencesUtils;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
 /**
- * Created by arnau on 05-01-18.
+ * Created by Arnaud Baes on 05-01-18.
+ * IG-3C 2017 - 2018
  */
 
 public class PlaceholderFragment extends Fragment implements WebserviceListener {
@@ -81,7 +83,7 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
 
         int ageTxt = 0;
         try {
-            SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",new Locale(Locale.getDefault().getLanguage()));
             Date convertedDate = StringToDate.parse(birthDateBrutTxt);
             birthDateCal.setTime(convertedDate);
             ageTxt = today.get(Calendar.YEAR) - birthDateCal.get(Calendar.YEAR);
@@ -95,8 +97,6 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
         birthdate.setText(birthDateTxt);
         age.setText(String.valueOf(ageTxt));
         email.setText(emailTxt);
-
-
 
 
         if (Utils.hasConnexion(super.getContext())) {

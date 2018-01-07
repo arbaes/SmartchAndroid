@@ -32,17 +32,17 @@ public class HTTPJsonHandler {
 
     static String stream = null;
     private ApiService apiService;
-    private Gson gson ;
+    private Gson gson;
 
 
-    public HTTPJsonHandler(){
+    public HTTPJsonHandler() {
         apiService = new ApiService();
         gson = new Gson();
     }
 
 
     //Only works if no array
-    public JSONObject extractHTTPData(InputStream connectionInputStream, Class c){
+    public JSONObject extractHTTPData(InputStream connectionInputStream, Class c) {
 
         try {
 
@@ -83,7 +83,7 @@ public class HTTPJsonHandler {
         return jsonString;
     }
 
-    public List<JSONObject> extractHTTPDataArray(InputStream connectionInputStream, Type type){
+    public List<JSONObject> extractHTTPDataArray(InputStream connectionInputStream, Type type) {
 
         try {
 
@@ -105,7 +105,7 @@ public class HTTPJsonHandler {
         return extractedData;
     }
 
-    public HttpURLConnection PostHTTPData(Urls url, Object DaoModel, String token){
+    public HttpURLConnection PostHTTPData(Urls url, Object DaoModel, String token) {
 
         HttpURLConnection urlConnection = apiService.getUrlConnection(url, RequestMethods.POST, token);
 
@@ -113,18 +113,17 @@ public class HTTPJsonHandler {
 
             OutputStream outputStream = urlConnection.getOutputStream();
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-            if (DaoModel != null){
+            if (DaoModel != null) {
                 String stringObject = gson.toJson(DaoModel);
                 urlConnection.connect();
                 outputStreamWriter.write(stringObject);
                 outputStreamWriter.flush();
                 outputStreamWriter.close();
-            }
-            else {
+            } else {
                 Log.e("MODEL", "DaoModel is " + DaoModel);
             }
 
-        }catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -134,12 +133,12 @@ public class HTTPJsonHandler {
     public HttpURLConnection GetHTTPData(Urls url, String token) {
 
         HttpURLConnection urlConnection = apiService.getUrlConnection(url, RequestMethods.GET, token);
-        Log.e("URL", ""+url.toString());
-        Log.e("TOKEN", ""+token);
+        Log.e("URL", "" + url.toString());
+        Log.e("TOKEN", "" + token);
 
         try {
             urlConnection.connect();
-        }catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

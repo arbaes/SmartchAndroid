@@ -22,7 +22,8 @@ import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.activities.LoginActivity;
 
 /**
- * Created by arnau on 28-12-17.
+ * Created by Arnaud Baes on 28-12-17.
+ * IG-3C 2017 - 2018
  */
 
 public class Utils {
@@ -51,9 +52,9 @@ public class Utils {
 
     public static String[] getParsedDateTime(String dateTime){
 
-        SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat StringToDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", new Locale(Locale.getDefault().getLanguage()));
         SimpleDateFormat DateToString = new SimpleDateFormat("EEEE, d MMM yyyy", new Locale(Locale.getDefault().getLanguage()));
-        SimpleDateFormat TimeToString = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat TimeToString = new SimpleDateFormat("HH:mm", new Locale(Locale.getDefault().getLanguage()));
         String dateParsedString = "";
         String timeParsedString = "";
         try {

@@ -10,12 +10,13 @@ import java.util.ArrayList;
 
 import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.activities.MonitoredMatchesActivity;
+import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.MatchParser;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.ScoreCalculatedParser;
-import eu.creapix.louisss13.smartchandoid.model.PlayerScore;
 
 /**
- * Created by arnau on 28-12-17.
+ * Created by Arnaud Baes on 28-12-17.
+ * IG-3C 2017 - 2018
  */
 
 public class MonitoredMatchAdapter extends RecyclerView.Adapter<MonitoredMatchAdapter.MonitoredMatchViewHolder> {

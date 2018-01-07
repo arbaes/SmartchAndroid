@@ -41,18 +41,18 @@ public class PointCountDao implements PointCountDataAccess {
     @Override
     public void postPoint(WebserviceListener webserviceListener, int scoredBy, int matchId, String token, RequestMethods requestMethod) throws IOException {
         Boolean player = false;
-        switch (scoredBy){
-            case 0 :
+        switch (scoredBy) {
+            case 0:
                 player = false;
                 break;
-            case 1 :
+            case 1:
                 player = true;
                 break;
         }
 
         PointDaoModel pointDaoModel = new PointDaoModel(player);
-        String urlString ="";
-        switch (requestMethod){
+        String urlString = "";
+        switch (requestMethod) {
             case POST:
                 urlString = Constants.BASE_URL_COUNT_POINT + "/" + matchId + "/" + Constants.URL_DIRECTORY_POINT;
                 break;
@@ -80,19 +80,19 @@ public class PointCountDao implements PointCountDataAccess {
             e1.printStackTrace();
         }
 
-        if ((urlConnection.getResponseCode() >= 200) && (urlConnection.getResponseCode() < 300)){
+        if ((urlConnection.getResponseCode() >= 200) && (urlConnection.getResponseCode() < 300)) {
             Log.e(TAG, "SENDPOINT OK - " + urlConnection.getResponseCode());
             String stream = datahandler.StreamToJson(urlConnection.getInputStream());
-            Log.e(TAG , "JSON Response Content : " + stream);
+            Log.e(TAG, "JSON Response Content : " + stream);
 
-            Type scoreCalculatedType = new TypeToken<ScoreCalculatedParser>(){}.getType();
+            Type scoreCalculatedType = new TypeToken<ScoreCalculatedParser>() {
+            }.getType();
             ScoreCalculatedParser sets = gson.fromJson(stream, scoreCalculatedType);
             ArrayList<Object> scores = new ArrayList<>();
             scores.add(sets);
 
 
-
-            switch (requestMethod){
+            switch (requestMethod) {
                 case POST:
                     webserviceListener.onWebserviceFinishWithSuccess(Constants.POST_POINT, scoredBy, scores);
                     break;
@@ -104,7 +104,7 @@ public class PointCountDao implements PointCountDataAccess {
 
         } else {
             Log.e(TAG, "SENDPOINT NOT OK : " + urlConnection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(urlConnection.getResponseCode() +" - " + urlConnection.getResponseMessage(), urlConnection.getResponseCode());
+            webserviceListener.onWebserviceFinishWithError(urlConnection.getResponseCode() + " - " + urlConnection.getResponseMessage(), urlConnection.getResponseCode());
 
         }
     }

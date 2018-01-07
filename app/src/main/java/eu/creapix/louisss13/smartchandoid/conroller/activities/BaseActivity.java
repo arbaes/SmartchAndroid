@@ -94,7 +94,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             menuItem.setChecked(true);
         }
 
-        // TODO not forget to do this for "configuration" & "contact"
     }
 
     public void goToProfile() {

@@ -57,7 +57,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
                     AccountParser account = (AccountParser) datas.get(0);
                     ViewUserDetailsActivity.this.userId = account.getUserInfos()[0].getId();
                     UserInfoParser[] userInfo = account.getUserInfos();
-                    if ( userInfo.length > 0 ) {
+                    if (userInfo.length > 0) {
                         ViewUserDetailsActivity.this.userInfos = userInfo;
                         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), userInfo);
                         mViewPager = findViewById(R.id.container);
@@ -80,7 +80,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
                         Utils.alertSessionExpired(ViewUserDetailsActivity.this);
                         break;
                     default:
-                        Utils.alertError(ViewUserDetailsActivity.this,getString(R.string.server_error_title), getString(R.string.server_error_content));
+                        Utils.alertError(ViewUserDetailsActivity.this, getString(R.string.server_error_title), getString(R.string.server_error_content));
                         break;
                 }
             }
@@ -106,7 +106,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity implements Webser
         @Override
         protected void onPostExecute(final Boolean success) {
             if (!(success)) {
-                Utils.alertError(ViewUserDetailsActivity.this, getString(R.string.error_connection_lost_title),getString(R.string.error_connection_lost_content));
+                Utils.alertError(ViewUserDetailsActivity.this, getString(R.string.error_connection_lost_title), getString(R.string.error_connection_lost_content));
             }
         }
     }

@@ -76,20 +76,20 @@
                 android:layout_weight="1"
                 android:background="@color/primaryLightColor"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
                 android:text="@string/add_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryDarkColor"
                 android:textSize="36sp"
-                tools:ignore="NestedWeights"
-                android:focusable="true" />
+                tools:ignore="NestedWeights" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -137,12 +137,12 @@
                 android:layout_weight="1"
                 android:background="@color/primaryDarkColor"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
                 android:text="@string/delete_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryLightColor"
-                android:textSize="36sp"
-                android:focusable="true" />
+                android:textSize="36sp" />
 
 
         </LinearLayout>
@@ -166,20 +166,20 @@
                 android:layout_weight="1"
                 android:background="@color/primaryLightColor"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
                 android:text="@string/add_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryDarkColor"
                 android:textSize="36sp"
-                tools:ignore="NestedWeights"
-                android:focusable="true" />
+                tools:ignore="NestedWeights" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -226,12 +226,12 @@
                 android:layout_weight="1"
                 android:background="@color/primaryDarkColor"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
                 android:text="@string/delete_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryLightColor"
-                android:textSize="36sp"
-                android:focusable="true" />
+                android:textSize="36sp" />
 
 
         </LinearLayout>

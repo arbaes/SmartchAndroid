@@ -4,11 +4,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import eu.creapix.louisss13.smartchandoid.model.jsonParsers.UserInfoParser;
 import eu.creapix.louisss13.smartchandoid.conroller.fragment.PlaceholderFragment;
+import eu.creapix.louisss13.smartchandoid.model.jsonParsers.UserInfoParser;
 
 /**
- * Created by arnau on 05-01-18.
+ * Created by Arnaud Baes on 05-01-18.
+ * IG-3C 2017 - 2018
  */
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {

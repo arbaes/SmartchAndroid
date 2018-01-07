@@ -11,12 +11,12 @@ public class UserAccount {
     private String email;
     private String password;
     private String userName;
-    private Date birthday ;
-    private Date dateInscription ;
-    private Date dateDerniereConnection ;
-    private int active ;
+    private Date birthday;
+    private Date dateInscription;
+    private Date dateDerniereConnection;
+    private int active;
 
-    public UserAccount(String email,String password, String userName, Date birthday, Date dateInscription, Date dateDerniereConnection, int active) {
+    public UserAccount(String email, String password, String userName, Date birthday, Date dateInscription, Date dateDerniereConnection, int active) {
         this.email = email;
         this.password = password;
         this.userName = userName;

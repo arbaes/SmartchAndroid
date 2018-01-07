@@ -1,11 +1,9 @@
 package eu.creapix.louisss13.smartchandoid.conroller.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.AsyncTask;
-
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,8 +20,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.R;
+import eu.creapix.louisss13.smartchandoid.dataAccess.UsersDao;
 import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
@@ -101,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity implements WebserviceLis
             cancel = true;
         } else {
             boolean[] pwdValidity = Utils.PasswordValidity(password);
-            if (!(pwdValidity[Constants.HAS_UPPER_CASE])){
+            if (!(pwdValidity[Constants.HAS_UPPER_CASE])) {
                 mPasswordView.setError(getString(R.string.error_invalid_password_no_uppercase));
                 focusView = mPasswordView;
                 cancel = true;
@@ -217,12 +215,10 @@ public class RegisterActivity extends AppCompatActivity implements WebserviceLis
         protected Boolean doInBackground(Void... params) {
 
             try {
-                return userDao.register(RegisterActivity.this, mEmail,mPassword);
-            }
-            catch (IOException e) {
+                return userDao.register(RegisterActivity.this, mEmail, mPassword);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
 
             return false;

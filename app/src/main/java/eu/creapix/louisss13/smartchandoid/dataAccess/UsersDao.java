@@ -46,8 +46,9 @@ public class UsersDao implements UsersDataAccess {
             Log.e(TAG, "Connexion OK");
             String stream = datahandler.StreamToJson(connection.getInputStream());
 
-            Type tokenType = new TypeToken<TokenParser>(){}.getType();
-            TokenParser tokenParserData  = gson.fromJson(stream, tokenType);
+            Type tokenType = new TypeToken<TokenParser>() {
+            }.getType();
+            TokenParser tokenParserData = gson.fromJson(stream, tokenType);
 
             PreferencesUtils.saveToken(context, tokenParserData.getAccessToken());
             PreferencesUtils.saveTokenExpiration(context, tokenParserData.getExpiresIn());
@@ -57,7 +58,7 @@ public class UsersDao implements UsersDataAccess {
             return true;
         } else {
             Log.e(TAG, "Connexion NOT OK : " + connection.getResponseCode());
-            webserviceListener.onWebserviceFinishWithError(connection.getResponseMessage(),connection.getResponseCode());
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseMessage(), connection.getResponseCode());
             return false;
         }
 
@@ -74,7 +75,7 @@ public class UsersDao implements UsersDataAccess {
             Log.e(TAG, "Inscription OK");
             return true;
         } else {
-            webserviceListener.onWebserviceFinishWithError(connection.getResponseMessage(),connection.getResponseCode());
+            webserviceListener.onWebserviceFinishWithError(connection.getResponseMessage(), connection.getResponseCode());
             Log.e(TAG, "Inscription NOT OK : " + connection.getResponseCode());
             return false;
         }

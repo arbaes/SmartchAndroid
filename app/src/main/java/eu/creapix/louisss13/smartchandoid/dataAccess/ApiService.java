@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import eu.creapix.louisss13.smartchandoid.dataAccess.enums.*;
 
-public class ApiService  {
+public class ApiService {
     private static final String TAG = "ApiService";
 
 
@@ -23,6 +23,7 @@ public class ApiService  {
 
     private HashMap<RequestMethods, String> methods;
     private HashMap<Urls, URL> urls;
+
     public ApiService() {
         methods = new HashMap<>();
         methods.put(RequestMethods.POST, "POST");
@@ -36,58 +37,55 @@ public class ApiService  {
             usersUrl = new URL("http://smartch.azurewebsites.net/api/users");
             loginUrl = new URL("http://smartch.azurewebsites.net/api/jwt");
             accountUrl = new URL("http://smartch.azurewebsites.net/api/account");
-            matchBaseUrl = new URL ("http://smartch.azurewebsites.net/api/matchs/");
+            matchBaseUrl = new URL("http://smartch.azurewebsites.net/api/matchs/");
             monitorUrl = new URL("http://smartch.azurewebsites.net/api/matchs/arbitrage");
             tournamentUrl = new URL("http://smartch.azurewebsites.net/api/tournaments");
 
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        urls.put(Urls.Login, loginUrl );
-        urls.put(Urls.Users, usersUrl );
-        urls.put(Urls.Account, accountUrl );
-        urls.put(Urls.Tournaments, tournamentUrl );
+        urls.put(Urls.Login, loginUrl);
+        urls.put(Urls.Users, usersUrl);
+        urls.put(Urls.Account, accountUrl);
+        urls.put(Urls.Tournaments, tournamentUrl);
         urls.put(Urls.Monitoring, monitorUrl);
         urls.put(Urls.MatchBase, matchBaseUrl);
     }
 
-    public HttpURLConnection getUrlConnection(Urls urlE, RequestMethods method, String token){
+    public HttpURLConnection getUrlConnection(Urls urlE, RequestMethods method, String token) {
 
         URL url = urls.get(urlE);
-        Log.e(TAG, "URL : "+urls.get(urlE).toString());
+        Log.e(TAG, "URL : " + urls.get(urlE).toString());
         HttpURLConnection urlConnection = null;
 
         try {
 
-            urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestMethod(methods.get(method));
-            if (token != null){
+            if (token != null) {
                 urlConnection.setRequestProperty("Authorization", "Bearer " + token);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return urlConnection;
     }
 
-    public HttpURLConnection getCustomUrlConnection(URL url, RequestMethods method, String token){
+    public HttpURLConnection getCustomUrlConnection(URL url, RequestMethods method, String token) {
 
-        Log.e(TAG, "URL : "+url.toString());
+        Log.e(TAG, "URL : " + url.toString());
         HttpURLConnection urlConnection = null;
 
         try {
 
-            urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-type", "application/json");
             urlConnection.setRequestMethod(methods.get(method));
-            if (token != null){
+            if (token != null) {
                 urlConnection.setRequestProperty("Authorization", "Bearer " + token);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return urlConnection;

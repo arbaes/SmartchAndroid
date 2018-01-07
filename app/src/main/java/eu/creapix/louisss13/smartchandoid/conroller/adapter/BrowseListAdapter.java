@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.conroller.activities.MatchListActivity;
 import eu.creapix.louisss13.smartchandoid.model.WebserviceListener;
 import eu.creapix.louisss13.smartchandoid.model.jsonParsers.TournamentParser;
-import eu.creapix.louisss13.smartchandoid.R;
 import eu.creapix.louisss13.smartchandoid.utils.Constants;
 import eu.creapix.louisss13.smartchandoid.utils.Utils;
 
@@ -45,7 +45,7 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
 
     @Override
     public BrowseListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == Constants.TYPE_TOURNAMENT_DETAILS) {
+        if (viewType == Constants.TYPE_TOURNAMENT_DETAILS) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_tournament_details, parent, false);
             return new BrowseListViewHolder(view);
         }
@@ -56,7 +56,7 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
 
     @Override
     public void onBindViewHolder(final BrowseListViewHolder viewHolder, int position) {
-        if((datas.get(viewHolder.getAdapterPosition()) instanceof TournamentParser) && (viewType == Constants.TYPE_TOURNAMENT)) {
+        if ((datas.get(viewHolder.getAdapterPosition()) instanceof TournamentParser) && (viewType == Constants.TYPE_TOURNAMENT)) {
             populateTournament(viewHolder, (TournamentParser) datas.get(viewHolder.getAdapterPosition()));
 
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -67,12 +67,12 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
                     selectedTrounament.add(datas.get(viewHolder.getAdapterPosition()));
                     TabLayout.Tab tabsel = tabLayout.getTabAt(1);
                     tabsel.select();
-                    wsListener.onWebserviceFinishWithSuccess(Constants.GET_MATCHES,null,selectedTrounament);
+                    wsListener.onWebserviceFinishWithSuccess(Constants.GET_MATCHES, null, selectedTrounament);
 
                 }
             });
 
-        } else if ((datas.get(viewHolder.getAdapterPosition()) instanceof TournamentParser) && (viewType == Constants.TYPE_TOURNAMENT_DETAILS)){
+        } else if ((datas.get(viewHolder.getAdapterPosition()) instanceof TournamentParser) && (viewType == Constants.TYPE_TOURNAMENT_DETAILS)) {
             populateTournamentDetails(viewHolder, (TournamentParser) datas.get(viewHolder.getAdapterPosition()));
         }
     }
@@ -103,7 +103,7 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
         viewHolder.endTime.setText(endTimeParsedString);
 
         String tournamentState = "";
-        switch (tournament.getEtat()){
+        switch (tournament.getEtat()) {
             case 2:
                 tournamentState = this.activity.getResources().getString(R.string.tournament_status_pending);
                 break;
@@ -117,12 +117,11 @@ public class BrowseListAdapter extends RecyclerView.Adapter<BrowseListAdapter.Br
         viewHolder.statusTournament.setText(tournamentState);
 
 
-
     }
 
     private void populateTournament(BrowseListViewHolder viewHolder, TournamentParser tournament) {
         String tournamentState = "";
-        switch (tournament.getEtat()){
+        switch (tournament.getEtat()) {
             case 2:
                 tournamentState = this.activity.getResources().getString(R.string.tournament_status_pending);
                 break;

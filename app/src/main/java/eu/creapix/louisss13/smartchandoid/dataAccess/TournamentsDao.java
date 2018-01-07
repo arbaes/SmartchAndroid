@@ -44,7 +44,8 @@ public class TournamentsDao {
             String stream = datahandler.StreamToJson(connection.getInputStream());
 
             Log.e(TAG, "JSON - " + stream);
-            Type tournamentListType = new TypeToken<ArrayList<TournamentParser>>(){}.getType();
+            Type tournamentListType = new TypeToken<ArrayList<TournamentParser>>() {
+            }.getType();
             ArrayList<Object> tournaments = gson.fromJson(stream, tournamentListType);
             webserviceListener.onWebserviceFinishWithSuccess(Constants.GET_TOURNAMENT, 0, tournaments);
         } else {

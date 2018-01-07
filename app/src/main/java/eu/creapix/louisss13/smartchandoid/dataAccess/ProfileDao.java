@@ -40,13 +40,14 @@ public class ProfileDao implements ProfileDataAccess {
 
         HttpURLConnection connection = datahandler.GetHTTPData(Urls.Account, token);
 
-        if ((connection.getResponseCode() >= 200) && ( connection.getResponseCode() < 300)) {
+        if ((connection.getResponseCode() >= 200) && (connection.getResponseCode() < 300)) {
             Log.e(TAG, "Connexion OK - " + connection.getResponseCode());
 
             String stream = datahandler.StreamToJson(connection.getInputStream());
             Log.e("JSON", "Content : " + stream);
 
-            Type accountType = new TypeToken<AccountParser>(){}.getType();
+            Type accountType = new TypeToken<AccountParser>() {
+            }.getType();
             AccountParser profile = gson.fromJson(stream, accountType);
             ArrayList<Object> profileList = new ArrayList<Object>();
             profileList.add(profile);
