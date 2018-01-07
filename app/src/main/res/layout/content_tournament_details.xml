@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -15,7 +14,7 @@
         android:id="@+id/tournament_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tournament Name"
+        android:text="@string/default_tournament_name"
         android:padding="8dp"
         android:textAllCaps="true"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
@@ -29,15 +28,10 @@
         android:layout_height="2dp"
         android:background="@color/colorAccent"/>
 
-
-    //datebloc
-
     <LinearLayout
         android:id="@+id/date_bloc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +43,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -56,7 +52,9 @@
                 android:id="@+id/start_date_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start Date"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/start_date_label"
+                android:textAllCaps="true"
                 android:textAppearance="@android:style/TextAppearance.Material.Headline"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +64,7 @@
                 android:id="@+id/start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15 Janvier 2017"
+                android:text="@string/dummy_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/start_date_label" />
 
@@ -74,7 +72,7 @@
                 android:id="@+id/start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="At 13:37"
+                android:text="@string/dummy_time"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/start_date_label" />
 
@@ -90,6 +88,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -97,7 +96,9 @@
                 android:id="@+id/end_date_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End Date"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/end_date_label"
+                android:textAllCaps="true"
                 android:textAppearance="@android:style/TextAppearance.Material.Headline"
                 android:textColor="@color/secondaryDarkColor"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +108,6 @@
                 android:id="@+id/end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15 Janvier 2017"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/start_date_label" />
 
@@ -115,7 +115,6 @@
                 android:id="@+id/end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="At 13:37"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/start_date_label" />
 
@@ -143,25 +142,21 @@
             android:id="@+id/address_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Address" />
+            android:text="@string/address_label" />
 
         <TextView
             android:id="@+id/address_line_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/address_label"
-            android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="Route de labas, 29"
+            android:text="@string/dummy_address"
             android:textAppearance="@android:style/TextAppearance.Material.Headline" />
 
         <TextView
             android:id="@+id/address_line_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/address_line_1"
-            android:layout_centerInParent="true"
-            android:text="5000 Namur City"
+            android:text="@string/dummy_address_line_2"
             android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
     </LinearLayout>
@@ -184,22 +179,17 @@
             android:id="@+id/status_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="Status"
+            android:text="@string/status_label"
             android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
         <TextView
             android:id="@+id/status_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/status_label"
-            android:layout_centerHorizontal="true"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="ONGOING"
             android:textAllCaps="true"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
             android:textColor="@color/primaryLightColor"

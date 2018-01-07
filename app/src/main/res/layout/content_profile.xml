@@ -201,7 +201,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_vpn_key_black_24dp"
-                android:contentDescription="@string/pasword_icon" />
+                android:contentDescription="@string/password_icon" />
 
             <TextView
                 android:id="@+id/changepwd_label"
