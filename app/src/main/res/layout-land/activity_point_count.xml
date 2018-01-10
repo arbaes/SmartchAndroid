@@ -269,7 +269,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="@string/delete_point_label"
+                android:text="@string/add_point_label"
                 android:textAlignment="center"
                 android:textColor="@color/primaryDarkColor"
                 android:textSize="36sp" />
