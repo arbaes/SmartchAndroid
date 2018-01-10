@@ -44,7 +44,6 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
 
 
     public PlaceholderFragment() {
-
     }
 
     public void initData(UserInfoParser userInfo) {
@@ -55,6 +54,7 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_view_user_details, container, false);
         populate();
+        noDataView = rootView.findViewById(R.id.no_data_view);
         noDataView.setVisibility(View.GONE);
         return rootView;
     }
@@ -130,6 +130,7 @@ public class PlaceholderFragment extends Fragment implements WebserviceListener 
                 if ((datas != null) && (id != null) && (datas.size() > 0) && id.equals(userInfo.getId()) && (datas.get(0) instanceof ClubParser)) {
                     updateClubList(datas);
                 } else {
+                    noDataView = rootView.findViewById(R.id.no_data_view);
                     noDataView.setVisibility(View.VISIBLE);
                 }
             }
