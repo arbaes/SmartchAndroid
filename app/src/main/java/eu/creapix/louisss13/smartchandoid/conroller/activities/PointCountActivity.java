@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +29,7 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     private TextView player1Name, player2Name;
     private TextView player1PreviousSets, player2PreviousSets;
     private int matchId;
+    private boolean isFirstSet;
     private int player1CurrentSetScore, player2CurrentSetScore;
     private View wait;
     private int asyncCnt;
@@ -39,6 +39,8 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_count);
+
+        isFirstSet = false;
 
         player1Score = findViewById(R.id.player_a_setScore);
         player2Score = findViewById(R.id.player_b_setScore);
@@ -96,14 +98,23 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             @Override
             public void onClick(View view) {
 
-                if (Utils.hasConnexion(getApplicationContext())) {
-                    SendPointParams params = new SendPointParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.DELETE);
-                    mDeletePointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
-                    mDeletePointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
-                    mDeletePointPlayer1.setEnabled(false);
-                    new SendPoint().execute(params);
-                } else {
+                if (!Utils.hasConnexion(getApplicationContext()) ) {
                     Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+
+                } else {
+                    boolean hasPoints = true;
+                    if ( isFirstSet ) {
+                        hasPoints = (player1CurrentSetScore > 0);
+                    }
+                    if (hasPoints) {
+                        SendPointParams params = new SendPointParams(matchId, Constants.PLAYER_1_POINT, RequestMethods.DELETE);
+                        mDeletePointPlayer1.setBackgroundResource(R.color.secondaryLightColor);
+                        mDeletePointPlayer1.setTextColor(getResources().getColor(R.color.secondaryColor));
+                        mDeletePointPlayer1.setEnabled(false);
+                        new SendPoint().execute(params);
+                    } else {
+                        Toast.makeText(PointCountActivity.this, R.string.no_points_in_set, Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -114,14 +125,24 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
             @Override
             public void onClick(View view) {
 
-                if (Utils.hasConnexion(getApplicationContext())) {
-                    SendPointParams params = new SendPointParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.DELETE);
-                    mDeletePointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
-                    mDeletePointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
-                    mDeletePointPlayer2.setEnabled(false);
-                    new SendPoint().execute(params);
-                } else {
+                if (!Utils.hasConnexion(getApplicationContext())) {
+
                     Toast.makeText(PointCountActivity.this, R.string.no_connection, Toast.LENGTH_SHORT).show();
+
+                } else {
+                    boolean hasPoints = true;
+                    if ( isFirstSet ) {
+                        hasPoints = (player2CurrentSetScore > 0);
+                    }
+                    if (hasPoints) {
+                        SendPointParams params = new SendPointParams(matchId, Constants.PLAYER_2_POINT, RequestMethods.DELETE);
+                        mDeletePointPlayer2.setBackgroundResource(R.color.secondaryLightColor);
+                        mDeletePointPlayer2.setTextColor(getResources().getColor(R.color.secondaryColor));
+                        mDeletePointPlayer2.setEnabled(false);
+                        new SendPoint().execute(params);
+                    } else {
+                        Toast.makeText(PointCountActivity.this, R.string.no_points_in_set, Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -306,6 +327,10 @@ public class PointCountActivity extends AppCompatActivity implements WebserviceL
     }
 
     public void populateScores(ArrayList<PointLevelParser> currentScore) {
+
+        if (currentScore != null && currentScore.size() == 1) {
+            isFirstSet = true;
+        }
 
         String displayPreviousSetsPlayer1 = this.getFinishedSetsDisplay(currentScore, Constants.PLAYER_1_POINT);
         String displayPreviousSetsPlayer2 = this.getFinishedSetsDisplay(currentScore, Constants.PLAYER_2_POINT);

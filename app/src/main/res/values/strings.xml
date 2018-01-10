@@ -36,6 +36,7 @@
     <string name="error_unauthorized">You are not allowed to perform this operation</string>
     <string name="content_session_expired">Your session has expired, you will be now redirected to the login screen.</string>
     <string name="no_connection">No connection detected</string>
+    <string name="no_points_in_set">This player has no points</string>
 
     <!-- General Information -->
     <string name="press_back_to_quit">Please press \'BACK\' again to exit the app.</string>
